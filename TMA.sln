@@ -5,7 +5,9 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMA.Api", "TMA.Api\TMA.Api.csproj", "{E491C9C8-068C-4705-9021-5B78DF16C86C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SharedDtos", "SharedDtos\SharedDtos.csproj", "{D40D9684-D7CF-4864-9583-E418B605538E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMA.SharedDtos", "SharedDtos\TMA.SharedDtos.csproj", "{D40D9684-D7CF-4864-9583-E418B605538E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TMA.Core", "TMA.Core\TMA.Core.csproj", "{F090D58A-6901-489D-B6E5-BD6D20B019EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{D40D9684-D7CF-4864-9583-E418B605538E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D40D9684-D7CF-4864-9583-E418B605538E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D40D9684-D7CF-4864-9583-E418B605538E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F090D58A-6901-489D-B6E5-BD6D20B019EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F090D58A-6901-489D-B6E5-BD6D20B019EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F090D58A-6901-489D-B6E5-BD6D20B019EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F090D58A-6901-489D-B6E5-BD6D20B019EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
