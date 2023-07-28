@@ -1,4 +1,7 @@
 
+using Microsoft.EntityFrameworkCore;
+using TMA.Core.Data;
+
 namespace TMA.Api
 {
     public class Program
@@ -8,6 +11,8 @@ namespace TMA.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<DataContext>(options =>
+             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
