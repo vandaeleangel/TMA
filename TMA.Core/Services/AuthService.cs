@@ -23,16 +23,53 @@ namespace TMA.Core.Services
             _configuration = configuration;
         }
 
-      
 
-        public Task<string> Login(UserLoginDto user)
+
+        public async Task<LoginResponse> Login(UserLoginDto user)
         {
-            throw new NotImplementedException();
+            var dbUser = await _context.Users.FirstOrDefaultAsync(u => u.Email.ToLower() == user.Email.ToLower());
+            if (dbUser == null)
+            {
+                return new LoginResponse
+                {
+                    Status = LoginResult.UserNotFound,
+                    Message = "User not found."
+                };
+            }
+            else if (!VerifyPasswordHash(user.Password, dbUser.PasswordHash, dbUser.PasswordSalt))
+            {
+                return new LoginResponse
+                {
+                    Status = LoginResult.WrongPassword,
+                    Message = "Wrong Password"
+                };
+            }
+
+            return new LoginResponse
+            {
+                Status = LoginResult.Success,
+                Message = CreateToken(dbUser)
+            };
+        }
+
+
+        private string CreateToken(User dbUser)
+        {
+            return "";
+        }
+
+        private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
+        {
+          using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            {
+                var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+                return computedHash.SequenceEqual(passwordHash);
+            }
         }
 
         public async Task<RegistrationResult> Register(UserRegisterDto user)
         {
-            if(await UserExists(user.Email))
+            if (await UserExists(user.Email))
             {
                 return RegistrationResult.EmailAlreadyExists;
             }
@@ -54,12 +91,16 @@ namespace TMA.Core.Services
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
-            throw new NotImplementedException();
+            using (var hmac = new System.Security.Cryptography.HMACSHA512())
+            {
+                passwordSalt = hmac.Key;
+                passwordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
+            }
         }
 
         public async Task<bool> UserExists(string email)
         {
-            if(await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
+            if (await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
             {
                 return true;
             }
@@ -71,5 +112,18 @@ namespace TMA.Core.Services
             Succes,
             EmailAlreadyExists
         }
+
+        public class LoginResponse
+        {
+            public LoginResult Status { get; set; }
+            public string Message { get; set; } = string.Empty;
+        }
+        public enum LoginResult
+        {
+            Success,
+            UserNotFound,
+            WrongPassword
+        }
+
     }
 }

@@ -11,7 +11,7 @@ namespace TMA.Core.Interfaces
     public interface IAuthService
     {
         Task<RegistrationResult> Register(UserRegisterDto user);
-        Task<string> Login(UserLoginDto user);
+        Task<LoginResponse> Login(UserLoginDto user);
         Task<bool> UserExists(string email);
     }
 }
