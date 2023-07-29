@@ -57,9 +57,22 @@ namespace TMA.Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<GetChoreDto>> GetAllChores()
+        public async Task<List<GetChoreDto>> GetAllChores()
         {
-            throw new NotImplementedException();
+            var response = new List<GetChoreDto>();
+
+            var chores = await _context.Chores
+                .Where(c => c.User.Id == GetUserId())
+                .Include(c => c.TimeBlocks)
+                .ToListAsync();
+
+            if (chores != null)
+            {
+                response = chores.Select(c => _mapper.Map<GetChoreDto>(c)).ToList();
+                return response;
+            }
+            else return null;
+
         }
 
         public Task<GetChoreDto> GetChoreById(Guid id)

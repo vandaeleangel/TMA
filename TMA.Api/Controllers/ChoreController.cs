@@ -18,6 +18,14 @@ namespace TMA.Api.Controllers
             _choreService = choreService;
         }
 
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<GetChoreDto>>> GetAllChores()
+        {
+            var result = await _choreService.GetAllChores();
+
+            if (result is not null) return Ok(result);
+            else return BadRequest();
+        }
 
         [HttpPost]
         public async Task<ActionResult<GetChoreDto>> AddChore(AddChoreDto newChore)
