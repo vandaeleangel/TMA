@@ -52,9 +52,24 @@ namespace TMA.Core.Services
             else return null;
         }
 
-        public Task<GetChoreDto> DeleteChore(Guid id)
+        public async Task<GetChoreDto> DeleteChore(Guid id)
         {
-            throw new NotImplementedException();
+            var response = new GetChoreDto();
+
+            Chore dbChore = await _context.Chores
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.Id == id);
+
+            if (dbChore != null && dbChore.User.Id == GetUserId())
+            {
+                _context.Chores.Remove(dbChore);
+                await _context.SaveChangesAsync();
+
+                response = _mapper.Map<GetChoreDto>(dbChore);
+                return response;
+            }
+            else return null;
+
         }
 
         public async Task<List<GetChoreDto>> GetAllChores()
@@ -98,6 +113,7 @@ namespace TMA.Core.Services
             Chore dbChore = await _context.Chores
                 .Include(c => c.User)
                 .FirstOrDefaultAsync(c => c.Id == chore.Id);
+
             if (dbChore != null)
             {
                 dbChore.Name = chore.Name;
@@ -122,15 +138,6 @@ namespace TMA.Core.Services
 
         private Guid GetUserId() => Guid.Parse(
     _httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
-
-        //private Guid GetId()
-        //{
-        //    ClaimsPrincipal user = _httpContextAccessor.HttpContext.User;
-        //    Claim nameIdentifierClaim = user.FindFirst(ClaimTypes.NameIdentifier);
-
-        //    Guid id = Guid.Parse(nameIdentifierClaim.Value);
-        //    return id;
-        //}
 
     }
 }

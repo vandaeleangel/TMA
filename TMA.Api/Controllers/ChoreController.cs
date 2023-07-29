@@ -52,5 +52,14 @@ namespace TMA.Api.Controllers
             if (result is not null) return Ok(result);
             else return BadRequest();
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<GetChoreDto>> DeleteChore(Guid id)
+        {
+            var result = await _choreService.DeleteChore(id);
+
+            if (result is not null) return Ok(result);
+            else return NotFound();
+        }
     }
 }
