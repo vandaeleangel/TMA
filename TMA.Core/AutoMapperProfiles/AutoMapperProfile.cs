@@ -14,7 +14,7 @@ namespace TMA.Core.AutoMapperProfiles
         public AutoMapperProfile()
         {
             CreateMap<Chore,GetChoreDto>();
-            
-        }
+        
+         }
     }
 }

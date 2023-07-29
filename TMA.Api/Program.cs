@@ -7,6 +7,7 @@ using TMA.Core.Services;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
+using TMA.Core.AutoMapperProfiles;
 
 namespace TMA.Api
 {
@@ -19,15 +20,17 @@ namespace TMA.Api
             // Add services to the container.
             builder.Services.AddDbContext<DataContext>();
             builder.Services.AddHttpContextAccessor();
-            builder.Services.AddAutoMapper(typeof(Program).Assembly);
+            builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
 
             builder.Services.AddScoped<IAuthService, AuthService>();
+            builder.Services.AddScoped<IChoreService,ChoreService>();  
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
-                c.AddSecurityDefinition("oath2", new OpenApiSecurityScheme
+                c.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
                 {
                     Description = """Standard Authorization header using the Bearer scheme . Example : "bearer {token}" """,
                     In = ParameterLocation.Header,
@@ -62,6 +65,7 @@ namespace TMA.Api
 
             app.UseHttpsRedirection();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
 
