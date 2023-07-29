@@ -17,7 +17,9 @@ namespace TMA.Api
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-           builder.Services.AddDbContext<DataContext>();
+            builder.Services.AddDbContext<DataContext>();
+            builder.Services.AddHttpContextAccessor();
+            builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddControllers();
