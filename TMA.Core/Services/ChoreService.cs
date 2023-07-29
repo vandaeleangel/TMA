@@ -75,9 +75,20 @@ namespace TMA.Core.Services
 
         }
 
-        public Task<GetChoreDto> GetChoreById(Guid id)
+        public async Task<GetChoreDto> GetChoreById(Guid id)
         {
-            throw new NotImplementedException();
+            var response = new GetChoreDto();
+
+            var dbChore = await _context.Chores
+                .Include(c => c.TimeBlocks)
+                .FirstOrDefaultAsync(c => c.User.Id == GetUserId() && c.Id == id);
+                
+            if (dbChore != null)
+            {
+                response = _mapper.Map<GetChoreDto>(dbChore);
+                return response;
+            }
+            else return null;
         }
 
         public Task<GetChoreDto> UpdateChore(UpdateChoreDto chore)

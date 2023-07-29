@@ -27,6 +27,14 @@ namespace TMA.Api.Controllers
             else return BadRequest();
         }
 
+        [HttpGet("id")]
+        public async Task<ActionResult<GetChoreDto>> GetSingleChore(Guid id)
+        {
+            var result = await _choreService.GetChoreById(id);
+            if (result is not null) return Ok(result);
+            else return NotFound();
+        }
+
         [HttpPost]
         public async Task<ActionResult<GetChoreDto>> AddChore(AddChoreDto newChore)
         {
