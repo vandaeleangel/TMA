@@ -91,9 +91,32 @@ namespace TMA.Core.Services
             else return null;
         }
 
-        public Task<GetChoreDto> UpdateChore(UpdateChoreDto chore)
+        public async Task<GetChoreDto> UpdateChore(UpdateChoreDto chore)
         {
-            throw new NotImplementedException();
+            var response = new GetChoreDto();
+
+            Chore dbChore = await _context.Chores
+                .Include(c => c.User)
+                .FirstOrDefaultAsync(c => c.Id == chore.Id);
+            if (dbChore != null)
+            {
+                dbChore.Name = chore.Name;
+                dbChore.TimeBlocks = dbChore.TimeBlocks;
+                dbChore.Duration = dbChore.Duration;
+
+                if (dbChore.User.Id == GetUserId())
+                {
+                    _context.Chores.Update(dbChore);
+                    await _context.SaveChangesAsync();
+
+                    response = _mapper.Map<GetChoreDto>(dbChore);
+                    return response;
+                }
+                else return null;
+            }
+            else return null;
+
+            
         }
 
 

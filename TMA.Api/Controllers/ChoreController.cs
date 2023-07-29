@@ -43,5 +43,14 @@ namespace TMA.Api.Controllers
             if (result is not null) return Ok(result);
             else return BadRequest();
         }
+
+        [HttpPut]
+        public async Task<ActionResult<GetChoreDto>> UpdateChoreName(UpdateChoreDto updateChore)
+        {
+            var result = await _choreService.UpdateChore(updateChore);
+
+            if (result is not null) return Ok(result);
+            else return BadRequest();
+        }
     }
 }
