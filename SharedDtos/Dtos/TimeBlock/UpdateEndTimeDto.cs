@@ -10,6 +10,6 @@ namespace TMA.SharedDtos.Dtos.TimeBlock
     public class UpdateEndTimeDto
     {
         [Required]
-        public Guid ChoreId { get; set; }
+        public Guid TimeBlockId { get; set; }
     }
 }

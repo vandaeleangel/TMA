@@ -25,5 +25,14 @@ namespace TMA.Api.Controllers
             if (result is not null) return Ok(result);
             else return BadRequest();
         }
+
+        [HttpPut("endTime")]
+        public async Task<ActionResult<GetTimeBlockDto>> UpdateEndTimeOfTimeBlockofChore(UpdateEndTimeDto updateEndTimeDto)
+        {
+            var result = await _timeBlockService.UpdateEndTime(updateEndTimeDto);
+
+            if (result is not null) return Ok(result);
+            else return NotFound(result);
+        }
     }
 }
