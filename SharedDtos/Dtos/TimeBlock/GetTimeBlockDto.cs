@@ -13,6 +13,7 @@ namespace TMA.SharedDtos.Dtos.TimeBlock
         public DateTime StartTime { get; set; }
         public DateTime EndTime { get; set; }
         public TimeSpan Duration { get; set; }
+        public Guid ChoreId { get; set; }
         public GetChoreDto Chore { get; set; }
     }
 }

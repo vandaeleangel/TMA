@@ -12,8 +12,8 @@ namespace TMA.Core.Interfaces
         Task<List<GetTimeBlockDto>> GetAllTimeBlocks();
         Task<GetTimeBlockDto> GetTimeBlockById(Guid id);
         Task<GetTimeBlockDto> DeleteTimeBlock(Guid id);
-        Task<GetTimeBlockDto> AddTimeBlock(AddTimeBlockDto choreId);
-        Task<GetTimeBlockDto> UpdateEndTime(UpdateEndTimeDto choreId);
+        Task<GetTimeBlockDto> AddTimeBlock(AddTimeBlockDto timeBlock);
+        Task<GetTimeBlockDto> UpdateEndTime(UpdateEndTimeDto timeBlock);
 
         Task<GetTimeBlockDto> UpdateTimeBlock(UpdateTimeBlockDto timeBlock);
 
