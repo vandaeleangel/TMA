@@ -23,7 +23,27 @@ namespace TMA.Core.Services
             _configuration = configuration;
         }
 
+        public async Task<RegistrationResult> Register(UserRegisterDto user)
+        {
+            if (await UserExists(user.Email))
+            {
+                return RegistrationResult.EmailAlreadyExists;
+            }
 
+            CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
+            User newUser = new User
+            {
+                Email = user.Email,
+                PasswordHash = passwordHash,
+                PasswordSalt = passwordSalt,
+                Chores = new List<Chore>(),
+            };
+
+            _context.Users.Add(newUser);
+            await _context.SaveChangesAsync();
+
+            return RegistrationResult.Succes;
+        }
 
         public async Task<LoginResponse> Login(UserLoginDto user)
         {
@@ -52,6 +72,14 @@ namespace TMA.Core.Services
             };
         }
 
+        public async Task<bool> UserExists(string email)
+        {
+            if (await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
+            {
+                return true;
+            }
+            return false;
+        }
 
         private string CreateToken(User dbUser)
         {
@@ -65,29 +93,7 @@ namespace TMA.Core.Services
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(passwordHash);
             }
-        }
-
-        public async Task<RegistrationResult> Register(UserRegisterDto user)
-        {
-            if (await UserExists(user.Email))
-            {
-                return RegistrationResult.EmailAlreadyExists;
-            }
-
-            CreatePasswordHash(user.Password, out byte[] passwordHash, out byte[] passwordSalt);
-            User newUser = new User
-            {
-                Email = user.Email,
-                PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt,
-                Chores = new List<Chore>(),
-            };
-
-            _context.Users.Add(newUser);
-            await _context.SaveChangesAsync();
-
-            return RegistrationResult.Succes;
-        }
+        }     
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -98,14 +104,7 @@ namespace TMA.Core.Services
             }
         }
 
-        public async Task<bool> UserExists(string email)
-        {
-            if (await _context.Users.AnyAsync(u => u.Email.ToLower() == email.ToLower()))
-            {
-                return true;
-            }
-            return false;
-        }
+    
 
         public enum RegistrationResult
         {
