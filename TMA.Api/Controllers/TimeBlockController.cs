@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using TMA.Core.Interfaces;
+using TMA.SharedDtos.Dtos;
 using TMA.SharedDtos.Dtos.TimeBlock;
 
 namespace TMA.Api.Controllers
@@ -18,7 +19,7 @@ namespace TMA.Api.Controllers
         }
 
         [HttpGet("GetAll")]
-        public async Task<ActionResult<GetTimeBlockDto>> GetAllTimeBlocks()
+        public async Task<ActionResult<List<GetTimeBlockDto>>> GetAllTimeBlocks()
         {
             var result = await _timeBlockService.GetAllTimeBlocks();
 
@@ -35,6 +36,15 @@ namespace TMA.Api.Controllers
             else return NotFound();
         }
 
+        [HttpGet("GetFiltered")]
+        public async Task<ActionResult<List<GetTimeBlockDto>>> GetFilteredTimeBlocks([FromQuery]TimeBlockQueryParametersDto parameters)
+        {
+            var result = await _timeBlockService.GetAllTimeBlocksFiltered(parameters);
+
+            if (result is not null) return Ok(result);
+            else return BadRequest();
+        }
+
         [HttpPost]
         public async Task<ActionResult<GetTimeBlockDto>> AddTimeBlock(AddTimeBlockDto newTimeBlock)
         {
@@ -48,6 +58,15 @@ namespace TMA.Api.Controllers
         public async Task<ActionResult<GetTimeBlockDto>> UpdateEndTimeOfTimeBlockofChore(UpdateEndTimeDto updateEndTimeDto)
         {
             var result = await _timeBlockService.UpdateEndTime(updateEndTimeDto);
+
+            if (result is not null) return Ok(result);
+            else return NotFound(result);
+        }
+
+        [HttpPut]
+        public async Task<ActionResult<GetTimeBlockDto>> UpdateTimeBlock(UpdateTimeBlockDto updateTimeBlockDto)
+        {
+            var result = await _timeBlockService.UpdateTimeBlock(updateTimeBlockDto);
 
             if (result is not null) return Ok(result);
             else return NotFound(result);

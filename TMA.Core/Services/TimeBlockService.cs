@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using TMA.Core.Data;
 using TMA.Core.Entities;
 using TMA.Core.Interfaces;
+using TMA.SharedDtos.Dtos;
 using TMA.SharedDtos.Dtos.Chore;
 using TMA.SharedDtos.Dtos.TimeBlock;
 
@@ -18,13 +19,12 @@ namespace TMA.Core.Services
     {
         private readonly IMapper _mapper;
         private readonly DataContext _context;
-        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TimeBlockService(IMapper mapper, DataContext context, IHttpContextAccessor httpContextAccessor)
+
+        public TimeBlockService(IMapper mapper, DataContext context)
         {
             _mapper = mapper;
             _context = context;
-            _httpContextAccessor = httpContextAccessor;
         }
   
         public async Task<GetTimeBlockDto> AddTimeBlock(AddTimeBlockDto timeBlock)
@@ -86,6 +86,30 @@ namespace TMA.Core.Services
             else return null;
         }
 
+        public async Task<List<GetTimeBlockDto>> GetAllTimeBlocksFiltered(TimeBlockQueryParametersDto queryParameters)
+        {
+            var response = new List<GetTimeBlockDto>();
+
+            IQueryable<TimeBlock> timeBlocks = _context.TimeBlocks;
+
+            if(queryParameters.ChoreId != null)
+            {
+                timeBlocks = timeBlocks.Where(t => t.ChoreId == queryParameters.ChoreId);
+            }
+            if(queryParameters.Date != null)
+            {
+                timeBlocks = timeBlocks.Where(t => t.StartTime.Date ==  queryParameters.Date);
+            }
+
+            if (timeBlocks != null)
+            {
+                var list = await timeBlocks.ToListAsync();
+                response = timeBlocks.Select(t => _mapper.Map<GetTimeBlockDto>(t)).ToList(); 
+                return response;
+            }
+            else return null;
+        }
+
         public async Task<GetTimeBlockDto> GetTimeBlockById(Guid id)
         {
             var response = new GetTimeBlockDto();
@@ -129,9 +153,31 @@ namespace TMA.Core.Services
             else return null;
         }
 
-        public Task<GetTimeBlockDto> UpdateTimeBlock(UpdateTimeBlockDto timeBlock)
+        public async Task<GetTimeBlockDto> UpdateTimeBlock(UpdateTimeBlockDto timeBlock)
         {
-            throw new NotImplementedException();
+            var response = new GetTimeBlockDto();
+
+            var dbTimeBlock = await _context.TimeBlocks.FirstOrDefaultAsync(t => t.Id == timeBlock.Id);
+            Chore chore = await _context.Chores.FirstOrDefaultAsync(c => c.Id == timeBlock.ChoreId);
+            if (dbTimeBlock != null)
+            {
+                chore.Duration -= dbTimeBlock.Duration;
+
+                dbTimeBlock.StartTime = timeBlock.StartTime;
+                dbTimeBlock.EndTime = timeBlock.EndTime;
+                dbTimeBlock.Chore = chore;
+                dbTimeBlock.ChoreId = timeBlock.ChoreId;
+                dbTimeBlock.Duration = timeBlock.EndTime - timeBlock.StartTime;
+
+                _context.TimeBlocks.Update(dbTimeBlock);
+                chore.Duration += dbTimeBlock.Duration;
+
+                await _context.SaveChangesAsync();
+
+                response = _mapper.Map<GetTimeBlockDto>(dbTimeBlock);
+                return response;
+            }
+            else return null;
         }
 
     }
