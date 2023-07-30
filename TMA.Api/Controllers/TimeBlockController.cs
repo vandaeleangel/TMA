@@ -26,6 +26,15 @@ namespace TMA.Api.Controllers
             else return BadRequest();
         }
 
+        [HttpGet("{id}")]
+        public async Task<ActionResult<GetTimeBlockDto>> GetTimeBlockById(Guid id)
+        {
+            var result = await _timeBlockService.GetTimeBlockById(id);
+
+            if (result is not null) return Ok(result);
+            else return NotFound();
+        }
+
         [HttpPost]
         public async Task<ActionResult<GetTimeBlockDto>> AddTimeBlock(AddTimeBlockDto newTimeBlock)
         {
@@ -42,6 +51,16 @@ namespace TMA.Api.Controllers
 
             if (result is not null) return Ok(result);
             else return NotFound(result);
+        }
+
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<GetTimeBlockDto>> DeleteTimeBlock(Guid id)
+        {
+            var result = await _timeBlockService.DeleteTimeBlock(id);
+
+            if (result is not null) return Ok(result);
+            else return BadRequest(result);
         }
     }
 }

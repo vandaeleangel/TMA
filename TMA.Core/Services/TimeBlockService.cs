@@ -54,9 +54,20 @@ namespace TMA.Core.Services
             else return null;
         }
 
-        public Task<GetTimeBlockDto> DeleteTimeBlock(Guid id)
+        public async Task<GetTimeBlockDto> DeleteTimeBlock(Guid id)
         {
-            throw new NotImplementedException();
+            var result = new GetTimeBlockDto();
+            
+            var dbTimeBlock = await _context.TimeBlocks.FirstOrDefaultAsync(t => t.Id == id);
+            if (dbTimeBlock != null)
+            {
+                _context.TimeBlocks.Remove(dbTimeBlock);
+                await _context.SaveChangesAsync();
+
+                result = _mapper.Map<GetTimeBlockDto>(dbTimeBlock);
+                return result;
+            }
+            else return null;
         }
 
         public async Task<List<GetTimeBlockDto>> GetAllTimeBlocks()
@@ -75,9 +86,20 @@ namespace TMA.Core.Services
             else return null;
         }
 
-        public Task<GetTimeBlockDto> GetTimeBlockById(Guid id)
+        public async Task<GetTimeBlockDto> GetTimeBlockById(Guid id)
         {
-            throw new NotImplementedException();
+            var response = new GetTimeBlockDto();
+
+            var dbTimeBlock = await _context.TimeBlocks
+                .Include(t => t.Chore)
+                .FirstOrDefaultAsync(t => t.Id == id);
+
+            if (dbTimeBlock != null)
+            {
+                response = _mapper.Map<GetTimeBlockDto>(dbTimeBlock);
+                return response;
+            }
+            else return null;
         }
 
         public async Task<GetTimeBlockDto> UpdateEndTime(UpdateEndTimeDto timeBlock)
