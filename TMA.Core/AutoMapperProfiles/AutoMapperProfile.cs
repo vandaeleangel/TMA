@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMA.Core.Entities;
 using TMA.SharedDtos.Dtos.Chore;
+using TMA.SharedDtos.Dtos.TimeBlock;
 
 namespace TMA.Core.AutoMapperProfiles
 {
@@ -14,6 +15,7 @@ namespace TMA.Core.AutoMapperProfiles
         public AutoMapperProfile()
         {
             CreateMap<Chore,GetChoreDto>();
+            CreateMap<TimeBlock, GetTimeBlockDto>();
         
          }
     }

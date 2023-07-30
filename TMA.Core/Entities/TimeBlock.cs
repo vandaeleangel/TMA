@@ -20,6 +20,8 @@ namespace TMA.Core.Entities
         public TimeSpan Duration { get; set; }
 
         [Required]
+        public Guid ChoreId { get; set; }
+
         public Chore Chore { get; set; }
      
     }

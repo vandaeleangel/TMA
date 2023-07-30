@@ -24,6 +24,7 @@ namespace TMA.Api
 
             builder.Services.AddScoped<IAuthService, AuthService>();
             builder.Services.AddScoped<IChoreService,ChoreService>();  
+            builder.Services.AddScoped<ITimeBlockService, TimeBlockService>();
 
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -23,8 +23,8 @@ namespace TMA.SharedDtos.Dtos.TimeBlock
         public TimeSpan Duration { get; set; }
 
         [Required]
-        public GetChoreDto Chore { get; set; }
-        
+        public Guid ChoreId { get; set; }
+
 
     }
 }
