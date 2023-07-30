@@ -17,6 +17,15 @@ namespace TMA.Api.Controllers
             _timeBlockService = timeBlockService;
         }
 
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<GetTimeBlockDto>> GetAllTimeBlocks()
+        {
+            var result = await _timeBlockService.GetAllTimeBlocks();
+
+            if (result is not null) return Ok(result);
+            else return BadRequest();
+        }
+
         [HttpPost]
         public async Task<ActionResult<GetTimeBlockDto>> AddTimeBlock(AddTimeBlockDto newTimeBlock)
         {
@@ -26,7 +35,7 @@ namespace TMA.Api.Controllers
             else return BadRequest();
         }
 
-        [HttpPut("endTime")]
+        [HttpPut("EndTime")]
         public async Task<ActionResult<GetTimeBlockDto>> UpdateEndTimeOfTimeBlockofChore(UpdateEndTimeDto updateEndTimeDto)
         {
             var result = await _timeBlockService.UpdateEndTime(updateEndTimeDto);

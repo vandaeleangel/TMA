@@ -59,9 +59,20 @@ namespace TMA.Core.Services
             throw new NotImplementedException();
         }
 
-        public Task<List<GetTimeBlockDto>> GetAllTimeBlocks()
+        public async Task<List<GetTimeBlockDto>> GetAllTimeBlocks()
         {
-            throw new NotImplementedException();
+           var response = new List<GetTimeBlockDto>();
+
+           var dbTimeBlocks = await _context.TimeBlocks
+                .Include(t => t.Chore)
+                .ToListAsync();
+
+            if (dbTimeBlocks != null)
+            {
+                response = dbTimeBlocks.Select(t => _mapper.Map<GetTimeBlockDto>(t)).ToList();
+                return response;
+            }
+            else return null;
         }
 
         public Task<GetTimeBlockDto> GetTimeBlockById(Guid id)
