@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FreshMvvm;
+using System;
+using TMA.Mobile.PageModels;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -10,7 +12,7 @@ namespace TMA.Mobile
         {
             InitializeComponent();
 
-            MainPage = new MainPage();
+            MainPage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
         }
 
         protected override void OnStart()
