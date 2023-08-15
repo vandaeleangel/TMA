@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <PackageReference Include="FreshMvvm" Version="4.0.1" />
+    <PackageReference Include="Microsoft.AspNet.WebApi.Client" Version="5.2.9" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
     <PackageReference Include="System.Text.Json" Version="7.0.0" />
     <PackageReference Include="Xamarin.Forms" Version="5.0.0.2612" />

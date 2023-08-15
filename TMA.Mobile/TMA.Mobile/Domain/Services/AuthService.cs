@@ -1,19 +1,50 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.User;
+using TMA.Mobile.Domain.Services.Interfaces;
 
 namespace TMA.Mobile.Domain.Services
 {
     public class AuthService : IAuthService
     {
-        public Task<LoginResponse> Login(UserLoginDto userLogin)
+        protected ApiClient _httpClient;
+        public AuthService()
         {
-            LoginResponse response = new LoginResponse();
-            response.Status = LoginResult.Success;
+            _httpClient = new ApiClient();
+        }
+        public async Task<LoginResponseDto> Login(UserLoginDto userLogin)
+        {
+            var json = JsonConvert.SerializeObject(userLogin);
+            var response = await _httpClient.PostAsync(string.Empty, "api/Auth/Login", json);
 
-            return Task.FromResult(response);
+            var responseAsString = await response.Content.ReadAsStringAsync();
+
+            LoginResponseDto loginResponse = new LoginResponseDto();
+
+            if(response.StatusCode == HttpStatusCode.NotFound)
+            {
+                loginResponse.Status = LoginResult.UserNotFound;
+                loginResponse.Message = responseAsString;
+                
+            }
+
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                loginResponse.Status = LoginResult.WrongPassword;
+                loginResponse.Message = responseAsString;
+            }
+
+            if (response.IsSuccessStatusCode)
+            {
+                loginResponse.Status = LoginResult.Success;
+                loginResponse.Message = responseAsString;                
+            }
+
+            return loginResponse;
         }
     }
 }
