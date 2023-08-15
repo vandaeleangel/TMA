@@ -4,8 +4,8 @@
              x:Class="TMA.Mobile.Pages.LoginPage">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
-            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}"/>
-            <Entry Placeholder="Passwoord" IsPassword="True" Text="{Binding Password}" />
+            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}" HorizontalOptions="CenterAndExpand"/>
+            <Entry Placeholder="Passwoord" IsPassword="True" Text="{Binding Password}"  />
 
             <Button Text="Login" Command="{Binding LoginCommand}" />
         </StackLayout>

@@ -51,8 +51,7 @@ namespace TMA.Mobile.PageModels
             }
             else
             {
-                Email = "Gelukt";
-                Password = "Ook gelukt";
+                CoreMethods.PushPageModel<HomePageModel>();
             }
         }
     }
