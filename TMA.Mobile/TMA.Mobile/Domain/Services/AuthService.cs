@@ -8,9 +8,12 @@ namespace TMA.Mobile.Domain.Services
 {
     public class AuthService : IAuthService
     {
-        public Task<string> Login(UserLoginDto userLogin)
+        public Task<LoginResponse> Login(UserLoginDto userLogin)
         {
-            throw new NotImplementedException();
+            LoginResponse response = new LoginResponse();
+            response.Status = LoginResult.Success;
+
+            return Task.FromResult(response);
         }
     }
 }

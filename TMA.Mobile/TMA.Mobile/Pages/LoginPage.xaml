@@ -8,6 +8,8 @@
             <Entry Placeholder="Passwoord" IsPassword="True" Text="{Binding Password}"  />
 
             <Button Text="Login" Command="{Binding LoginCommand}" />
+
+            <Label Text="{Binding Error}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

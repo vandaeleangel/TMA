@@ -2,12 +2,15 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TMA.Mobile.Domain.Dtos.User;
+using TMA.Mobile.Domain.Services;
 using Xamarin.Forms;
 
 namespace TMA.Mobile.PageModels
 {
     public class LoginPageModel : FreshBasePageModel
     {
+        private IAuthService _authService;
         private string _email;
         public string Email
         {
@@ -29,29 +32,55 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
+        private string _error;
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                RaisePropertyChanged();
+            }
+        }
         public Command LoginCommand { get; set; }
-        public LoginPageModel()
+        public LoginPageModel(IAuthService authService)
         {
             LoginCommand = new Command(SignIn);
+            _authService = authService;
         }
 
-        private void SignIn(object obj)
+        private async void SignIn(object obj)
         {
            bool isEmailEmpty = string.IsNullOrEmpty(Email);
            bool isPasswordEmpty = string.IsNullOrEmpty(Password);
 
-            if(isEmailEmpty)
+            if(isEmailEmpty || isPasswordEmpty)
             {
-                Email = "Je moet een email invullen";
-            }
-
-            else if(isPasswordEmpty)
-            {
-                Password = "Je moet een passwoord invullen";
+                Error = "Beide velden moeten zijn ingevuld.";
             }
             else
             {
-                CoreMethods.PushPageModel<HomePageModel>();
+                UserLoginDto userLoginDto = new UserLoginDto
+                {
+                    Email = Email,
+                    Password = Password
+                };
+
+                var result = await _authService.Login(userLoginDto);
+
+                if(result.Status == LoginResult.UserNotFound)
+                {
+                    Error = "Deze gebruiker is niet gevonden.";
+                }
+                if (result.Status == LoginResult.WrongPassword)
+                {
+                    Error = "Je passwoord is niet correct";
+                }
+                if(result.Status == LoginResult.Success)
+                {
+                    await CoreMethods.PushPageModel<HomePageModel>();
+                }
+
             }
         }
     }
