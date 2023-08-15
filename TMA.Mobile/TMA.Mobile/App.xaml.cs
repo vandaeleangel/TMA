@@ -12,7 +12,10 @@ namespace TMA.Mobile
         {
             InitializeComponent();
 
-            MainPage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
+            var mainPage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
+            var navigationContainer = new FreshNavigationContainer(mainPage);
+
+            MainPage = navigationContainer;
         }
 
         protected override void OnStart()
