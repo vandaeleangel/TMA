@@ -7,7 +7,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using TMA.Mobile.Domain.Services.Interfaces;
 
 namespace TMA.Mobile.Domain.Services
 {

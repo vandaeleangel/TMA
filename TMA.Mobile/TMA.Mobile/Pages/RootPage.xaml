@@ -1,12 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="TMA.Mobile.Pages.HomePage">
-
+             x:Class="TMA.Mobile.Pages.RootPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="This is the HomePage"/>
-            <Label Text="{Binding Token}" />
+            <Button Text="Vandaag" Command="{Binding ToHomePageCommand}" />
+            <Button Text="Details" Command="{Binding ToDetailPageCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

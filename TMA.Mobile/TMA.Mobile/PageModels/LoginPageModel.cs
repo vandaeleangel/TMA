@@ -74,7 +74,8 @@ namespace TMA.Mobile.PageModels
                 }       
                 if (result.Status == LoginResult.Success)
                 {
-                    await CoreMethods.PushPageModel<HomePageModel>();
+
+                    await CoreMethods.PushPageModel<RootPageModel>();
                 }
 
             }
