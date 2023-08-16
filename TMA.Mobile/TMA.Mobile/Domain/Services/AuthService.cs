@@ -24,17 +24,10 @@ namespace TMA.Mobile.Domain.Services
             var responseAsString = await response.Content.ReadAsStringAsync();
 
             LoginResponseDto loginResponse = new LoginResponseDto();
-
-            if(response.StatusCode == HttpStatusCode.NotFound)
-            {
-                loginResponse.Status = LoginResult.UserNotFound;
-                loginResponse.Message = responseAsString;
-                
-            }
-
+     
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
-                loginResponse.Status = LoginResult.WrongPassword;
+                loginResponse.Status = LoginResult.Fail;
                 loginResponse.Message = responseAsString;
             }
 

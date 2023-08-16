@@ -40,14 +40,12 @@ namespace TMA.Api.Controllers
 
             switch (result.Status)
             {
-                case LoginResult.UserNotFound:
-                        return NotFound(result.Message);
-                case LoginResult.WrongPassword:
-                    return BadRequest(result.Message);
+                case LoginResult.Fail:
+                        return BadRequest(result.Message);
                 case LoginResult.Success:
                     return Ok(result.Message);
                 default:
-                    return BadRequest("Invalid login attempt");
+                    return BadRequest("Geen geldige inlog poging");
             }
         }
 

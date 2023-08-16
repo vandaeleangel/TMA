@@ -12,7 +12,6 @@ namespace TMA.Mobile.Domain.Dtos.User
     public enum LoginResult
     {
         Success,
-        UserNotFound,
-        WrongPassword
+        Fail
     }
 }

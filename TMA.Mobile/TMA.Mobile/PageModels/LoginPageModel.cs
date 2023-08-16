@@ -68,14 +68,10 @@ namespace TMA.Mobile.PageModels
 
                 LoginResponseDto result = await _authService.Login(userLoginDto);
 
-                if (result.Status == LoginResult.UserNotFound)
-                {
-                    Error = "Deze gebruiker is niet gevonden.";
-                }
-                if (result.Status == LoginResult.WrongPassword)
+                if (result.Status == LoginResult.Fail)
                 {
                     Error = result.Message;
-                }
+                }       
                 if (result.Status == LoginResult.Success)
                 {
                     await CoreMethods.PushPageModel<HomePageModel>();
