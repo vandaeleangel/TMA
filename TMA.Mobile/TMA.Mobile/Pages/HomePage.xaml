@@ -5,6 +5,7 @@
     <ContentPage.Content>
         <StackLayout>
             <Label Text="This is the HomePage"/>
+            <Label Text="{Binding Token}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

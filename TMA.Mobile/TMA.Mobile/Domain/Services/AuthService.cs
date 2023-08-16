@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.User;
 using TMA.Mobile.Domain.Services.Interfaces;
+using Xamarin.Essentials;
 
 namespace TMA.Mobile.Domain.Services
 {
@@ -34,7 +35,7 @@ namespace TMA.Mobile.Domain.Services
             if (response.IsSuccessStatusCode)
             {
                 loginResponse.Status = LoginResult.Success;
-                loginResponse.Message = responseAsString;                
+                await SecureStorage.SetAsync("AuthToken", responseAsString);
             }
 
             return loginResponse;
