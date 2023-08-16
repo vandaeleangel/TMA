@@ -8,27 +8,25 @@ namespace TMA.Mobile.PageModels
 {
     public class HomePageModel : FreshBasePageModel
     {
-		private string _token;
+		private string _currentTotal;
 
-		public string Token
-		{
-			get { return _token; }
+		public string CurrentTotal
+        {
+			get { return _currentTotal; }
             set
             {
-                _token = value;
+                _currentTotal = value;
                 RaisePropertyChanged();
             }
         }
 
-        public HomePageModel()
+        private string _currentTask;
+
+        public string CurrentTask
         {
-            FetchToken();
+            get { return _currentTask; }
+            set { _currentTask = value; }
         }
 
-        private async void FetchToken()
-        {
-            string authToken = await SecureStorage.GetAsync("AuthToken");
-            Token = authToken;
-        }
     }
 }

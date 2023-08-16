@@ -5,8 +5,28 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="This is the HomePage"/>
-            <Label Text="{Binding Token}" />
+            <Label Text="Totaal vandaag:"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding CurrentTotal}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            
+            <Label Text="Huidige Taak"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            <Label Text="{Binding CurrentTask}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+               
+            <ListView>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="a"></TextCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+            <Button Text="Voeg nieuwe taak toe" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
