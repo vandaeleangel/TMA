@@ -14,6 +14,7 @@ namespace TMA.Mobile.PageModels
         private IAppService _appService;
 
         public ObservableCollection<Chore> Chores { get; set; }
+
         private string _currentTotal;
 		public string CurrentTotal
         {
@@ -35,6 +36,17 @@ namespace TMA.Mobile.PageModels
         public HomePageModel(IAppService appService)
         {
             _appService = appService;
+            Chores = new ObservableCollection<Chore>();
+            FetchChores();
+        }
+
+        private async void FetchChores()
+        {
+            var chores = await _appService.GetAllChores();
+            foreach (var chore in chores)
+            {
+                Chores.Add(chore);
+            }
         }
     }
 }
