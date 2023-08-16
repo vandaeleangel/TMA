@@ -17,6 +17,8 @@ namespace TMA.Api
         {
             var builder = WebApplication.CreateBuilder(args);
 
+            builder.WebHost.UseUrls("https://0.0.0.0:5001", "http://0.0.0.0:5000");
+
             // Add services to the container.
             builder.Services.AddDbContext<DataContext>();
             builder.Services.AddHttpContextAccessor();
@@ -64,7 +66,7 @@ namespace TMA.Api
                 app.UseSwaggerUI();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
 
             app.UseAuthentication();
             app.UseAuthorization();

@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TMA.Mobile.Pages.LoginPage">
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+            <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}" HorizontalOptions="CenterAndExpand"/>
+            <Entry Placeholder="Passwoord" IsPassword="True" Text="{Binding Password}"  />
+
+            <Button Text="Login" Command="{Binding LoginCommand}" />
+
+            <Label Text="{Binding Error}" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

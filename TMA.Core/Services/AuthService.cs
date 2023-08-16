@@ -55,16 +55,16 @@ namespace TMA.Core.Services
             {
                 return new LoginResponse
                 {
-                    Status = LoginResult.UserNotFound,
-                    Message = "User not found."
+                    Status = LoginResult.Fail,
+                    Message = "Gebruiker niet gevonden."
                 };
             }
             else if (!VerifyPasswordHash(user.Password, dbUser.PasswordHash, dbUser.PasswordSalt))
             {
                 return new LoginResponse
                 {
-                    Status = LoginResult.WrongPassword,
-                    Message = "Wrong Password"
+                    Status = LoginResult.Fail,
+                    Message = "Verkeerd passwoord"
                 };
             }
 
@@ -93,7 +93,7 @@ namespace TMA.Core.Services
             };
 
             var appSettingsToken = _configuration.GetSection("AppSettings:Token").Value;
-            if(appSettingsToken is null)
+            if (appSettingsToken is null)
             {
                 throw new Exception("AppSettings Token is null");
             }
@@ -117,12 +117,12 @@ namespace TMA.Core.Services
 
         private bool VerifyPasswordHash(string password, byte[] passwordHash, byte[] passwordSalt)
         {
-          using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
+            using (var hmac = new System.Security.Cryptography.HMACSHA512(passwordSalt))
             {
                 var computedHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
                 return computedHash.SequenceEqual(passwordHash);
             }
-        }     
+        }
 
         private void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
@@ -133,7 +133,7 @@ namespace TMA.Core.Services
             }
         }
 
-    
+
 
         public enum RegistrationResult
         {
@@ -149,8 +149,7 @@ namespace TMA.Core.Services
         public enum LoginResult
         {
             Success,
-            UserNotFound,
-            WrongPassword
+            Fail
         }
 
     }
