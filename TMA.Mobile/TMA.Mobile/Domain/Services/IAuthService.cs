@@ -8,6 +8,6 @@ namespace TMA.Mobile.Domain.Services
 {
     public interface IAuthService
     {
-        Task<LoginResponse> Login(UserLoginDto userLogin);
+        Task<LoginResponseDto> Login(UserLoginDto userLogin);
     }
 }

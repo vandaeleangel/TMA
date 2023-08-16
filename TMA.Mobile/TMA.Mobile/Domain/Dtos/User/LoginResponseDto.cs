@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TMA.Mobile.Domain.Dtos.User
 {
-    public class LoginResponse
+    public class LoginResponseDto
     {
         public LoginResult Status { get; set; }
         public string Message { get; set; } = string.Empty;
