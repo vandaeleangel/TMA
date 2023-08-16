@@ -11,7 +11,7 @@ namespace TMA.Mobile.PageModels
     public class LoginPageModel : FreshBasePageModel
     {
         private IAuthService _authService;
-        private string _email;
+        private string _email = "test@hotmail.com";
         public string Email
         {
             get { return _email; }
@@ -22,7 +22,7 @@ namespace TMA.Mobile.PageModels
             }
         }
 
-        private string _password;
+        private string _password = "Test123";
         public string Password
         {
             get { return _password; }
@@ -51,10 +51,10 @@ namespace TMA.Mobile.PageModels
 
         private async void SignIn(object obj)
         {
-           bool isEmailEmpty = string.IsNullOrEmpty(Email);
-           bool isPasswordEmpty = string.IsNullOrEmpty(Password);
+            bool isEmailEmpty = string.IsNullOrEmpty(Email);
+            bool isPasswordEmpty = string.IsNullOrEmpty(Password);
 
-            if(isEmailEmpty || isPasswordEmpty)
+            if (isEmailEmpty || isPasswordEmpty)
             {
                 Error = "Beide velden moeten zijn ingevuld.";
             }
@@ -66,17 +66,17 @@ namespace TMA.Mobile.PageModels
                     Password = Password
                 };
 
-                var result = await _authService.Login(userLoginDto);
+                LoginResponseDto result = await _authService.Login(userLoginDto);
 
-                if(result.Status == LoginResult.UserNotFound)
+                if (result.Status == LoginResult.UserNotFound)
                 {
                     Error = "Deze gebruiker is niet gevonden.";
                 }
                 if (result.Status == LoginResult.WrongPassword)
                 {
-                    Error = "Je passwoord is niet correct";
+                    Error = result.Message;
                 }
-                if(result.Status == LoginResult.Success)
+                if (result.Status == LoginResult.Success)
                 {
                     await CoreMethods.PushPageModel<HomePageModel>();
                 }

@@ -19,7 +19,7 @@ namespace TMA.Mobile.Domain.Services
         public async Task<LoginResponseDto> Login(UserLoginDto userLogin)
         {
             var json = JsonConvert.SerializeObject(userLogin);
-            var response = await _httpClient.PostAsync(string.Empty, "api/Auth/Login", json);
+            var response = await _httpClient.PostAsync(string.Empty, "/Auth/Login", json);
 
             var responseAsString = await response.Content.ReadAsStringAsync();
 

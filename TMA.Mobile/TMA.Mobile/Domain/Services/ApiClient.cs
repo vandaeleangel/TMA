@@ -14,7 +14,7 @@ namespace TMA.Mobile.Domain.Services
     public class ApiClient
     {
         private HttpClient _httpClient;
-        private readonly string _baseAddress = string.Empty;
+        private readonly string _baseAddress = Constants.BaseUrl;
 
         public ApiClient()
         {
@@ -22,13 +22,15 @@ namespace TMA.Mobile.Domain.Services
             httpClientHandler.ServerCertificateCustomValidationCallback =
            (message, cert, chain, errors) => { return true; };
             _httpClient = new HttpClient(httpClientHandler);
-            _httpClient.BaseAddress = new Uri(_baseAddress);
+            //_httpClient.BaseAddress = new Uri(_baseAddress);
         }
 
         public async Task<HttpResponseMessage> PostAsync(string token, string path, string json)
         {
             var data = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, path);
+
+            var fullPath = _baseAddress + path;
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Post, fullPath);
             if (token != string.Empty)
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
