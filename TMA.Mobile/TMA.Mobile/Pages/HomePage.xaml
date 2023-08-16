@@ -19,10 +19,12 @@
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
                
-            <ListView>
+            <ListView ItemsSource="{Binding Chores}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <TextCell Text="a"></TextCell>
+                        <ViewCell>
+                            <Label Text="{Binding Name}" />
+                        </ViewCell>
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>

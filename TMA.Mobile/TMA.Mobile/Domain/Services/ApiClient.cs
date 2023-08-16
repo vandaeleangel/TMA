@@ -25,7 +25,9 @@ namespace TMA.Mobile.Domain.Services
 
         public async Task<HttpResponseMessage> GetAsync(string token, string path)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, path);
+            var fullPath = _baseAddress + path;
+
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, fullPath);
             if (token != string.Empty)
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
