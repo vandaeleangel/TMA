@@ -76,20 +76,21 @@ namespace TMA.Mobile.PageModels
             {
                 AddTimeBlockDto addTimeBlock = new AddTimeBlockDto
                 {
-                    ChoreId = CurrentChore.Id
+                    ChoreId = SelectedChore.Id
                 };
 
                 TimeBlock result = await _appService.StartTimeBlock(addTimeBlock);
-                CurrentChore.CurrentTimeBlockId = result.Id;
+
                 CurrentChore = SelectedChore;
+                CurrentChore.CurrentTimeBlockId = result.Id;                        
                 CurrentTotal = CurrentChore.Duration.ToString();
             }
 
-            if (CurrentChore != null && CurrentChore != SelectedChore) 
+            else if (CurrentChore != null && CurrentChore != SelectedChore) 
             { 
                 throw new NotImplementedException();
             }
-            if (CurrentChore != null && CurrentChore == SelectedChore)
+            else if(CurrentChore != null && CurrentChore == SelectedChore)
             {
                 UpdateEndTimeDto updateEndTimeDto = new UpdateEndTimeDto
                 {

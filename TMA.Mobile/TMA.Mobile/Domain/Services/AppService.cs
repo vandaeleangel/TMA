@@ -51,7 +51,7 @@ namespace TMA.Mobile.Domain.Services
             var token = await SecureStorage.GetAsync("AuthToken");
             var json = JsonConvert.SerializeObject(timeBlockDto);
 
-            var response = await _httpClient.PostAsync(token, "TimeBlock", json);
+            var response = await _httpClient.PostAsync(token, "/TimeBlock", json);
 
             if (response.IsSuccessStatusCode)
             {
