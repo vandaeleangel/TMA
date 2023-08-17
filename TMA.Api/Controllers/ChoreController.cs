@@ -34,6 +34,14 @@ namespace TMA.Api.Controllers
             if (result is not null) return Ok(result);
             else return NotFound();
         }
+        [HttpGet("current")]
+        public async Task<ActionResult<GetChoreDto>> GetCurrentChore()
+        {
+            var result = await _choreService.GetCurrentChore();
+            if (result is not null) return Ok(result);
+            else return NotFound();
+        }
+
 
         [HttpPost]
         public async Task<ActionResult<GetChoreDto>> AddChore(AddChoreDto newChore)
