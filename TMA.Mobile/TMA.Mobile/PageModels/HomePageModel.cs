@@ -79,8 +79,6 @@ namespace TMA.Mobile.PageModels
 
         private async Task StopTimeBlockAsync()
         {
-            Guid test = CurrentChore.CurrentTimeBlockId;
-
             UpdateEndTimeDto updateEndTimeDto = new UpdateEndTimeDto
             {
                 TimeBlockId = CurrentChore.CurrentTimeBlockId
@@ -98,8 +96,17 @@ namespace TMA.Mobile.PageModels
         {
             base.Init(initData);
             FetchCurrentChore();
+            FetchTotalDurationAsync();
 
+        }
 
+        private async void FetchTotalDurationAsync()
+        {
+            string total = await _appService.GetTotalDurationForADay(DateTime.Today);
+            if(total != null)
+            {
+                CurrentTotal = total;
+            }
         }
 
         private async void FetchCurrentChore()
