@@ -34,7 +34,7 @@ namespace TMA.Mobile.PageModels
             set
             {
                 _selectedChore = value;
-                if(_selectedChore != null) 
+                if(_selectedChore != null || _selectedChore == _currentChore) 
                 {
                     StartStopTimeBlock();
                 }
@@ -82,8 +82,8 @@ namespace TMA.Mobile.PageModels
                 TimeBlock result = await _appService.StartTimeBlock(addTimeBlock);
 
                 CurrentChore = SelectedChore;
-                CurrentChore.CurrentTimeBlockId = result.Id;                        
-                CurrentTotal = CurrentChore.Duration.ToString();
+                CurrentChore.CurrentTimeBlockId = result.Id;
+               
             }
 
             else if (CurrentChore != null && CurrentChore != SelectedChore) 
@@ -98,6 +98,7 @@ namespace TMA.Mobile.PageModels
                 };
 
                 await _appService.StopTimeBlock(updateEndTimeDto);
+                CurrentTotal = await _appService.GetTotalDurationForADay(DateTime.Today);
                 CurrentChore = null;
                 SelectedChore = null;
             }

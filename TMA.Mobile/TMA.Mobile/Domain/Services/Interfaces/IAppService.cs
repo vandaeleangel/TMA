@@ -11,8 +11,9 @@ namespace TMA.Mobile.Domain.Services.Interfaces
     {
         Task<IEnumerable<Chore>> GetAllChores();
         Task<TimeBlock> StartTimeBlock(AddTimeBlockDto timeBlockDto);
-        Task<TimeBlock> StopTimeBlock(UpdateEndTimeDto timeBlockDto);
+        Task StopTimeBlock(UpdateEndTimeDto timeBlockDto);
         Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto param);
+        Task<string> GetTotalDurationForADay(DateTime date);
         Task<bool> SaveChangesAsync();
     }
 }

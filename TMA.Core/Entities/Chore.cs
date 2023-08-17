@@ -20,6 +20,7 @@ namespace TMA.Core.Entities
         public string Name { get; set; } = string.Empty;
         public TimeSpan Duration { get; set; }
         public ICollection<TimeBlock>? TimeBlocks { get; set; }
-        public User User { get; set; } 
+        public User User { get; set; }
+        public bool IsCurrentChore { get; set; } = false;
     }
 }

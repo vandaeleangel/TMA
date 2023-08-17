@@ -66,6 +66,35 @@ namespace TMA.Mobile.Domain.Services
 
         }
 
+        public async Task<string> GetTotalDurationForADay(DateTime date)
+        {
+            TimeBlockQueryParametersDto query = new TimeBlockQueryParametersDto
+            {
+                Date = date
+            };
+
+            var result = await GetFilteredTimeBlocks(query);
+
+            TimeSpan totalDuration;
+            string totalDurationString;
+
+            if(result != null)
+            {
+                foreach (var timeBlock in result)
+                {
+                    totalDuration = totalDuration.Add(timeBlock.Duration);
+                }
+                totalDurationString = totalDuration.ToString("h'h 'm'm'");
+                return totalDurationString;
+            }
+            else
+            {
+                totalDurationString = "";
+                return totalDurationString;
+            }
+           
+        }
+
         public Task<bool> SaveChangesAsync()
         {
             throw new NotImplementedException();
@@ -94,9 +123,23 @@ namespace TMA.Mobile.Domain.Services
             return null;
         }
 
-        public Task<TimeBlock> StopTimeBlock(UpdateEndTimeDto timeBlockDto)
+        public async Task StopTimeBlock(UpdateEndTimeDto timeBlockDto)
         {
-            throw new NotImplementedException();
+            var token = await SecureStorage.GetAsync("AuthToken");
+            var json = JsonConvert.SerializeObject(timeBlockDto);
+
+            var response = await _httpClient.PostAsync(token, "/TimeBlock/EndTime", json);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<TimeBlock>(responseAsString);
+
+                TimeBlock timeBlock = new TimeBlock
+                {
+                    Id = result.Id
+                };
+           }
         }
     }
 }
