@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.TimeBlock;
@@ -36,6 +37,28 @@ namespace TMA.Mobile.Domain.Services
                     Duration = x.Duration,
                     TimeBlocks = x.TimeBlocks
                 }).ToList();
+            }
+
+            return null;
+        }
+
+        public async Task<Chore> GetCurrentChore()
+        {
+            var token = await SecureStorage.GetAsync("AuthToken");
+
+            var response = await _httpClient.GetAsync(token, "/Chore/Current");
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<Chore>(responseAsString);
+
+                return result;
+            }
+
+            if(response.StatusCode == HttpStatusCode.NoContent)
+            {
+                return null;
             }
 
             return null;

@@ -34,7 +34,7 @@ namespace TMA.Mobile.PageModels
             set
             {
                 _selectedChore = value;
-                if(_selectedChore != null || _selectedChore == _currentChore) 
+                if(_selectedChore != null) 
                 {
                     StartStopTimeBlock();
                 }
@@ -61,6 +61,21 @@ namespace TMA.Mobile.PageModels
             FetchChores();
         }
 
+        public override async void Init(object initData)
+        {
+            base.Init(initData);
+            FetchCurrentChore();
+        }
+
+        private async void FetchCurrentChore()
+        {          
+          var chore =  await _appService.GetCurrentChore();
+            if(chore != null)
+            {
+                CurrentChore = chore;
+            }
+        }
+
         private async void FetchChores()
         {
             var chores = await _appService.GetAllChores();
@@ -83,6 +98,7 @@ namespace TMA.Mobile.PageModels
 
                 CurrentChore = SelectedChore;
                 CurrentChore.CurrentTimeBlockId = result.Id;
+                SelectedChore = null;
                
             }
 

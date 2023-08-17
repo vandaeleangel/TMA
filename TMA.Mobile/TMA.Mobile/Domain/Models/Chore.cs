@@ -16,5 +16,7 @@ namespace TMA.Mobile.Domain.Models
         public ICollection<TimeBlock> TimeBlocks { get; set; }
         public User User { get; set; }
         public Guid CurrentTimeBlockId { get; set; }
+        public bool IsCurrentChore { get; set; }
+        
     }
 }

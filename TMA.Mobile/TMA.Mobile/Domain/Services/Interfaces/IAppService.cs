@@ -10,6 +10,7 @@ namespace TMA.Mobile.Domain.Services.Interfaces
     public interface IAppService
     {
         Task<IEnumerable<Chore>> GetAllChores();
+        Task<Chore> GetCurrentChore();
         Task<TimeBlock> StartTimeBlock(AddTimeBlockDto timeBlockDto);
         Task StopTimeBlock(UpdateEndTimeDto timeBlockDto);
         Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto param);
