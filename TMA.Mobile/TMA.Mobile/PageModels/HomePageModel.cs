@@ -12,8 +12,35 @@ namespace TMA.Mobile.PageModels
     public class HomePageModel : FreshBasePageModel
     {
         private IAppService _appService;
-
         public ObservableCollection<Chore> Chores { get; set; }
+
+        private Chore _currentChore;
+        public Chore CurrentChore
+        {
+            get { return _currentChore; }
+            set
+            {
+                _currentChore = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private Chore _selectedChore;
+        public Chore SelectedChore
+        {
+            get { return _selectedChore; }
+            set
+            {
+                _selectedChore = value;
+                if(_selectedChore != null) 
+                {
+                    StartStopTimeBlock();
+                }
+              
+            }
+        }
+
+      
 
         private string _currentTotal;
 		public string CurrentTotal
@@ -26,13 +53,7 @@ namespace TMA.Mobile.PageModels
             }
         }
 
-        private string _currentTask;
-        public string CurrentTask
-        {
-            get { return _currentTask; }
-            set { _currentTask = value; }
-        }
-
+  
         public HomePageModel(IAppService appService)
         {
             _appService = appService;
@@ -47,6 +68,15 @@ namespace TMA.Mobile.PageModels
             {
                 Chores.Add(chore);
             }
+        }
+
+        private void StartStopTimeBlock()
+        {
+            if (_currentChore == null)
+            {
+                
+            }
+
         }
     }
 }

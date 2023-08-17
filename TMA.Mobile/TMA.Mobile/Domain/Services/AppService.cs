@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TMA.Mobile.Domain.Dtos.TimeBlock;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Essentials;
@@ -40,6 +41,16 @@ namespace TMA.Mobile.Domain.Services
         }
 
         public Task<bool> SaveChangesAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TimeBlock> StartTimeBlock(AddTimeBlockDto timeBlockDto)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<TimeBlock> StopTimeBlock(UpdateEndTimeDto timeBlockDto)
         {
             throw new NotImplementedException();
         }

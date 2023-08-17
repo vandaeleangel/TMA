@@ -15,11 +15,11 @@
             <Label Text="Huidige Taak"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding CurrentTask}"
+            <Label Text="{Binding CurrentChore.Name}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
                
-            <ListView ItemsSource="{Binding Chores}">
+            <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
