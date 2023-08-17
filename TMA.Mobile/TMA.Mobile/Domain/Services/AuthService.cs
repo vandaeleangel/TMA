@@ -8,7 +8,7 @@ using TMA.Mobile.Domain.Dtos.User;
 using Xamarin.Essentials;
 
 namespace TMA.Mobile.Domain.Services
-{
+{   
     public class AuthService : IAuthService
     {
         protected ApiClient _httpClient;

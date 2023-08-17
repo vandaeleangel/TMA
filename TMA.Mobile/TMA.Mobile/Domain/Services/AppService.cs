@@ -14,6 +14,7 @@ namespace TMA.Mobile.Domain.Services
     public class AppService : IAppService
     {
         protected ApiClient _httpClient;
+       
         public AppService()
         {
             _httpClient = new ApiClient(); 
@@ -45,9 +46,14 @@ namespace TMA.Mobile.Domain.Services
             throw new NotImplementedException();
         }
 
-        public Task<TimeBlock> StartTimeBlock(AddTimeBlockDto timeBlockDto)
+        public async Task StartTimeBlock(AddTimeBlockDto timeBlockDto)
         {
-            throw new NotImplementedException();
+            var token = await SecureStorage.GetAsync("AuthToken");
+            var json = JsonConvert.SerializeObject(timeBlockDto);
+
+            var response = await _httpClient.PostAsync(token, "TimeBlock", json);
+
+            if (!response.IsSuccessStatusCode) throw new Exception("Fout bij het starten van de taak");
         }
 
         public Task<TimeBlock> StopTimeBlock(UpdateEndTimeDto timeBlockDto)
