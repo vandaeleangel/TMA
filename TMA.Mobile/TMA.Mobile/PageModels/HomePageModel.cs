@@ -154,7 +154,8 @@ namespace TMA.Mobile.PageModels
 
             else if (CurrentChore != null && CurrentChore != SelectedChore)
             {
-                throw new NotImplementedException();
+                string message = "Je moet eerst je huidige taak stoppen voor je een andere kan starten.";
+                await CoreMethods.DisplayAlert("Opgepast", message, "Ok");
             }
 
 
