@@ -18,6 +18,7 @@ namespace TMA.Mobile.PageModels
         private IAppService _appService;
         public ObservableCollection<Chore> Chores { get; set; }
         public Command StopCommand { get; set; }
+        public Command NewChoreCommand { get; set; }
 
 
         #region UI
@@ -91,7 +92,10 @@ namespace TMA.Mobile.PageModels
             Chores = new ObservableCollection<Chore>();
             FetchChores();
             StopCommand = new Command(async () => await StopTimeBlockAsync());
+            NewChoreCommand = new Command(async () => await GoToNewChorePageAsync());
+        
         }
+
         public override async void Init(object initData)
         {
             base.Init(initData);
@@ -175,9 +179,11 @@ namespace TMA.Mobile.PageModels
             ListViewOpacity = 1;
 
         }
-        
-        
 
-      
+        private async Task GoToNewChorePageAsync()
+        {
+            await CoreMethods.PushPageModel<NewChorePageModel>(null,true);
+
+        }
     }
 }

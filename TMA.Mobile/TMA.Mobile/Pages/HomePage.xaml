@@ -34,7 +34,7 @@
                     </DataTemplate>
                 </ListView.ItemTemplate>
             </ListView>
-            <Button Text="Voeg nieuwe taak toe" />
+            <Button Text="Voeg nieuwe taak toe" Command="{Binding NewChoreCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
