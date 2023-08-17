@@ -41,6 +41,13 @@ namespace TMA.Mobile.Domain.Services
             return null;
         }
 
+        public async Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto param)
+        {
+            //var token = await SecureStorage.GetAsync("AuthToken");
+            throw new NotImplementedException();
+
+        }
+
         public Task<bool> SaveChangesAsync()
         {
             throw new NotImplementedException();
