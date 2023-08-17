@@ -46,14 +46,27 @@ namespace TMA.Mobile.Domain.Services
             throw new NotImplementedException();
         }
 
-        public async Task StartTimeBlock(AddTimeBlockDto timeBlockDto)
+        public async Task<TimeBlock> StartTimeBlock(AddTimeBlockDto timeBlockDto)
         {
             var token = await SecureStorage.GetAsync("AuthToken");
             var json = JsonConvert.SerializeObject(timeBlockDto);
 
             var response = await _httpClient.PostAsync(token, "TimeBlock", json);
 
-            if (!response.IsSuccessStatusCode) throw new Exception("Fout bij het starten van de taak");
+            if (response.IsSuccessStatusCode)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<TimeBlock>(responseAsString);
+
+                TimeBlock timeBlock = new TimeBlock
+                {
+                    Id = result.Id
+                };
+
+                return timeBlock;
+            }
+
+            return null;
         }
 
         public Task<TimeBlock> StopTimeBlock(UpdateEndTimeDto timeBlockDto)
