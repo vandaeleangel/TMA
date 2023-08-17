@@ -13,5 +13,7 @@ namespace TMA.SharedDtos.Dtos.Chore
         public string Name { get; set; } = string.Empty;
         public TimeSpan Duration { get; set; }
         public ICollection<GetTimeBlockDto> TimeBlocks { get; set; }
+        public bool IsCurrentChore { get; set; } = false;
+        public Guid? CurrentTimeBlockId { get; set; } 
     }
 }

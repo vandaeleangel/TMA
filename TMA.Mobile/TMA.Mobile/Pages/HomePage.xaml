@@ -5,20 +5,25 @@
 
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Totaal vandaag:"
+            <StackLayout>
+                <Label Text="Totaal vandaag:"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding CurrentTotal}"
+                <Label Text="{Binding CurrentTotal}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            
-            <Label Text="Huidige Taak"
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Huidige Taak"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-            <Label Text="{Binding CurrentChore.Name}"
+                <Label Text="{Binding CurrentChore.Name}"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
-               
+                <Button Text="Stop" Command="{Binding StopCommand}" IsVisible="{Binding IsStopVisible}" />
+            </StackLayout>
+
             <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}">
                 <ListView.ItemTemplate>
                     <DataTemplate>

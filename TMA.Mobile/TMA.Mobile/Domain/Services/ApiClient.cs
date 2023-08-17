@@ -80,8 +80,9 @@ namespace TMA.Mobile.Domain.Services
         }
         public async Task<HttpResponseMessage> UpdateAsync(string token, string path, string json)
         {
+            var fullPath = _baseAddress + path;
             var data = new StringContent(json, Encoding.UTF8, "application/json");
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, path);
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Put, fullPath);
             if (token != string.Empty)
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);
