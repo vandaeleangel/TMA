@@ -1,12 +1,14 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Net.Http.Formatting;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using TMA.Mobile.Domain.Dtos.TimeBlock;
 
 namespace TMA.Mobile.Domain.Services
 {
@@ -23,9 +25,21 @@ namespace TMA.Mobile.Domain.Services
             _httpClient = new HttpClient(httpClientHandler);     
         }
 
-        public async Task<HttpResponseMessage> GetAsync(string token, string path)
+        public async Task<HttpResponseMessage> GetAsync(string token, string path, TimeBlockQueryParametersDto queryParams= null)
         {
             var fullPath = _baseAddress + path;
+
+            if (queryParams != null)
+            {
+                var queryString = string.Join("&", queryParams.GetType().GetProperties()
+                    .Where(prop => prop.GetValue(queryParams) != null)
+                    .Select(prop => $"{Uri.EscapeDataString(prop.Name)}={Uri.EscapeDataString(prop.GetValue(queryParams).ToString())}"));
+
+                if (!string.IsNullOrEmpty(queryString))
+                {
+                    fullPath += "?" + queryString;
+                }
+            }
 
             HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Get, fullPath);
             if (token != string.Empty)

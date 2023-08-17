@@ -41,10 +41,28 @@ namespace TMA.Mobile.Domain.Services
             return null;
         }
 
-        public async Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto param)
+        public async Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto queryParams)
         {
-            //var token = await SecureStorage.GetAsync("AuthToken");
-            throw new NotImplementedException();
+            var token = await SecureStorage.GetAsync("AuthToken");
+
+            var response = await _httpClient.GetAsync(token, "/TimeBlock/GetFiltered", queryParams);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<TimeBlock>>(responseAsString);
+
+                return result.Select(x => new TimeBlock
+                {
+                    Id= x.Id,
+                    ChoreId = x.ChoreId,
+                    Duration = x.Duration,
+                    StartTime= x.StartTime,
+                    EndTime = x.EndTime
+                }).ToList();
+            }
+
+            return null;
 
         }
 
