@@ -19,6 +19,20 @@ namespace TMA.Mobile.PageModels
         public ObservableCollection<Chore> Chores { get; set; }
         public Command StopCommand { get; set; }
 
+
+        #region UI
+        private double _listViewOpacity = 1;
+
+        public double ListViewOpacity
+        {
+            get { return _listViewOpacity; }
+            set
+            {
+                _listViewOpacity = value;
+                RaisePropertyChanged();
+            }
+        }
+
         private bool _isStopVisible;
         public bool IsStopVisible
         {
@@ -29,6 +43,9 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
+
+        #endregion
+
         private Chore _currentChore;
         public Chore CurrentChore
         {
@@ -72,9 +89,75 @@ namespace TMA.Mobile.PageModels
         {
             _appService = appService;
             Chores = new ObservableCollection<Chore>();
-            //CurrentChore = new Chore();
             FetchChores();
             StopCommand = new Command(async () => await StopTimeBlockAsync());
+        }
+        public override async void Init(object initData)
+        {
+            base.Init(initData);
+            FetchCurrentChore();
+            FetchTotalDurationAsync();
+
+        }
+        private async void FetchChores()
+        {
+            var chores = await _appService.GetAllChores();
+            foreach (var chore in chores)
+            {
+                Chores.Add(chore);
+            }
+        }
+
+        private async void FetchTotalDurationAsync()
+        {
+            string total = await _appService.GetTotalDurationForADay(DateTime.Today);
+            if (total != null)
+            {
+                CurrentTotal = total;
+            }
+        }
+
+        private async void FetchCurrentChore()
+        {
+            var chore = await _appService.GetCurrentChore();
+
+            if (chore != null)
+            {
+                CurrentChore = chore;
+                IsStopVisible = true;
+            }
+            else
+            {
+                IsStopVisible = false;
+            }
+        }
+        private async void StartTimeBlock()
+        {
+
+            if (CurrentChore == null)
+            {
+                AddTimeBlockDto addTimeBlock = new AddTimeBlockDto
+                {
+                    ChoreId = SelectedChore.Id
+                };
+
+                TimeBlock result = await _appService.StartTimeBlock(addTimeBlock);
+
+                CurrentChore = SelectedChore;
+                CurrentChore.CurrentTimeBlockId = result.Id;
+                IsStopVisible = true;
+                ListViewOpacity = 0.3;
+                SelectedChore = null;
+
+            }
+
+            else if (CurrentChore != null && CurrentChore != SelectedChore)
+            {
+                string message = "Je moet eerst je huidige taak stoppen voor je een andere kan starten.";
+                await CoreMethods.DisplayAlert("Opgepast", message, "Ok");
+            }
+
+
         }
 
         private async Task StopTimeBlockAsync()
@@ -89,76 +172,12 @@ namespace TMA.Mobile.PageModels
             CurrentChore = null;
             SelectedChore = null;
             IsStopVisible = false;
+            ListViewOpacity = 1;
 
         }
+        
+        
 
-        public override async void Init(object initData)
-        {
-            base.Init(initData);
-            FetchCurrentChore();
-            FetchTotalDurationAsync();
-
-        }
-
-        private async void FetchTotalDurationAsync()
-        {
-            string total = await _appService.GetTotalDurationForADay(DateTime.Today);
-            if(total != null)
-            {
-                CurrentTotal = total;
-            }
-        }
-
-        private async void FetchCurrentChore()
-        {
-            var chore = await _appService.GetCurrentChore();
-          
-            if (chore != null)
-            {
-                CurrentChore = chore;
-                IsStopVisible = true;
-            }
-            else
-            {
-                IsStopVisible = false;
-            }
-        }
-
-        private async void FetchChores()
-        {
-            var chores = await _appService.GetAllChores();
-            foreach (var chore in chores)
-            {
-                Chores.Add(chore);
-            }
-        }
-
-        private async void StartTimeBlock()
-        {
-            
-            if (CurrentChore == null)
-            {
-                AddTimeBlockDto addTimeBlock = new AddTimeBlockDto
-                {
-                    ChoreId = SelectedChore.Id
-                };
-
-                TimeBlock result = await _appService.StartTimeBlock(addTimeBlock);
-
-                CurrentChore = SelectedChore;
-                CurrentChore.CurrentTimeBlockId = result.Id;
-                IsStopVisible = true;
-                SelectedChore = null;
-
-            }
-
-            else if (CurrentChore != null && CurrentChore != SelectedChore)
-            {
-                string message = "Je moet eerst je huidige taak stoppen voor je een andere kan starten.";
-                await CoreMethods.DisplayAlert("Opgepast", message, "Ok");
-            }
-
-
-        }
+      
     }
 }

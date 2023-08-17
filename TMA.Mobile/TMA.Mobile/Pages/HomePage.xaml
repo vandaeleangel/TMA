@@ -24,7 +24,8 @@
                 <Button Text="Stop" Command="{Binding StopCommand}" IsVisible="{Binding IsStopVisible}" />
             </StackLayout>
 
-            <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}">
+            <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
+                      Opacity="{Binding ListViewOpacity}" BackgroundColor="LightSteelBlue">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
