@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.Chore;
 using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Forms;
@@ -33,10 +34,11 @@ namespace TMA.Mobile.PageModels
 
         private async void Cancel(object obj)
         {
-           await CoreMethods.PopPageModel(modal: true);
+            await CoreMethods.PopPageModel(modal: true);
+
         }
 
-        private async void Save(object obj)
+        private async void Save()
         {
             AddChoreDto addChore = new AddChoreDto
             {
@@ -45,6 +47,7 @@ namespace TMA.Mobile.PageModels
 
             var chore = await _choreService.AddNewChore(addChore);
             await CoreMethods.PopPageModel(modal: true);
+
         }
     }
 }

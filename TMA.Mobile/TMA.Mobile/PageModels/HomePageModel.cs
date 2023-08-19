@@ -103,8 +103,15 @@ namespace TMA.Mobile.PageModels
             FetchTotalDurationAsync();
 
         }
+        public override void ReverseInit(object returnedData)
+        {
+            base.ReverseInit(returnedData);
+             FetchChores();
+        }
         private async void FetchChores()
         {
+            Chores.Clear();
+
             var chores = await _appService.GetAllChores();
             foreach (var chore in chores)
             {

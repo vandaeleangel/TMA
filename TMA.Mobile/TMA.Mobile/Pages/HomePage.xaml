@@ -24,16 +24,19 @@
                 <Button Text="Stop" Command="{Binding StopCommand}" IsVisible="{Binding IsStopVisible}" />
             </StackLayout>
 
-            <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
+            <ScrollView>
+                <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
                       Opacity="{Binding ListViewOpacity}" BackgroundColor="LightSteelBlue">
-                <ListView.ItemTemplate>
-                    <DataTemplate>
-                        <ViewCell>
-                            <Label Text="{Binding Name}" />
-                        </ViewCell>
-                    </DataTemplate>
-                </ListView.ItemTemplate>
-            </ListView>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Label Text="{Binding Name}" />
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+            </ScrollView>
+
             <Button Text="Voeg nieuwe taak toe" Command="{Binding NewChoreCommand}"/>
         </StackLayout>
     </ContentPage.Content>

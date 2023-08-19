@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace TMA.Mobile.Domain.Models
 {
-    public class Chore
+    public class Chore 
     {
         public Guid Id { get; set; }
 
