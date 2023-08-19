@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Text;
 using System.Threading.Tasks;
+using TMA.Mobile.Domain.Dtos.Chore;
 using TMA.Mobile.Domain.Dtos.TimeBlock;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
@@ -90,23 +91,23 @@ namespace TMA.Mobile.PageModels
         {
             _appService = appService;
             Chores = new ObservableCollection<Chore>();
-            FetchChores();
+            //FetchChores();
             StopCommand = new Command(async () => await StopTimeBlockAsync());
             NewChoreCommand = new Command(async () => await GoToNewChorePageAsync());
         
         }
 
-        public override async void Init(object initData)
+        public override  void Init(object initData)
         {
             base.Init(initData);
+            FetchChores();
             FetchCurrentChore();
             FetchTotalDurationAsync();
 
         }
         public override void ReverseInit(object returnedData)
         {
-            base.ReverseInit(returnedData);
-             FetchChores();
+            FetchChores();
         }
         private async void FetchChores()
         {
