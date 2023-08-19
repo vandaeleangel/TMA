@@ -22,27 +22,7 @@ namespace TMA.Mobile.Domain.Services
         }
        
 
-        public async Task<Chore> GetCurrentChore()
-        {
-            var token = await SecureStorage.GetAsync("AuthToken");
-
-            var response = await _httpClient.GetAsync(token, "/Chore/Current");
-
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var responseAsString = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<Chore>(responseAsString);
-
-                return result;
-            }
-
-            if(response.StatusCode == HttpStatusCode.NoContent)
-            {
-                return null;
-            }
-
-            return null;
-        }
+       
 
         public async Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto queryParams)
         {

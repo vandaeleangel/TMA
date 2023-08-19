@@ -93,7 +93,6 @@ namespace TMA.Mobile.PageModels
             _appService = appService;
             _choreService = choreService;
             Chores = new ObservableCollection<Chore>();
-            //FetchChores();
             StopCommand = new Command(async () => await StopTimeBlockAsync());
             NewChoreCommand = new Command(async () => await GoToNewChorePageAsync());
         
@@ -133,7 +132,7 @@ namespace TMA.Mobile.PageModels
 
         private async void FetchCurrentChore()
         {
-            var chore = await _appService.GetCurrentChore();
+            var chore = await _choreService.GetCurrentChore();
 
             if (chore != null)
             {
