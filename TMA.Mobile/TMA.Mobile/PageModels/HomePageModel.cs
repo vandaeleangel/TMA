@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.Chore;
@@ -21,6 +22,7 @@ namespace TMA.Mobile.PageModels
         public ObservableCollection<Chore> Chores { get; set; }
         public Command StopCommand { get; set; }
         public Command NewChoreCommand { get; set; }
+
 
 
         #region UI
@@ -95,8 +97,9 @@ namespace TMA.Mobile.PageModels
             Chores = new ObservableCollection<Chore>();
             StopCommand = new Command(async () => await StopTimeBlockAsync());
             NewChoreCommand = new Command(async () => await GoToNewChorePageAsync());
-        
         }
+
+      
 
         public override  void Init(object initData)
         {

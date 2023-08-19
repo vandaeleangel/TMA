@@ -30,8 +30,12 @@
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
-                                    <Label Text="{Binding Name}" />
-                                </ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" />
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>

@@ -2,15 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
-using TMA.Mobile.Domain.Dtos.Chore;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Forms;
 
 namespace TMA.Mobile.PageModels
 {
-    public class NewChorePageModel : FreshBasePageModel
+    public class ChoreDetailPage :FreshBasePageModel
     {
         private IChoreService _choreService;
         public string _name;
@@ -24,16 +22,29 @@ namespace TMA.Mobile.PageModels
             }
         }
 
+
         public Command SaveCommand { get; set; }
         public Command CancelCommand { get; set; }
-        public NewChorePageModel(IChoreService choreService)
+        public Command DeleteCommand { get; set; }
+        public ChoreDetailPage(IChoreService choreService)
         {
             _choreService = choreService;
             SaveCommand = new Command(Save);
             CancelCommand = new Command(Cancel);
+            DeleteCommand = new Command(Delete);
         }
 
-   
+        public override void Init(object initData)
+        {
+            base.Init(initData);
+            var chore = initData as Chore;
+            Name = chore.Name;
+        }   
+        private void Delete(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
         private async void Cancel(object obj)
         {
             await CoreMethods.PopPageModel(modal: true);
@@ -42,13 +53,7 @@ namespace TMA.Mobile.PageModels
 
         private async void Save()
         {
-            AddChoreDto addChore = new AddChoreDto
-            {
-                Name = _name
-            };
-
-            var chore = await _choreService.AddNewChore(addChore);
-            await CoreMethods.PopPageModel(addChore,modal: true);         
+            throw new NotImplementedException();
         }
     }
 }
