@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TMA.Mobile.Domain.Dtos.User;
-using TMA.Mobile.Domain.Services;
+using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Forms;
 
 namespace TMA.Mobile.PageModels

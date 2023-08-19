@@ -5,10 +5,11 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.User;
+using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Essentials;
 
 namespace TMA.Mobile.Domain.Services
-{   
+{
     public class AuthService : IAuthService
     {
         protected ApiClient _httpClient;
