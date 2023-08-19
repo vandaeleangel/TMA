@@ -8,8 +8,7 @@ using TMA.Mobile.Domain.Models;
 namespace TMA.Mobile.Domain.Services.Interfaces
 {
     public interface IAppService
-    {
-        Task<IEnumerable<Chore>> GetAllChores();
+    {     
         Task<Chore> GetCurrentChore();
         Task<TimeBlock> StartTimeBlock(AddTimeBlockDto timeBlockDto);
         Task StopTimeBlock(UpdateEndTimeDto timeBlockDto);

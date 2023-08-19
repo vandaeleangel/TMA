@@ -9,6 +9,7 @@ namespace TMA.Mobile.Domain.Services.Interfaces
 {
     public interface IChoreService
     {
+        Task<IEnumerable<Chore>> GetAllChores();
         Task<Chore> AddNewChore(AddChoreDto newChore);
     }
 }

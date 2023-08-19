@@ -17,6 +17,7 @@ namespace TMA.Mobile.PageModels
     public class HomePageModel : FreshBasePageModel
     {
         private IAppService _appService;
+        private IChoreService _choreService;
         public ObservableCollection<Chore> Chores { get; set; }
         public Command StopCommand { get; set; }
         public Command NewChoreCommand { get; set; }
@@ -87,9 +88,10 @@ namespace TMA.Mobile.PageModels
 
 
 
-        public HomePageModel(IAppService appService)
+        public HomePageModel(IAppService appService, IChoreService choreService)
         {
             _appService = appService;
+            _choreService = choreService;
             Chores = new ObservableCollection<Chore>();
             //FetchChores();
             StopCommand = new Command(async () => await StopTimeBlockAsync());
@@ -113,7 +115,7 @@ namespace TMA.Mobile.PageModels
         {
             Chores.Clear();
 
-            var chores = await _appService.GetAllChores();
+            var chores = await _choreService.GetAllChores();
             foreach (var chore in chores)
             {
                 Chores.Add(chore);

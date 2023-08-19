@@ -20,27 +20,7 @@ namespace TMA.Mobile.Domain.Services
         {
             _httpClient = new ApiClient(); 
         }
-        public async Task<IEnumerable<Chore>> GetAllChores()
-        {
-            var token = await SecureStorage.GetAsync("AuthToken");
-
-            var response = await _httpClient.GetAsync(token, "/Chore/GetAll");
-
-            if(response.IsSuccessStatusCode)
-            {
-                var responseAsString = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<List<Chore>>(responseAsString);
-                return result.Select(x => new Chore
-                {
-                    Id = x.Id,
-                    Name = x.Name,
-                    Duration = x.Duration,
-                    TimeBlocks = x.TimeBlocks
-                }).ToList();
-            }
-
-            return null;
-        }
+       
 
         public async Task<Chore> GetCurrentChore()
         {
