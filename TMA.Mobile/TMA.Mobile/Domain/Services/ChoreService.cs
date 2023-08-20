@@ -96,8 +96,10 @@ namespace TMA.Mobile.Domain.Services
             else return result;
         }
 
-        public async Task<Chore> UpdateChoreName(UpdatedChoreDto updatedChore)
+        public async Task<string> UpdateChoreName(UpdatedChoreDto updatedChore)
         {
+            var result = string.Empty;
+
             var token = await SecureStorage.GetAsync("AuthToken");
             var json = JsonConvert.SerializeObject(updatedChore);
 
@@ -106,14 +108,14 @@ namespace TMA.Mobile.Domain.Services
             if (response.StatusCode == HttpStatusCode.OK)
             {
                 var responseAsString = await response.Content.ReadAsStringAsync();
-                var result = JsonConvert.DeserializeObject<Chore>(responseAsString);
-
+                Chore chore = JsonConvert.DeserializeObject<Chore>(responseAsString);
+                result = chore.Name;
                 return result;
             }
 
             if (response.StatusCode == HttpStatusCode.BadRequest)
             {
-                return null;
+                return result;
             }
 
             return null;

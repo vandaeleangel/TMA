@@ -40,6 +40,7 @@ namespace TMA.Mobile.PageModels
         {
             base.Init(initData);
             Chore= initData as Chore;
+           
         }   
         private async void Delete(object obj)
         {
@@ -63,14 +64,23 @@ namespace TMA.Mobile.PageModels
 
         private async void Save()
         {
+            
             UpdatedChoreDto updateChore = new UpdatedChoreDto
             {
                 Id = Chore.Id,
                 Name = Chore.Name,
             };
 
-            await _choreService.UpdateChoreName(updateChore);
-            await CoreMethods.PopPageModel(Chore, modal: true);
+            var result = await _choreService.UpdateChoreName(updateChore);
+            if(result == string.Empty)
+            {
+                await CoreMethods.DisplayAlert("Waarschuwig", "Taaknaam kan niet leeg zijn", "Ok");             
+            }
+            else
+            {
+                await CoreMethods.PopPageModel(Chore, modal: true);
+            }
+            
         }
     }
 }
