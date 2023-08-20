@@ -42,6 +42,11 @@ namespace TMA.Mobile.PageModels
             base.Init(initData);
             FetchChores();
         }
+        public override void ReverseInit(object returnedData)
+        {
+            base.ReverseInit(returnedData);
+            FetchChores();
+        }
         private async void FetchChores()
         {
             Chores.Clear();
