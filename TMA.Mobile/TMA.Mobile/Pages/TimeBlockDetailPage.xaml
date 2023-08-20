@@ -4,9 +4,26 @@
              x:Class="TMA.Mobile.Pages.TimeBlockDetailPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Test}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <Label Text="Datum" />
+                <DatePicker Date="{Binding SelectedDate}"  />
+            </StackLayout>
+            <ScrollView>
+                <ListView ItemsSource="{Binding TimeBlocks}" 
+                      >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout>
+                                        <Label Text="{Binding Id}" />
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
