@@ -2,10 +2,46 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TMA.Mobile.Pages.HomePage">
+
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="This is the HomePage"/>
-            <Label Text="{Binding Token}" />
+            <StackLayout>
+                <Label Text="Totaal vandaag:"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Label Text="{Binding CurrentTotal}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+
+            <StackLayout>
+                <Label Text="Huidige Taak"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Label Text="{Binding CurrentChore.Name}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Button Text="Stop" Command="{Binding StopCommand}" IsVisible="{Binding IsStopVisible}" />
+            </StackLayout>
+
+            <ScrollView>
+                <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
+                      Opacity="{Binding ListViewOpacity}" BackgroundColor="LightSteelBlue">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" />
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+            </ScrollView>
+
+            <Button Text="Voeg nieuwe taak toe" Command="{Binding NewChoreCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

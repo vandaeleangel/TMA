@@ -34,6 +34,8 @@ namespace TMA.Core.Services
             if (timeBlock.ChoreId != Guid.Empty)
             {
                 Chore chore = await _context.Chores.FirstOrDefaultAsync(c => c.Id == timeBlock.ChoreId);
+                chore.IsCurrentChore = true;
+
 
                 TimeBlock newTimeBlock = new TimeBlock
                 {
@@ -45,6 +47,8 @@ namespace TMA.Core.Services
 
                 _context.TimeBlocks.Add(newTimeBlock);
                 await _context.SaveChangesAsync();
+
+                chore.CurrentTimeBlockId = newTimeBlock.Id;
                 
                 response = _mapper.Map<GetTimeBlockDto>(newTimeBlock);
 
@@ -143,6 +147,8 @@ namespace TMA.Core.Services
                 _context.TimeBlocks.Update(dbTimeBlock);
              
                 Chore chore = await _context.Chores.FirstOrDefaultAsync(c => c.Id == dbTimeBlock.ChoreId);
+                chore.IsCurrentChore = false;
+                chore.CurrentTimeBlockId = Guid.Empty;
                 chore.Duration += dbTimeBlock.Duration;
 
                 await _context.SaveChangesAsync();

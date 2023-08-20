@@ -14,5 +14,6 @@ namespace TMA.Core.Interfaces
         Task<GetChoreDto> AddChore(AddChoreDto chore);
         Task<GetChoreDto> UpdateChore(UpdateChoreDto chore);
         Task<GetChoreDto> DeleteChore (Guid id);
+        Task<GetChoreDto> GetCurrentChore();
     }
 }

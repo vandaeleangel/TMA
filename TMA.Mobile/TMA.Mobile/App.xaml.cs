@@ -15,13 +15,16 @@ namespace TMA.Mobile
             InitializeComponent();
 
             FreshIOC.Container.Register<IAuthService, AuthService>();
-           
+            FreshIOC.Container.Register<IAppService, AppService>();
+            FreshIOC.Container.Register<IChoreService, ChoreService>();
+
             var mainPage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
             var navigationContainer = new FreshNavigationContainer(mainPage);
 
             MainPage = navigationContainer;
         }
 
+       
         protected override void OnStart()
         {
         }

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using TMA.Mobile.Domain.Dtos.User;
-using TMA.Mobile.Domain.Services;
+using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Forms;
 
 namespace TMA.Mobile.PageModels
@@ -74,7 +74,8 @@ namespace TMA.Mobile.PageModels
                 }       
                 if (result.Status == LoginResult.Success)
                 {
-                    await CoreMethods.PushPageModel<HomePageModel>();
+
+                    await CoreMethods.PushPageModel<RootPageModel>();
                 }
 
             }
