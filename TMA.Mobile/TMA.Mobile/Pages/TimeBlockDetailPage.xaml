@@ -1,7 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:TMA.Mobile.Converters"
              x:Class="TMA.Mobile.Pages.TimeBlockDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:TimeOnlyConverter x:Key="TimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
@@ -17,6 +24,8 @@
                                 <ViewCell.View>
                                     <StackLayout>
                                         <Label Text="{Binding Id}" />
+                                        <Label Text="{Binding StartTime, Converter={StaticResource TimeConverter}}" />
+                                        <Label Text="{Binding EndTime}" />
                                     </StackLayout>
                                 </ViewCell.View>
                             </ViewCell>
