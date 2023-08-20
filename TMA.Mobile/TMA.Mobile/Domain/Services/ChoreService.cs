@@ -79,5 +79,21 @@ namespace TMA.Mobile.Domain.Services
 
             return null;
         }
+
+        public async Task<string> DeleteChore(Guid choreId)
+        {
+            string result = string.Empty;
+
+            var token = await SecureStorage.GetAsync("AuthToken");
+            var path = $"/Chore/{choreId}";
+
+            var response = await _httpClient.DeleteAsync(token, path);
+
+            if(response.StatusCode == HttpStatusCode.OK)
+            {
+                return result = "Taak succesvol verwijderd.";
+            }
+            else return result;
+        }
     }
 }

@@ -69,7 +69,8 @@ namespace TMA.Mobile.Domain.Services
 
         public async Task<HttpResponseMessage> DeleteAsync(string token, string path)
         {
-            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, path);
+            var fullPath = _baseAddress + path;
+            HttpRequestMessage request = new HttpRequestMessage(HttpMethod.Delete, fullPath);
             if (token != string.Empty)
             {
                 request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", token);

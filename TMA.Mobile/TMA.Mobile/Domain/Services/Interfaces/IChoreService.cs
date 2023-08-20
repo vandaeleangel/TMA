@@ -11,6 +11,7 @@ namespace TMA.Mobile.Domain.Services.Interfaces
     {
         Task<IEnumerable<Chore>> GetAllChores();
         Task<Chore> AddNewChore(AddChoreDto newChore);
+        Task<string> DeleteChore(Guid choreId);
         Task<Chore> GetCurrentChore();
     }
 }

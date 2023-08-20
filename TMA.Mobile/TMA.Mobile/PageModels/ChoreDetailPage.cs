@@ -11,13 +11,14 @@ namespace TMA.Mobile.PageModels
     public class ChoreDetailPage :FreshBasePageModel
     {
         private IChoreService _choreService;
-        public string _name;
-        public string Name
+
+        public Chore _chore;
+        public Chore Chore
         {
-            get { return _name; }
+            get { return _chore; }
             set
             {
-                _name = value;
+                _chore = value;
                 RaisePropertyChanged();
             }
         }
@@ -37,12 +38,20 @@ namespace TMA.Mobile.PageModels
         public override void Init(object initData)
         {
             base.Init(initData);
-            var chore = initData as Chore;
-            Name = chore.Name;
+            Chore= initData as Chore;
         }   
-        private void Delete(object obj)
+        private async void Delete(object obj)
         {
-            throw new NotImplementedException();
+            string result = await _choreService.DeleteChore(Chore.Id);
+            if(result == string.Empty)
+            {
+                await CoreMethods.DisplayAlert("Waarschuwing", "Taak niet verwijderd", "Ok");
+            }
+            else
+            {
+                await CoreMethods.DisplayAlert("Succes", result, "Ok");
+                await CoreMethods.PopPageModel(Chore,modal: true);
+            }
         }
 
         private async void Cancel(object obj)

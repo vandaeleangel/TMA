@@ -8,7 +8,7 @@
             <Label Text="Naam" FontSize="Title" HorizontalOptions="CenterAndExpand"/>
 
             <Entry HorizontalOptions="CenterAndExpand"
-                   Text="{Binding Name}"/>
+                   Text="{Binding Chore.Name}"/>
 
             <StackLayout  HorizontalOptions="CenterAndExpand" >
                 <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />
