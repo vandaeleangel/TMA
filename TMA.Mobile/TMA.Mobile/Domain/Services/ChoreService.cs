@@ -95,5 +95,28 @@ namespace TMA.Mobile.Domain.Services
             }
             else return result;
         }
+
+        public async Task<Chore> UpdateChoreName(UpdatedChoreDto updatedChore)
+        {
+            var token = await SecureStorage.GetAsync("AuthToken");
+            var json = JsonConvert.SerializeObject(updatedChore);
+
+            var response = await _httpClient.UpdateAsync(token, "/Chore",json);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<Chore>(responseAsString);
+
+                return result;
+            }
+
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return null;
+            }
+
+            return null;
+        }
     }
 }

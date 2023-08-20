@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using TMA.Mobile.Domain.Dtos.Chore;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Forms;
@@ -62,7 +63,14 @@ namespace TMA.Mobile.PageModels
 
         private async void Save()
         {
-            throw new NotImplementedException();
+            UpdatedChoreDto updateChore = new UpdatedChoreDto
+            {
+                Id = Chore.Id,
+                Name = Chore.Name,
+            };
+
+            await _choreService.UpdateChoreName(updateChore);
+            await CoreMethods.PopPageModel(Chore, modal: true);
         }
     }
 }
