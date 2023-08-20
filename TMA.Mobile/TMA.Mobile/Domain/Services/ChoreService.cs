@@ -79,5 +79,46 @@ namespace TMA.Mobile.Domain.Services
 
             return null;
         }
+
+        public async Task<string> DeleteChore(Guid choreId)
+        {
+            string result = string.Empty;
+
+            var token = await SecureStorage.GetAsync("AuthToken");
+            var path = $"/Chore/{choreId}";
+
+            var response = await _httpClient.DeleteAsync(token, path);
+
+            if(response.StatusCode == HttpStatusCode.OK)
+            {
+                return result = "Taak succesvol verwijderd.";
+            }
+            else return result;
+        }
+
+        public async Task<string> UpdateChoreName(UpdatedChoreDto updatedChore)
+        {
+            var result = string.Empty;
+
+            var token = await SecureStorage.GetAsync("AuthToken");
+            var json = JsonConvert.SerializeObject(updatedChore);
+
+            var response = await _httpClient.UpdateAsync(token, "/Chore",json);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                Chore chore = JsonConvert.DeserializeObject<Chore>(responseAsString);
+                result = chore.Name;
+                return result;
+            }
+
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return result;
+            }
+
+            return null;
+        }
     }
 }

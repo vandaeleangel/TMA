@@ -48,9 +48,7 @@ namespace TMA.Mobile.PageModels
             };
 
             var chore = await _choreService.AddNewChore(addChore);
-            await CoreMethods.PopPageModel(addChore,modal: true);
-           
-
+            await CoreMethods.PopPageModel(addChore,modal: true);         
         }
     }
 }
