@@ -4,9 +4,15 @@
              x:Class="TMA.Mobile.Pages.TimeDetailPage">
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <TimePicker Time="{Binding TimeBlock.StartTime}" />
+                <TimePicker Time="{Binding TimeBlock.EndTime}" />
+            </StackLayout>
+            <StackLayout  HorizontalOptions="CenterAndExpand" >
+                <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />
+                <Button Text="Verwijderen" HorizontalOptions="CenterAndExpand" Command="{Binding DeleteCommand}" />
+                <Button Text="Annuleren" HorizontalOptions="CenterAndExpand" Command="{Binding CancelCommand}" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
