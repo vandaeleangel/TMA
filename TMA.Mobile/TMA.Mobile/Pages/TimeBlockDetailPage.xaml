@@ -1,12 +1,43 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local ="clr-namespace:TMA.Mobile.Converters"
              x:Class="TMA.Mobile.Pages.TimeBlockDetailPage">
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:TimeOnlyConverter x:Key="DateConverter" />
+            <local:TimeSpanToStringConverter x:Key="TimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout>
-            <Label Text="{Binding Test}"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <StackLayout>
+                <Label Text="Datum" />
+                <DatePicker Date="{Binding SelectedDate}"  />
+            </StackLayout>
+            <StackLayout>
+            <ScrollView>
+                <ListView ItemsSource="{Binding TimeBlocks}" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout VerticalOptions="StartAndExpand">
+                                    <Label Text="{Binding Duration, Converter={StaticResource TimeConverter}}" 
+                                           FontSize="Medium"
+                                           FontAttributes="Bold" />
+                                    <Label Text="{Binding StartTime, Converter={StaticResource DateConverter}}" />
+                                    <Label Text="{Binding EndTime, Converter={StaticResource DateConverter}}" />
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </ScrollView>
+            </StackLayout>
+            <StackLayout>
+                <Button Text="Voeg taak toe" />
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

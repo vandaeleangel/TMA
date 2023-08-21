@@ -17,6 +17,7 @@ namespace TMA.Mobile
             FreshIOC.Container.Register<IAuthService, AuthService>();
             FreshIOC.Container.Register<IAppService, AppService>();
             FreshIOC.Container.Register<IChoreService, ChoreService>();
+            FreshIOC.Container.Register<ITimeBlockService, TimeBlockService>();
 
             var mainPage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
             var navigationContainer = new FreshNavigationContainer(mainPage);
