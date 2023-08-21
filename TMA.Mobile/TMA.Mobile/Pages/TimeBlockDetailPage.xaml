@@ -18,7 +18,7 @@
             </StackLayout>
             <StackLayout>
             <ScrollView>
-                <ListView ItemsSource="{Binding TimeBlocks}" >
+                    <ListView ItemsSource="{Binding TimeBlocks}" SelectedItem="{Binding SelectedTimeBlock}" >
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <ViewCell>

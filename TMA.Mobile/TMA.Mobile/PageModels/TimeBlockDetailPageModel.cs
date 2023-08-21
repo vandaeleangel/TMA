@@ -28,6 +28,20 @@ namespace TMA.Mobile.PageModels
             }
         }
 
+        private TimeBlock _selectedTimeBlock;
+
+        public TimeBlock SelectedTimeBlock
+        {
+            get { return _selectedTimeBlock; }
+            set
+            {
+                _selectedTimeBlock = value;
+                if (_selectedTimeBlock != null)
+                {
+                    GoToTimeBlockDetail();
+                }
+            }
+        }     
         public TimeBlockDetailPageModel(ITimeBlockService timeBlockService)
         {
             _timeBlockService = timeBlockService;
@@ -40,7 +54,12 @@ namespace TMA.Mobile.PageModels
             FetchTimeBlocks(_selectedDate);
         }
 
-        private async Task FetchTimeBlocks(DateTime selectedDate)
+        public override void ReverseInit(object returnedData)
+        {
+            base.ReverseInit(returnedData);
+            FetchTimeBlocks(_selectedDate);
+        }
+        private async void FetchTimeBlocks(DateTime selectedDate)
         {
             TimeBlocks.Clear();
             TimeBlockQueryParametersDto query = new TimeBlockQueryParametersDto
@@ -49,19 +68,23 @@ namespace TMA.Mobile.PageModels
             };
 
             var timeBlocks = await _timeBlockService.GetFilteredTimeBlocks(query);
-            if(timeBlocks != null)
+            if (timeBlocks != null)
             {
                 foreach (var timeBlock in timeBlocks)
                 {
                     TimeBlocks.Add(timeBlock);
                 }
             }
-           
-        }
 
+        }
         private void UpdateTimeBlocks()
         {
             FetchTimeBlocks(_selectedDate);
+        }
+
+        private async void GoToTimeBlockDetail()
+        {
+            await CoreMethods.PushPageModel<TimeDetailPageModel>(SelectedTimeBlock, true);
         }
     }
 }
