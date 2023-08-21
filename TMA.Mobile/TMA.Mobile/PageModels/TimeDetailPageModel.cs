@@ -1,6 +1,7 @@
 ﻿using FreshMvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
@@ -10,7 +11,27 @@ namespace TMA.Mobile.PageModels
 {
     public class TimeDetailPageModel : FreshBasePageModel
     {
+        private IChoreService _choreService;
         private ITimeBlockService _timeBlockService;
+
+        private ObservableCollection<Chore> _chores;
+
+        public ObservableCollection<Chore> Chores
+        {
+            get { return _chores; }
+            set { _chores = value; }
+        }
+        private Chore _selectedChore;
+
+        public Chore SelectedChore
+        {
+            get { return _selectedChore; }
+            set
+            {
+                _selectedChore = value;
+            }
+        }
+
 
         private TimeBlock _timeBlock;
 
@@ -28,9 +49,11 @@ namespace TMA.Mobile.PageModels
         public Command CancelCommand { get; set; }
         public Command DeleteCommand { get; set; }
 
-        public TimeDetailPageModel(ITimeBlockService timeBlockService)
+        public TimeDetailPageModel(ITimeBlockService timeBlockService, IChoreService choreService)
         {
             _timeBlockService = timeBlockService;
+            _choreService = choreService;
+            Chores = new ObservableCollection<Chore>();
             SaveCommand = new Command(Save);
             CancelCommand = new Command(Cancel);
             DeleteCommand = new Command(Delete);
@@ -40,6 +63,18 @@ namespace TMA.Mobile.PageModels
         {
             base.Init(initData);
             TimeBlock = initData as TimeBlock;
+            FetchChores();
+            SelectedChore = TimeBlock.Chore;
+        }
+        private async void FetchChores()
+        {
+            Chores.Clear();
+
+            var chores = await _choreService.GetAllChores();
+            foreach (var chore in chores)
+            {
+                Chores.Add(chore);
+            }
         }
         private void Delete(object obj)
         {

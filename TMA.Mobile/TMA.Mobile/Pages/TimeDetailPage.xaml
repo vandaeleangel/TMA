@@ -8,6 +8,10 @@
                 <TimePicker Time="{Binding TimeBlock.StartTime}" />
                 <TimePicker Time="{Binding TimeBlock.EndTime}" />
             </StackLayout>
+            <StackLayout>
+                <Picker Title="{Binding SelectedChore.Name}" ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
+                        ItemDisplayBinding="{Binding Name}" />
+            </StackLayout>
             <StackLayout  HorizontalOptions="CenterAndExpand" >
                 <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />
                 <Button Text="Verwijderen" HorizontalOptions="CenterAndExpand" Command="{Binding DeleteCommand}" />
