@@ -46,7 +46,16 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
-
+        private DateTime _startDate;
+        public DateTime StartDate
+        {
+            get { return _startDate; }
+            set
+            {
+                _startDate = value;
+                RaisePropertyChanged();
+            }
+        }
         private TimeSpan _startTime;
         public TimeSpan StartTime
         {
@@ -90,7 +99,9 @@ namespace TMA.Mobile.PageModels
             FetchChores();
             StartTime = TimeBlock.StartTime.TimeOfDay;
             EndTime = TimeBlock.EndTime.TimeOfDay;
-            //SelectedChore = SetCurrentChore();
+            StartDate = TimeBlock.StartTime.Date;
+            SelectedChore = SetCurrentChore();
+
         }
         private Chore SetCurrentChore()
         {

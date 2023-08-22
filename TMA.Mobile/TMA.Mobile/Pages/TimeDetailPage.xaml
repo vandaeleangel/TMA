@@ -13,12 +13,18 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
+                <Label Text="Datum:" />
+                <DatePicker Date="{Binding StartDate}" />
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Start tijd:"/>
                 <TimePicker Time="{Binding StartTime}" />
+                <Label Text="Eind tijd"/>
                 <TimePicker Time="{Binding EndTime}" />
             </StackLayout>
           
             <StackLayout>
-                <Label Text="Taak :" />
+                <Label Text="Taak:" />
                 <Picker ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
                         ItemDisplayBinding="{Binding Name}"  />
             </StackLayout>
