@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using TMA.Mobile.Domain.Dtos.TimeBlock;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Forms;
@@ -56,6 +57,16 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
+        private DateTime _endDate;
+        public DateTime EndDate
+        {
+            get { return _endDate; }
+            set
+            {
+                _endDate = value;
+                RaisePropertyChanged();
+            }
+        }
         private TimeSpan _startTime;
         public TimeSpan StartTime
         {
@@ -100,6 +111,7 @@ namespace TMA.Mobile.PageModels
             StartTime = TimeBlock.StartTime.TimeOfDay;
             EndTime = TimeBlock.EndTime.TimeOfDay;
             StartDate = TimeBlock.StartTime.Date;
+            EndDate = TimeBlock.EndTime.Date;
             SelectedChore = SetCurrentChore();
 
         }
@@ -140,9 +152,28 @@ namespace TMA.Mobile.PageModels
             await CoreMethods.PopPageModel(modal: true);
         }
 
-        private void Save(object obj)
+        private async void Save(object obj)
         {
-            throw new NotImplementedException();
+            UpdatedTimeBlockDto updatedTimeBlockDto = new UpdatedTimeBlockDto
+            {
+                Id = TimeBlock.Id,
+                Duration = EndTime - StartTime,
+                StartTime = StartDate + StartTime,
+                EndTime = EndDate + EndTime,
+                ChoreId = SelectedChore.Id
+            };
+
+            var result = await _timeBlockService.UpdateTimeBlock(updatedTimeBlockDto);
+            
+            if(result == null)
+            {
+                await CoreMethods.DisplayAlert("Waarschuwing", "Aanpassen niet gelukt", "Ok");
+            }
+            else
+            {
+                await CoreMethods.PopPageModel(result, modal: true);
+            }
+
         }
     }
 }

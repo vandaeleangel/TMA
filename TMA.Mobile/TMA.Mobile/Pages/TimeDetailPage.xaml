@@ -13,12 +13,14 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
-                <Label Text="Datum:" />
+                <Label Text="Start Datum:" />
                 <DatePicker Date="{Binding StartDate}" />
-            </StackLayout>
-            <StackLayout>
                 <Label Text="Start tijd:"/>
                 <TimePicker Time="{Binding StartTime}" />
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Eind Datum:" />
+                <DatePicker Date="{Binding EndDate}" />
                 <Label Text="Eind tijd"/>
                 <TimePicker Time="{Binding EndTime}" />
             </StackLayout>

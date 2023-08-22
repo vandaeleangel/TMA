@@ -69,9 +69,30 @@ namespace TMA.Mobile.Domain.Services
 
         }
 
-        public Task<string> UpdateTimeBlock(UpdatedTimeBlockDto updatedTimeBlock)
+        public async Task<TimeBlock> UpdateTimeBlock(UpdatedTimeBlockDto updatedTimeBlock)
         {
-            throw new NotImplementedException();
+            var result = new TimeBlock();
+
+            var token = await SecureStorage.GetAsync("AuthToken");
+            var json = JsonConvert.SerializeObject(updatedTimeBlock);
+
+            var response = await _httpClient.UpdateAsync(token, "/TimeBlock", json);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                TimeBlock timeBlock = JsonConvert.DeserializeObject<TimeBlock>(responseAsString);
+                result = timeBlock;
+                return result;
+            }
+
+            if (response.StatusCode == HttpStatusCode.BadRequest)
+            {
+                return null;
+            }
+
+            return null;
+
         }
     }
 }

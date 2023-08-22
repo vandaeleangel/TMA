@@ -12,6 +12,6 @@ namespace TMA.Mobile.Domain.Services.Interfaces
         Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto param);
         Task<TimeBlock> AddNewTimeBlock(AddTimeBlockDto newTimeBlock);
         Task<string> DeleteTimeBlock(Guid timeBlockId);
-        Task<string> UpdateTimeBlock(UpdatedTimeBlockDto updatedTimeBlock);
+        Task<TimeBlock> UpdateTimeBlock(UpdatedTimeBlockDto updatedTimeBlock);
     }
 }
