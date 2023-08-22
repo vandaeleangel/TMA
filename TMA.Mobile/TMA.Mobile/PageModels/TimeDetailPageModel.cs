@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.TimeBlock;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
@@ -15,6 +16,7 @@ namespace TMA.Mobile.PageModels
     {
         private IChoreService _choreService;
         private ITimeBlockService _timeBlockService;
+        private bool _isInitialSet = true;
 
         private ObservableCollection<Chore> _chores;
 
@@ -47,24 +49,50 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
+
         private DateTime _startDate;
         public DateTime StartDate
         {
             get { return _startDate; }
             set
             {
-                _startDate = value;
-                RaisePropertyChanged();
+                if(value != _startDate)
+                {
+                    if (!_isInitialSet && value > _endDate )
+                    {
+                        ShowWarning("Start datum kan niet na de eind datum liggen");              
+
+                    }
+                    else
+                    {
+                        _startDate = value;
+                        RaisePropertyChanged();
+                    }
+                   
+                }                           
             }
         }
+
         private DateTime _endDate;
         public DateTime EndDate
         {
             get { return _endDate; }
             set
             {
-                _endDate = value;
-                RaisePropertyChanged();
+                if (value != _endDate)
+                {
+                    if (!_isInitialSet && value < _startDate)
+                    {
+                        ShowWarning("Eind datum kan niet voor de start datum liggen");
+
+                    }
+                    else
+                    {
+                        _endDate = value;
+                        RaisePropertyChanged();
+                    }
+                
+                }
             }
         }
         private TimeSpan _startTime;
@@ -72,9 +100,19 @@ namespace TMA.Mobile.PageModels
         {
             get { return _startTime; }
             set
-            {
-                _startTime = value;
-                RaisePropertyChanged();
+            {  
+                if (value != _startTime)
+                {
+                    if(!_isInitialSet && value > _endTime)
+                    {
+                        ShowWarning("Start tijd kan niet na eind tijd liggen");
+                    }
+                    else
+                    {
+                        _startTime = value;
+                        RaisePropertyChanged();
+                    }
+                }
             }
         }
 
@@ -84,8 +122,19 @@ namespace TMA.Mobile.PageModels
             get { return _endTime; }
             set
             {
-                _endTime = value;
-                RaisePropertyChanged();
+                if (value != _endTime)
+                {
+                    if(!_isInitialSet && value < _startTime)
+                    {
+                        ShowWarning("Eind tijd kan niet voor de start tijd liggen");
+                    }
+                    else
+                    {
+                        _endTime = value;
+                        RaisePropertyChanged();
+                    }
+                }
+             
             }
         }
 
@@ -113,6 +162,7 @@ namespace TMA.Mobile.PageModels
             StartDate = TimeBlock.StartTime.Date;
             EndDate = TimeBlock.EndTime.Date;
             SelectedChore = SetCurrentChore();
+            _isInitialSet = false;
 
         }
         private Chore SetCurrentChore()
@@ -173,7 +223,10 @@ namespace TMA.Mobile.PageModels
             {
                 await CoreMethods.PopPageModel(result, modal: true);
             }
-
+        }
+        private async void ShowWarning(string warning)
+        {
+            await CoreMethods.DisplayAlert("Waarschuwing", warning, "Ok");
         }
     }
 }
