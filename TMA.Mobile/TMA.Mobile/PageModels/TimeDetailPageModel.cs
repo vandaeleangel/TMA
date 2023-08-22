@@ -30,6 +30,7 @@ namespace TMA.Mobile.PageModels
             set
             {
                 _selectedChore = value;
+                RaisePropertyChanged();
             }
         }
 
@@ -42,6 +43,28 @@ namespace TMA.Mobile.PageModels
             set
             {
                 _timeBlock = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private TimeSpan _startTime;
+        public TimeSpan StartTime
+        {
+            get { return _startTime; }
+            set
+            {
+                _startTime = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private TimeSpan _endTime;
+        public TimeSpan EndTime
+        {
+            get { return _endTime; }
+            set
+            {
+                _endTime = value;
                 RaisePropertyChanged();
             }
         }
@@ -65,11 +88,14 @@ namespace TMA.Mobile.PageModels
             base.Init(initData);
             TimeBlock = initData as TimeBlock;
             FetchChores();
-            SelectedChore = SetCurrentChore();
+            StartTime = TimeBlock.StartTime.TimeOfDay;
+            EndTime = TimeBlock.EndTime.TimeOfDay;
+            //SelectedChore = SetCurrentChore();
         }
         private Chore SetCurrentChore()
         {
-            return  Chores.FirstOrDefault(c => c.Id == TimeBlock.ChoreId);
+            var chore = Chores.FirstOrDefault(c => c.Id == TimeBlock.ChoreId);
+            return chore;
         }
         private async void FetchChores()
         {
@@ -80,6 +106,8 @@ namespace TMA.Mobile.PageModels
             {
                 Chores.Add(chore);
             }
+           SelectedChore = chores.FirstOrDefault(c => c.Id == TimeBlock.ChoreId);
+
         }
         private void Delete(object obj)
         {

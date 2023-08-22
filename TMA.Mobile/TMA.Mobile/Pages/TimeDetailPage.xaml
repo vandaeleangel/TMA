@@ -7,17 +7,18 @@
     <ContentPage.Resources>
         <ResourceDictionary>
             <local:TimeOnlyConverter x:Key="DateConverter" />
-            <local:TimeSpanToStringConverter x:Key="TimeConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
-                <TimePicker Time="{Binding TimeBlock.StartTime, Converter={StaticResource TimeConverter}}" />
-                <TimePicker Time="{Binding TimeBlock.EndTime, Converter={StaticResource TimeConverter}}" />
+                <TimePicker Time="{Binding StartTime}" />
+                <TimePicker Time="{Binding EndTime}" />
             </StackLayout>
+          
             <StackLayout>
+                <Label Text="Taak :" />
                 <Picker ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
                         ItemDisplayBinding="{Binding Name}"  />
             </StackLayout>
