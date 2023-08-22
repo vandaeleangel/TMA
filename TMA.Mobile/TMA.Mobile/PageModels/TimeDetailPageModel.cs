@@ -56,20 +56,21 @@ namespace TMA.Mobile.PageModels
             get { return _startDate; }
             set
             {
-                if(value != _startDate)
+                if (value != _startDate)
                 {
-                    if (!_isInitialSet && value > _endDate )
+                    if (!_isInitialSet && value > _endDate)
                     {
-                        ShowWarning("Start datum kan niet na de eind datum liggen");              
+                        ShowWarning("Start datum kan niet na de eind datum liggen");
 
                     }
                     else
                     {
                         _startDate = value;
                         RaisePropertyChanged();
+                        CalculateDuration();
                     }
-                   
-                }                           
+
+                }
             }
         }
 
@@ -90,20 +91,22 @@ namespace TMA.Mobile.PageModels
                     {
                         _endDate = value;
                         RaisePropertyChanged();
+                        CalculateDuration();
                     }
-                
+
                 }
             }
         }
+
         private TimeSpan _startTime;
         public TimeSpan StartTime
         {
             get { return _startTime; }
             set
-            {  
+            {
                 if (value != _startTime)
                 {
-                    if(!_isInitialSet && value > _endTime)
+                    if (!_isInitialSet && value > _endTime)
                     {
                         ShowWarning("Start tijd kan niet na eind tijd liggen");
                     }
@@ -111,6 +114,7 @@ namespace TMA.Mobile.PageModels
                     {
                         _startTime = value;
                         RaisePropertyChanged();
+                        CalculateDuration();
                     }
                 }
             }
@@ -124,7 +128,7 @@ namespace TMA.Mobile.PageModels
             {
                 if (value != _endTime)
                 {
-                    if(!_isInitialSet && value < _startTime)
+                    if (!_isInitialSet && value < _startTime)
                     {
                         ShowWarning("Eind tijd kan niet voor de start tijd liggen");
                     }
@@ -132,11 +136,25 @@ namespace TMA.Mobile.PageModels
                     {
                         _endTime = value;
                         RaisePropertyChanged();
+                        CalculateDuration();
                     }
                 }
-             
+
             }
         }
+
+        private TimeSpan _duration;
+
+        public TimeSpan Duration
+        {
+            get { return _duration; }
+            set
+            {
+                _duration = value;
+                RaisePropertyChanged();
+            }
+        }
+
 
         public Command SaveCommand { get; set; }
         public Command CancelCommand { get; set; }
@@ -157,10 +175,13 @@ namespace TMA.Mobile.PageModels
             base.Init(initData);
             TimeBlock = initData as TimeBlock;
             FetchChores();
+
             StartTime = TimeBlock.StartTime.TimeOfDay;
             EndTime = TimeBlock.EndTime.TimeOfDay;
             StartDate = TimeBlock.StartTime.Date;
             EndDate = TimeBlock.EndTime.Date;
+            Duration = TimeBlock.Duration;
+
             SelectedChore = SetCurrentChore();
             _isInitialSet = false;
 
@@ -179,7 +200,7 @@ namespace TMA.Mobile.PageModels
             {
                 Chores.Add(chore);
             }
-           SelectedChore = chores.FirstOrDefault(c => c.Id == TimeBlock.ChoreId);
+            SelectedChore = chores.FirstOrDefault(c => c.Id == TimeBlock.ChoreId);
 
         }
         private async void Delete(object obj)
@@ -214,8 +235,8 @@ namespace TMA.Mobile.PageModels
             };
 
             var result = await _timeBlockService.UpdateTimeBlock(updatedTimeBlockDto);
-            
-            if(result == null)
+
+            if (result == null)
             {
                 await CoreMethods.DisplayAlert("Waarschuwing", "Aanpassen niet gelukt", "Ok");
             }
@@ -227,6 +248,14 @@ namespace TMA.Mobile.PageModels
         private async void ShowWarning(string warning)
         {
             await CoreMethods.DisplayAlert("Waarschuwing", warning, "Ok");
+        }
+
+        private void CalculateDuration()
+        {
+            var start = StartDate + StartTime;
+            var end = EndDate + EndTime;
+
+            Duration = end - start; 
         }
     }
 }

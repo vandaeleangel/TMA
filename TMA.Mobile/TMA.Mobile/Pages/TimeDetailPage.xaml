@@ -6,7 +6,7 @@
 
     <ContentPage.Resources>
         <ResourceDictionary>
-            <local:TimeOnlyConverter x:Key="DateConverter" />
+            <local:TimeSpanToStringConverter x:Key="DurationConverter" />
         </ResourceDictionary>
     </ContentPage.Resources>
 
@@ -24,7 +24,10 @@
                 <Label Text="Eind tijd"/>
                 <TimePicker Time="{Binding EndTime}" />
             </StackLayout>
-          
+            <StackLayout>
+                <Label Text="Duur:" />
+                <Label Text="{Binding Duration, Converter={StaticResource DurationConverter}}" />
+            </StackLayout>
             <StackLayout>
                 <Label Text="Taak:" />
                 <Picker ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
