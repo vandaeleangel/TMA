@@ -1,16 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local ="clr-namespace:TMA.Mobile.Converters"
              x:Class="TMA.Mobile.Pages.TimeDetailPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:TimeOnlyConverter x:Key="DateConverter" />
+            <local:TimeSpanToStringConverter x:Key="TimeConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
-                <TimePicker Time="{Binding TimeBlock.StartTime}" />
-                <TimePicker Time="{Binding TimeBlock.EndTime}" />
+                <TimePicker Time="{Binding TimeBlock.StartTime, Converter={StaticResource TimeConverter}}" />
+                <TimePicker Time="{Binding TimeBlock.EndTime, Converter={StaticResource TimeConverter}}" />
             </StackLayout>
             <StackLayout>
-                <Picker Title="{Binding SelectedChore.Name}" ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
-                        ItemDisplayBinding="{Binding Name}" />
+                <Picker ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
+                        ItemDisplayBinding="{Binding Name}"  />
             </StackLayout>
             <StackLayout  HorizontalOptions="CenterAndExpand" >
                 <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Text;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
@@ -64,7 +65,11 @@ namespace TMA.Mobile.PageModels
             base.Init(initData);
             TimeBlock = initData as TimeBlock;
             FetchChores();
-            SelectedChore = TimeBlock.Chore;
+            SelectedChore = SetCurrentChore();
+        }
+        private Chore SetCurrentChore()
+        {
+            return  Chores.FirstOrDefault(c => c.Id == TimeBlock.ChoreId);
         }
         private async void FetchChores()
         {
