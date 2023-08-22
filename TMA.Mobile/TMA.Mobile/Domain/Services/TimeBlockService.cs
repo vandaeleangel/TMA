@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,30 @@ namespace TMA.Mobile.Domain.Services
         {
             _httpClient = new ApiClient();
         }
+
+        public Task<TimeBlock> AddNewTimeBlock(AddTimeBlockDto newTimeBlock)
+        {
+            throw new NotImplementedException();
+        }
+
+        public async Task<string> DeleteTimeBlock(Guid timeBlockId)
+        {
+            string result = string.Empty;
+
+            var token = await SecureStorage.GetAsync("AuthToken");
+
+
+            var path = $"/TimeBlock/{timeBlockId}";
+
+            var response = await _httpClient.DeleteAsync(token, path);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                return result = "Tijdslot succesvol verwijderd.";
+            }
+            else return result;
+        }
+
         public async Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto queryParams)
         {
             var token = await SecureStorage.GetAsync("AuthToken");
@@ -42,6 +67,11 @@ namespace TMA.Mobile.Domain.Services
 
             return null;
 
+        }
+
+        public Task<string> UpdateTimeBlock(UpdatedTimeBlockDto updatedTimeBlock)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -120,9 +120,19 @@ namespace TMA.Mobile.PageModels
            SelectedChore = chores.FirstOrDefault(c => c.Id == TimeBlock.ChoreId);
 
         }
-        private void Delete(object obj)
+        private async void Delete(object obj)
         {
-            throw new NotImplementedException();
+            string result = await _timeBlockService.DeleteTimeBlock(TimeBlock.Id);
+
+            if (result == string.Empty)
+            {
+                await CoreMethods.DisplayAlert("Waarschuwing", "Tijdslot niet verwijderd", "Ok");
+            }
+            else
+            {
+                await CoreMethods.DisplayAlert("Succes", result, "Ok");
+                await CoreMethods.PopPageModel(TimeBlock, modal: true);
+            }
         }
 
         private async void Cancel(object obj)
