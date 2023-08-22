@@ -11,7 +11,22 @@ namespace TMA.Mobile.Converters
         {
             if (value is TimeSpan timeSpan)
             {
-                return timeSpan.ToString(@"hh\:mm"); // Format for displaying time span (hh:mm)
+                if(timeSpan.Days > 0)
+                {
+                    double totalHours = timeSpan.TotalHours;
+                    int days = (int)Math.Floor(totalHours / 24);
+                    int remainingHours = (int)(totalHours % 24);
+                    int minutes = timeSpan.Minutes;
+
+                    TimeSpan formattedTimeSpan = new TimeSpan(days, remainingHours, minutes, 0);
+
+                    return formattedTimeSpan.ToString(@"hh\:mm");
+                }
+                else
+                {
+                    return timeSpan.ToString(@"hh\:mm"); 
+                }
+               
             }
 
             return string.Empty;

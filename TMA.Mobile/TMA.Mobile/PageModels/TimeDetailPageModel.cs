@@ -143,9 +143,9 @@ namespace TMA.Mobile.PageModels
             }
         }
 
-        private TimeSpan _duration;
+        private string _duration;
 
-        public TimeSpan Duration
+        public string Duration
         {
             get { return _duration; }
             set
@@ -180,7 +180,7 @@ namespace TMA.Mobile.PageModels
             EndTime = TimeBlock.EndTime.TimeOfDay;
             StartDate = TimeBlock.StartTime.Date;
             EndDate = TimeBlock.EndTime.Date;
-            Duration = TimeBlock.Duration;
+            Duration = TimeBlock.Duration.ToString(@"hh\:mm");
 
             SelectedChore = SetCurrentChore();
             _isInitialSet = false;
@@ -255,7 +255,20 @@ namespace TMA.Mobile.PageModels
             var start = StartDate + StartTime;
             var end = EndDate + EndTime;
 
-            Duration = end - start; 
+            TimeSpan result = end - start;
+            string duration = ConvertTimeSpanToString(result);
+
+            Duration = duration;
+        }
+
+        private string ConvertTimeSpanToString(TimeSpan timeSpan)
+        {
+            double totalHours = timeSpan.TotalHours;
+            int hours = (int)totalHours;
+            int minutes = (int)((totalHours - hours) * 60);
+
+            string formattedDuration = $"{hours:00}:{minutes:00}";
+            return formattedDuration;
         }
     }
 }
