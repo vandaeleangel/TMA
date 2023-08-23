@@ -15,15 +15,37 @@ namespace TMA.Mobile.Domain.Services
     public class AppService : IAppService
     {
         protected ApiClient _httpClient;
-       
-        public AppService()
+        private IChoreService _choreService;
+
+        public AppService(IChoreService choreService)
         {
-            _httpClient = new ApiClient(); 
+            _httpClient = new ApiClient();
+            _choreService = choreService;
         }
-       
 
-       
+        public async Task<IEnumerable<Chore>> GetFilteredChoreByDate(TimeBlockQueryParametersDto param)
+        {
+            var chores = await _choreService.GetAllChores();
+            var token = await SecureStorage.GetAsync("AuthToken");
 
+            var response = await _httpClient.GetAsync(token, "/TimeBlock/GetFiltered", param);
+
+            if (response.IsSuccessStatusCode)
+            {
+                var responseAsString = await response.Content.ReadAsStringAsync();
+                var result = JsonConvert.DeserializeObject<List<TimeBlock>>(responseAsString);
+
+                var filteredTimeBlocksChore = result
+                    .GroupBy(tb => tb.ChoreId)
+                    .Select(group => new Chore
+                    {
+                        Name = chores.FirstOrDefault(c => c.Id == group.Key)?.Name,
+                        Duration = TimeSpan.FromTicks(group.Sum(tb => tb.Duration.Ticks))
+                    });
+                return filteredTimeBlocksChore;
+            }
+            return null;
+        }
         public async Task<IEnumerable<TimeBlock>> GetFilteredTimeBlocks(TimeBlockQueryParametersDto queryParams)
         {
             var token = await SecureStorage.GetAsync("AuthToken");

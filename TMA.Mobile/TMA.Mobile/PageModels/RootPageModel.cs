@@ -12,12 +12,19 @@ namespace TMA.Mobile.PageModels
         public Command ToHomePageCommand { get; set; }
         public Command ToDetailPageCommand { get; set; }
         public Command ToChorePageCommand { get; set; }
+        public Command ToReportPageCommand { get; set; }
 
         public RootPageModel()
         {
             ToHomePageCommand = new Command(ToHomePage);
             ToDetailPageCommand = new Command(ToDetailPage);
             ToChorePageCommand = new Command(ToChorePage);
+            ToReportPageCommand = new Command(ToReportPage);
+        }
+
+        private async void ToReportPage(object obj)
+        {
+            await CoreMethods.PushPageModel<ReportPageModel>();
         }
 
         private async void ToChorePage(object obj)
