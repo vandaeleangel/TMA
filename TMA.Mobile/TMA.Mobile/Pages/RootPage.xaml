@@ -5,8 +5,9 @@
     <ContentPage.Content>
         <StackLayout>
             <Button Text="Vandaag" Command="{Binding ToHomePageCommand}" />
-            <Button Text="Details" Command="{Binding ToDetailPageCommand}" />
-            <Button Text="Taken" Command="{Binding ToChorePageCommand}" />
+            <Button Text="Geschiedenins" Command="{Binding ToDetailPageCommand}" />
+            <Button Text="Beheer Taken" Command="{Binding ToChorePageCommand}" />
+            <Button Text="Rapport" Command="{Binding ToReportPageCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
