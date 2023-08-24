@@ -1,4 +1,5 @@
 ﻿using FreshMvvm;
+using Plugin.LocalNotification;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,6 +14,8 @@ namespace TMA.Mobile.PageModels
         public Command ToDetailPageCommand { get; set; }
         public Command ToChorePageCommand { get; set; }
         public Command ToReportPageCommand { get; set; }
+        public Command TestCommand { get; set; }
+
 
         public RootPageModel()
         {
@@ -20,6 +23,25 @@ namespace TMA.Mobile.PageModels
             ToDetailPageCommand = new Command(ToDetailPage);
             ToChorePageCommand = new Command(ToChorePage);
             ToReportPageCommand = new Command(ToReportPage);
+            TestCommand = new Command(ScheduleAsync);
+        }
+
+        private async void ScheduleAsync(object obj)
+        {
+            var notification = new NotificationRequest
+            {
+                BadgeNumber = 1,
+                Description = "Test Description",
+                Title = "Notification!",
+                ReturningData = "Dummy Data",
+                NotificationId = 1337,
+                Schedule =
+                {
+                     NotifyTime = DateTime.Now.AddSeconds(5)
+                }
+            };
+
+            await LocalNotificationCenter.Current.Show(notification);
         }
 
         private async void ToReportPage(object obj)

@@ -8,6 +8,7 @@
             <Button Text="Geschiedenins" Command="{Binding ToDetailPageCommand}" />
             <Button Text="Beheer Taken" Command="{Binding ToChorePageCommand}" />
             <Button Text="Rapport" Command="{Binding ToReportPageCommand}" />
+            <Button Text="Schedule Notification" Command="{Binding TestCommand}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
