@@ -76,9 +76,8 @@ namespace TMA.Mobile.PageModels
         {
             var screenshot = await Screenshot.CaptureAsync();
 
-            //var stream = await screenshot.OpenReadAsync();
+            var stream = await screenshot.OpenReadAsync();
 
-            //Image = ImageSource.FromStream(() => stream);
 
         }
 
