@@ -1,4 +1,5 @@
 ﻿using FreshMvvm;
+using Plugin.LocalNotification;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -13,13 +14,14 @@ namespace TMA.Mobile.PageModels
         public Command ToDetailPageCommand { get; set; }
         public Command ToChorePageCommand { get; set; }
         public Command ToReportPageCommand { get; set; }
-
+       
         public RootPageModel()
         {
             ToHomePageCommand = new Command(ToHomePage);
             ToDetailPageCommand = new Command(ToDetailPage);
             ToChorePageCommand = new Command(ToChorePage);
             ToReportPageCommand = new Command(ToReportPage);
+           
         }
 
         private async void ToReportPage(object obj)

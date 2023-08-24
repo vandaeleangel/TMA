@@ -1,4 +1,5 @@
 ﻿using FreshMvvm;
+using Plugin.LocalNotification;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -165,6 +166,9 @@ namespace TMA.Mobile.PageModels
                 ListViewOpacity = 0.3;
                 SelectedChore = null;
 
+                Application.Current.Properties[Constants.GlobalCurrentTask] = CurrentChore.Name;
+
+               
             }
 
             else if (CurrentChore != null && CurrentChore != SelectedChore)
@@ -190,6 +194,10 @@ namespace TMA.Mobile.PageModels
             IsStopVisible = false;
             ListViewOpacity = 1;
 
+            if (Application.Current.Properties.ContainsKey(Constants.GlobalCurrentTask))
+            {
+                Application.Current.Properties.Remove(Constants.GlobalCurrentTask);
+            }
         }
 
         private async Task GoToNewChorePageAsync()
@@ -197,5 +205,6 @@ namespace TMA.Mobile.PageModels
             await CoreMethods.PushPageModel<NewChorePageModel>(null,true);
 
         }
+      
     }
 }
