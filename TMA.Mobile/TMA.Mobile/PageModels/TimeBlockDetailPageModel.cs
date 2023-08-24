@@ -13,8 +13,9 @@ namespace TMA.Mobile.PageModels
     public class TimeBlockDetailPageModel : FreshBasePageModel
     {
         private ITimeBlockService _timeBlockService;
-        private DateTime _selectedDate = DateTime.Today;
         public ObservableCollection<TimeBlock> TimeBlocks { get; set; }
+        private DateTime _selectedDate = DateTime.Today;
+       
 
         public DateTime SelectedDate
         {
