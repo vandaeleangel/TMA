@@ -15,6 +15,19 @@ namespace TMA.Mobile.PageModels
     {
         private IAppService _appService;
         private ITimeBlockService _timeBlockService;
+        private DateTime _selectedDate = DateTime.Today;
+        public DateTime SelectedDate
+        {
+            get { return _selectedDate; }
+            set
+            {
+                _selectedDate = value;
+                RaisePropertyChanged();
+                UpdateGraph();
+
+            }
+        }
+
         public ObservableCollection<Chore> Chores { get; set; }
 
         private PieChart _pieChart;
@@ -28,7 +41,6 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
-
 
         public ObservableCollection<ChartEntry> Entries { get; set; }
 
@@ -46,15 +58,15 @@ namespace TMA.Mobile.PageModels
             base.Init(initData);
             var _selectedDate = DateTime.Now;
             FetchChores(_selectedDate);
-            FetchChart();
+            FetchChart(DateTime.Today);
         }
 
-        private async void FetchChart()
+        private async void FetchChart(DateTime selectedDate)
         {
             Entries.Clear();
             TimeBlockQueryParametersDto query = new TimeBlockQueryParametersDto
             {
-                Date = DateTime.Today
+                Date = selectedDate
             };
             var entries = await _appService.GetChartData(query);
 
@@ -66,6 +78,10 @@ namespace TMA.Mobile.PageModels
             PieChart = new PieChart { Entries = Entries, LabelTextSize = 30f };
         }
 
+        private void UpdateGraph()
+        {
+            FetchChart(_selectedDate);
+        }
         private async void FetchChores(DateTime selectedDate)
         {
             Chores.Clear();

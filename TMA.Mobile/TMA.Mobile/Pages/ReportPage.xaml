@@ -6,20 +6,8 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
-                <ListView ItemsSource="{Binding Chores}" >
-
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <ViewCell>
-                                <ViewCell.View>
-                                    <StackLayout>
-                                        <Label Text="{Binding Name}" />
-                                    </StackLayout>
-                                </ViewCell.View>
-                            </ViewCell>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                <Label Text="Datum" />
+                <DatePicker Date="{Binding SelectedDate}"  />
             </StackLayout>
             <StackLayout>
                 <microcharts:ChartView HeightRequest="300" Chart="{Binding PieChart}" />
