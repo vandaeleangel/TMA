@@ -6,6 +6,9 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
+                <Button Text="Screenshot" Command="{Binding ScreenshotCommand}" />
+            </StackLayout>
+            <StackLayout>
                 <StackLayout>
                     <Label Text="Datum" />
                     <DatePicker Date="{Binding SelectedDate}"  />
@@ -22,6 +25,7 @@
                     <microcharts:ChartView HeightRequest="300" Chart="{Binding PieChartAll}" />
                 </StackLayout>
             </StackLayout>
+           
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.TimeBlock;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
+using Xamarin.Essentials;
+using Xamarin.Forms;
 
 namespace TMA.Mobile.PageModels
 {
@@ -16,6 +18,8 @@ namespace TMA.Mobile.PageModels
     {
         private IAppService _appService;
         private ITimeBlockService _timeBlockService;
+
+        public Command ScreenshotCommand { get; set; }
         private DateTime _selectedDate = DateTime.Today;
         public DateTime SelectedDate
         {
@@ -61,9 +65,20 @@ namespace TMA.Mobile.PageModels
         {
             _appService = appService;
             _timeBlockService = timeBlockService;
+            ScreenshotCommand = new Command(TakeScreenShot);
             Chores = new ObservableCollection<Chore>();
             SingleEntries = new ObservableCollection<ChartEntry>();
             AllEntries = new ObservableCollection<ChartEntry>();
+
+        }
+
+        private async void TakeScreenShot(object obj)
+        {
+            var screenshot = await Screenshot.CaptureAsync();
+
+            //var stream = await screenshot.OpenReadAsync();
+
+            //Image = ImageSource.FromStream(() => stream);
 
         }
 
