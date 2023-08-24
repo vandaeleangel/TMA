@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.TimeBlock;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
@@ -30,26 +31,39 @@ namespace TMA.Mobile.PageModels
 
         public ObservableCollection<Chore> Chores { get; set; }
 
-        private PieChart _pieChart;
+        private PieChart _pieChartSingle;
 
-        public PieChart PieChart
+        public PieChart PieChartSingle
         {
-            get { return _pieChart; }
+            get { return _pieChartSingle; }
             set
             {
-                _pieChart = value;
+                _pieChartSingle = value;
                 RaisePropertyChanged();
             }
         }
 
-        public ObservableCollection<ChartEntry> Entries { get; set; }
+        private PieChart _PieChartAll;
+        public PieChart PieChartAll
+        {
+            get { return _PieChartAll; }
+            set
+            {
+                _PieChartAll = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ChartEntry> SingleEntries { get; set; }
+        public ObservableCollection<ChartEntry> AllEntries { get; set; }
 
         public ReportPageModel(IAppService appService, ITimeBlockService timeBlockService)
         {
             _appService = appService;
             _timeBlockService = timeBlockService;
             Chores = new ObservableCollection<Chore>();
-            Entries = new ObservableCollection<ChartEntry>();
+            SingleEntries = new ObservableCollection<ChartEntry>();
+            AllEntries = new ObservableCollection<ChartEntry>();
 
         }
 
@@ -59,11 +73,27 @@ namespace TMA.Mobile.PageModels
             var _selectedDate = DateTime.Now;
             FetchChores(_selectedDate);
             FetchChart(DateTime.Today);
+            FetchChartAll();
+        }
+
+        private async void FetchChartAll()
+        {
+            AllEntries.Clear();
+            TimeBlockQueryParametersDto query = new TimeBlockQueryParametersDto();
+       
+            var entries = await _appService.GetChartData(query);
+
+            foreach (var entry in entries)
+            {
+                AllEntries.Add(entry);
+            }
+
+            PieChartAll = new PieChart { Entries = AllEntries, LabelTextSize = 30f };
         }
 
         private async void FetchChart(DateTime selectedDate)
         {
-            Entries.Clear();
+            SingleEntries.Clear();
             TimeBlockQueryParametersDto query = new TimeBlockQueryParametersDto
             {
                 Date = selectedDate
@@ -72,10 +102,10 @@ namespace TMA.Mobile.PageModels
 
             foreach (var entry in entries)
             {
-                Entries.Add(entry);
+                SingleEntries.Add(entry);
             }
 
-            PieChart = new PieChart { Entries = Entries, LabelTextSize = 30f };
+            PieChartSingle = new PieChart { Entries = SingleEntries, LabelTextSize = 30f };
         }
 
         private void UpdateGraph()
