@@ -1,4 +1,5 @@
 ﻿using FreshMvvm;
+using Plugin.LocalNotification;
 using System;
 using TMA.Mobile.Domain.Services;
 using TMA.Mobile.Domain.Services.Interfaces;
@@ -32,6 +33,23 @@ namespace TMA.Mobile
 
         protected override void OnSleep()
         {
+            if (Application.Current.Properties.ContainsKey(Constants.GlobalCurrentTask))
+            {
+                string task = Application.Current.Properties[Constants.GlobalCurrentTask].ToString();
+                var notification = new NotificationRequest
+                {
+                    Description = $"Taak: {task} is nog bezig!",
+                    Title = "Opgelet",
+                    Schedule =
+                {
+                     NotifyTime = DateTime.Now.AddSeconds(5)
+                }
+
+                };
+
+                LocalNotificationCenter.Current.Show(notification);
+            }
+            
         }
 
         protected override void OnResume()

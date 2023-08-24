@@ -6,8 +6,8 @@ namespace TMA.Mobile
 {
     public class Constants
     {
-        public const string BaseUrl = "http://192.168.0.101:5000/api";     
+        public const string BaseUrl = "http://192.168.0.101:5000/api";
+        public const string GlobalCurrentTask = "GlobalCurrentTask";
     }
-
     
 }
