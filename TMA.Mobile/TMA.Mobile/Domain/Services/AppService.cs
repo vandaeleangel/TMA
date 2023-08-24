@@ -1,5 +1,6 @@
 ﻿using Microcharts;
 using Newtonsoft.Json;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,13 +28,15 @@ namespace TMA.Mobile.Domain.Services
         public async Task<IEnumerable<ChartEntry>> GetChartData(TimeBlockQueryParametersDto param)
         {
             var filteredChores = await GetFilteredChoreByDate(param);
+            var rnd = new Random();
+          
 
             var chartEnryList = filteredChores
                 .Select(chore => new ChartEntry((float)chore.Duration.TotalHours)
                 {
                     Label = chore.Name,
-                    ValueLabel = chore.Duration.ToString(),
-
+                    ValueLabel = chore.Duration.ToString("h\\:mm"),
+                    Color = SKColor.FromHsv(rnd.Next(0, 360), 100, 100)    
                 });
 
             Console.WriteLine(chartEnryList);
@@ -43,6 +46,7 @@ namespace TMA.Mobile.Domain.Services
             }
             else return null;
         }
+   
         public async Task<IEnumerable<Chore>> GetFilteredChoreByDate(TimeBlockQueryParametersDto param)
         {
             var chores = await _choreService.GetAllChores();
