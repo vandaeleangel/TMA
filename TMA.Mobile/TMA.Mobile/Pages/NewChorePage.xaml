@@ -8,7 +8,9 @@
 
             <Entry Placeholder="Naam voor de taak" HorizontalOptions="CenterAndExpand"
                    Text="{Binding Name}"/>
-
+            <Button Text="Luister" Command="{Binding SpeakCommand}"/>
+            <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="1" 
+                    MinimumTrackColor="Black" MaximumTrackColor="DarkSlateGray" ThumbColor="DarkSlateGray"/>
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
                 <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />
                 <Button Text="Annuleren" HorizontalOptions="CenterAndExpand" Command="{Binding CancelCommand}" />
