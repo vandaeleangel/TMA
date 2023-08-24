@@ -5,6 +5,7 @@ using TMA.Mobile.Domain.Services;
 using TMA.Mobile.Domain.Services.Interfaces;
 using TMA.Mobile.PageModels;
 using Xamarin.Forms;
+using Xamarin.Forms.PlatformConfiguration;
 using Xamarin.Forms.Xaml;
 
 namespace TMA.Mobile
@@ -26,7 +27,7 @@ namespace TMA.Mobile
             MainPage = navigationContainer;
         }
 
-       
+
         protected override void OnStart()
         {
         }
@@ -35,6 +36,7 @@ namespace TMA.Mobile
         {
             if (Application.Current.Properties.ContainsKey(Constants.GlobalCurrentTask))
             {
+
                 string task = Application.Current.Properties[Constants.GlobalCurrentTask].ToString();
                 var notification = new NotificationRequest
                 {
@@ -49,7 +51,7 @@ namespace TMA.Mobile
 
                 LocalNotificationCenter.Current.Show(notification);
             }
-            
+
         }
 
         protected override void OnResume()
