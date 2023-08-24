@@ -32,7 +32,7 @@ namespace TMA.Mobile.PageModels
             set
             {
                 _sliderValue = value;
-                RaisePropertyChanged(nameof(SliderValue)); 
+                RaisePropertyChanged(nameof(SliderValue));
             }
         }
 
@@ -60,16 +60,31 @@ namespace TMA.Mobile.PageModels
             };
 
             var chore = await _choreService.AddNewChore(addChore);
-            await CoreMethods.PopPageModel(addChore,modal: true);         
+            await CoreMethods.PopPageModel(addChore, modal: true);
         }
 
         private async void Speak(object obj)
         {
-            await TextToSpeech.SpeakAsync(Name, new SpeechOptions
+#if __MOBILE__
+            ShowAndroidWarning();
+#else
+
+
+            if (Name != null)
             {
-                Volume = (float)SliderValue
-            }) ; 
+                await TextToSpeech.SpeakAsync(Name, new SpeechOptions
+                {
+                    Volume = (float)SliderValue
+                });
+
+
+#endif
+            }
         }
 
+            private async void ShowAndroidWarning()
+            {
+                await CoreMethods.DisplayAlert("Waarschuwing", "Luisteren op een smartphone is op dit moment niet mogelijk", "Ok");
+            }
+        }
     }
-}
