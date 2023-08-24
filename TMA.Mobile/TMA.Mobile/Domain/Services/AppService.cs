@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Microcharts;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,25 @@ namespace TMA.Mobile.Domain.Services
             _choreService = choreService;
         }
 
+        public async Task<IEnumerable<ChartEntry>> GetChartData(TimeBlockQueryParametersDto param)
+        {
+            var filteredChores = await GetFilteredChoreByDate(param);
+
+            var chartEnryList = filteredChores
+                .Select(chore => new ChartEntry((float)chore.Duration.TotalHours)
+                {
+                    Label = chore.Name,
+                    ValueLabel = chore.Duration.ToString(),
+
+                });
+
+            Console.WriteLine(chartEnryList);
+            if (chartEnryList != null)
+            {
+                return chartEnryList;
+            }
+            else return null;
+        }
         public async Task<IEnumerable<Chore>> GetFilteredChoreByDate(TimeBlockQueryParametersDto param)
         {
             var chores = await _choreService.GetAllChores();
@@ -42,6 +62,7 @@ namespace TMA.Mobile.Domain.Services
                         Name = chores.FirstOrDefault(c => c.Id == group.Key)?.Name,
                         Duration = TimeSpan.FromTicks(group.Sum(tb => tb.Duration.Ticks))
                     });
+  
                 return filteredTimeBlocksChore;
             }
             return null;

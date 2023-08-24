@@ -11,9 +11,9 @@ using TMA.Mobile.Domain.Services.Interfaces;
 
 namespace TMA.Mobile.PageModels
 {
-    public class ReportPageModel :FreshBasePageModel
+    public class ReportPageModel : FreshBasePageModel
     {
-        private IAppService _appService;      
+        private IAppService _appService;
         private ITimeBlockService _timeBlockService;
         public ObservableCollection<Chore> Chores { get; set; }
 
@@ -22,7 +22,11 @@ namespace TMA.Mobile.PageModels
         public PieChart PieChart
         {
             get { return _pieChart; }
-            set { _pieChart = value; }
+            set
+            {
+                _pieChart = value;
+                RaisePropertyChanged();
+            }
         }
 
 
@@ -34,7 +38,7 @@ namespace TMA.Mobile.PageModels
             _timeBlockService = timeBlockService;
             Chores = new ObservableCollection<Chore>();
             Entries = new ObservableCollection<ChartEntry>();
-           
+
         }
 
         public override void Init(object initData)
@@ -45,39 +49,21 @@ namespace TMA.Mobile.PageModels
             FetchChart();
         }
 
-        private void FetchChart()
+        private async void FetchChart()
         {
-           var entry1 = new ChartEntry(212)
-           {
-               Label = "UWP",
-               ValueLabel = "112",
-               Color = SKColor.Parse("#2c3e50")
-           };
-            var entry2 = new ChartEntry(248)
+            Entries.Clear();
+            TimeBlockQueryParametersDto query = new TimeBlockQueryParametersDto
             {
-                Label = "Android",
-                ValueLabel = "648",
-                Color = SKColor.Parse("#77d065")
+                Date = DateTime.Today
             };
-            var entry3 = new ChartEntry(128)
-            {
-                Label = "iOS",
-                ValueLabel = "428",
-                Color = SKColor.Parse("#b455b6")
-            };
-            var entry4 = new ChartEntry(514)
-            {
-                Label = "Forms",
-                ValueLabel = "214",
-                Color = SKColor.Parse("#3498db")
-            };
+            var entries = await _appService.GetChartData(query);
 
-            Entries.Add(entry1);
-            Entries.Add(entry2);
-            Entries.Add(entry3);
-            Entries.Add(entry4);    
+            foreach (var entry in entries)
+            {
+                Entries.Add(entry);
+            }
 
-            PieChart = new PieChart { Entries= Entries, LabelTextSize = 30f};
+            PieChart = new PieChart { Entries = Entries, LabelTextSize = 30f };
         }
 
         private async void FetchChores(DateTime selectedDate)
@@ -93,8 +79,6 @@ namespace TMA.Mobile.PageModels
             {
                 Chores.Add(chore);
             }
-            
-
         }
     }
 }
