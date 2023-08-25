@@ -52,7 +52,7 @@
                 <Setter Property="Button.Padding">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="Android" Value="5,5,5,5" />
+                            <On Platform="Android" Value="5,35,5,35" />
                             <On Platform="UWP" Value="50,50,50,50" />
                         </OnPlatform>
                     </Setter.Value>
@@ -64,7 +64,7 @@
                 <Setter Property="StackLayout.Padding">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="Android" Value="5,5,5,5" />
+                            <On Platform="Android" Value="10,25,10,25" />
                             <On Platform="UWP" Value="50,50,50,50" />
                         </OnPlatform>
                     </Setter.Value>
@@ -89,12 +89,13 @@
                 <Setter Property="StackLayout.Padding">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="Thickness">
-                            <On Platform="Android" Value="5,5,5,5" />
+                            <On Platform="Android" Value="10,100,10,100" />
                             <On Platform="UWP" Value="50,50,50,50" />
                         </OnPlatform>
                     </Setter.Value>
                 </Setter>
-                <Setter Property="BackgroundColor" Value="White" />
+                <Setter Property="BackgroundColor" Value="white" />
+           
             </Style>
 
             <Style x:Key="ErrorLabel" TargetType="Label">
@@ -105,6 +106,7 @@
                 <Setter Property="Padding" Value="5" />
                 <Setter Property="FontSize" Value="Medium" />
             </Style>
+            
         </ResourceDictionary>
     </Application.Resources>
 </Application>

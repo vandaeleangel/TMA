@@ -4,6 +4,7 @@
              xmlns:icons="clr-namespace:TMA.Mobile.Images"
              x:Class="TMA.Mobile.Pages.RootPage">
     <ContentPage.Content>
+        
         <StackLayout Style="{StaticResource BasicStackLayout}">
             <StackLayout Style="{StaticResource InnerStackLayout}">
                 <Button Text="Vandaag" Command="{Binding ToHomePageCommand}" 

@@ -43,6 +43,16 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
+        private bool _isErrorVisible;
+        public bool IsErrorVisible
+        {
+            get { return _isErrorVisible; }
+            set
+            {
+                _isErrorVisible = value;
+                RaisePropertyChanged();
+            }
+        }
         public Command LoginCommand { get; set; }
         public LoginPageModel(IAuthService authService)
         {
@@ -57,6 +67,7 @@ namespace TMA.Mobile.PageModels
 
             if (isEmailEmpty || isPasswordEmpty)
             {
+                IsErrorVisible = true;
                 Error = "Beide velden moeten zijn ingevuld.";
             }
             else
@@ -71,11 +82,12 @@ namespace TMA.Mobile.PageModels
 
                 if (result.Status == LoginResult.Fail)
                 {
+                    IsErrorVisible = true;
                     Error = result.Message;
                 }       
                 if (result.Status == LoginResult.Success)
                 {
-
+                    IsErrorVisible = false;
                     await CoreMethods.PushPageModel<RootPageModel>();
                 }
 

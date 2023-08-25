@@ -16,6 +16,7 @@ namespace TMA.Mobile.Images
         public const string Format_list_bulleted = "\ue241";
         public const string Insert_chart_outlined = "\ue26a";
         public const string Bar_chart = "\ue26b";
+        public const string Login = "\uea77";
 
     }
 }
