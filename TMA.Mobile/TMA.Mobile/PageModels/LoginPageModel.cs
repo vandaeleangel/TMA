@@ -11,6 +11,7 @@ namespace TMA.Mobile.PageModels
     public class LoginPageModel : FreshBasePageModel
     {
         private IAuthService _authService;
+        public string ImageUrl { get; set; } = "TMA.Mobile.Images.Hourglass.jpeg";
         private string _email = "test@hotmail.com";
         public string Email
         {

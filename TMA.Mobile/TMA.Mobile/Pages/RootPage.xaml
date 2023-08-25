@@ -39,6 +39,7 @@
                     </Button.ImageSource>
                 </Button>
             </StackLayout>
+            <Image></Image>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -10,7 +10,7 @@ namespace TMA.Mobile.Converters
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
         {
-            return ImageSource.FromResource("Tma.Mobile.Images" + (value ?? ""));
+            return ImageSource.FromResource("Tma.Mobile.Images." + (value ?? ""));
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
