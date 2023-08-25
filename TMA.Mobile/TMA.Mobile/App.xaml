@@ -3,6 +3,61 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TMA.Mobile.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <!--Icon Colors:-->
+            <Color x:Key="MainIconColor">#d5d7db</Color>
 
+            <!--Button Colors:-->
+            <Color x:Key="MainButtonColor">#374878</Color>
+
+            <!--BackgroundColors-->
+            <Color x:Key="LightBlueBackGroundColor">#ebedf2</Color>
+
+            <!--Styles:-->
+            <Style x:Key="MainButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource MainButtonColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,5,5,5" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+
+            <Style x:Key="BasicStackLayout" TargetType="StackLayout">
+                <Setter Property="StackLayout.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,5,5,5" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="StackLayout.BackgroundColor">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android"  Value="White" />
+                            <On Platform="UWP" Value="{StaticResource LightBlueBackGroundColor}" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="InnerStackLayout" TargetType="StackLayout">
+                <Setter Property="StackLayout.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,5,5,5" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BackgroundColor" Value="White" />
+            </Style>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
