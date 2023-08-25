@@ -5,16 +5,16 @@
 
     <ContentPage.Content>
 
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <StackLayout Style="{StaticResource BasicStackLayout}">
             <Label Text="Naam" FontSize="Title" HorizontalOptions="CenterAndExpand"/>
 
-            <Entry HorizontalOptions="CenterAndExpand"
-                   Text="{Binding Chore.Name}"/>
+            <Entry HorizontalOptions="FillAndExpand" Text="{Binding Chore.Name}" />
 
-            <StackLayout  HorizontalOptions="CenterAndExpand" >
-                <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />
-                <Button Text="Verwijderen" HorizontalOptions="CenterAndExpand" Command="{Binding DeleteCommand}" />
-                <Button Text="Annuleren" HorizontalOptions="CenterAndExpand" Command="{Binding CancelCommand}" />
+
+            <StackLayout Orientation="Horizontal"  HorizontalOptions="CenterAndExpand" >
+                <Button Text="Opslaan" Command="{Binding SaveCommand}" Style="{StaticResource SaveButtonStyle}" />
+                <Button Text="Verwijderen" Command="{Binding DeleteCommand}" Style="{StaticResource DeleteButtonStyle}"/>
+                <Button Text="Annuleren" Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}" />
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>

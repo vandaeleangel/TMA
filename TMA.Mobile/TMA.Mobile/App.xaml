@@ -10,6 +10,7 @@
             <!--Button Colors:-->
             <Color x:Key="MainButtonColor">#374878</Color>
             <Color x:Key="CancelButtonColor">#d7dae4</Color>
+            <Color x:Key="DeleteButtonColor">#de9195</Color>
 
             <!--BackgroundColors-->
             <Color x:Key="LightBlueBackGroundColor">#ebedf2</Color>
@@ -92,6 +93,20 @@
                 </Setter>
             </Style>
 
+            <Style x:Key="DeleteButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource DeleteButtonColor}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,15,5,15" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
 
             <Style x:Key="BasicStackLayout" TargetType="StackLayout">
                 <Setter Property="StackLayout.Padding">

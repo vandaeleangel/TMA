@@ -7,7 +7,7 @@
         <StackLayout Style="{StaticResource BasicStackLayout}">
             <Label Text="Naam" FontSize="Title" HorizontalOptions="CenterAndExpand"/>
 
-            <Entry Placeholder="Naam voor de taak" HorizontalOptions="CenterAndExpand" 
+            <Entry Placeholder="Naam voor de taak" HorizontalOptions="FillAndExpand" 
                    Text="{Binding Name}"/>
             
             <Button Command="{Binding SpeakCommand}" BackgroundColor="White" HorizontalOptions="Center">
