@@ -9,9 +9,12 @@
 
             <!--Button Colors:-->
             <Color x:Key="MainButtonColor">#374878</Color>
+            <Color x:Key="CancelButtonColor">#d7dae4</Color>
 
             <!--BackgroundColors-->
             <Color x:Key="LightBlueBackGroundColor">#ebedf2</Color>
+            <Color x:Key="MediumBlue">#5f6d93</Color>
+            
 
             <!--Label & Entry Colors:-->
             <Color x:Key="ErrorRed">#bd1724</Color>
@@ -49,6 +52,34 @@
             <Style x:Key="MainButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource MainButtonColor}" />
                 <Setter Property="TextColor" Value="White" />
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,35,5,35" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SaveButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource MediumBlue}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,35,5,35" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="CancelButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource CancelButtonColor}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
                 <Setter Property="Button.Padding">
                     <Setter.Value>
                         <OnPlatform x:TypeArguments="Thickness">
@@ -97,7 +128,8 @@
                 <Setter Property="BackgroundColor" Value="white" />
            
             </Style>
-
+            
+        
             <Style x:Key="ErrorLabel" TargetType="Label">
                 <Setter Property="BackgroundColor" Value="{StaticResource ErrorRed}" />
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
