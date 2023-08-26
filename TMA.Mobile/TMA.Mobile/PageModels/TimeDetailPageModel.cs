@@ -220,10 +220,6 @@ namespace TMA.Mobile.PageModels
 
 
         }
-        private async void ShowWarning(string warning)
-        {
-            await CoreMethods.DisplayAlert("Waarschuwing", warning, "Ok");
-        }
 
         private void CalculateDuration()
         {
