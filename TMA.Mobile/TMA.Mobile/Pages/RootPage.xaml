@@ -15,7 +15,7 @@
                                      Color="{StaticResource MainIconColor}"/>
                     </Button.ImageSource>
                 </Button>
-                <Button Text="Geschiedenins" Command="{Binding ToDetailPageCommand}"
+                <Button Text="Geschiedenis" Command="{Binding ToDetailPageCommand}"
                     Style="{StaticResource MainButtonStyle}">
                     <Button.ImageSource>
                         <FontImageSource FontFamily="MaterialIcons"

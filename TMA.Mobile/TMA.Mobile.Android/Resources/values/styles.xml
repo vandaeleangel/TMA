@@ -1,20 +1,30 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <resources>
 
-  <style name="MainTheme" parent="MainTheme.Base">
-    <!-- As of Xamarin.Forms 4.6 the theme has moved into the Forms binary -->
-    <!-- If you want to override anything you can do that here. -->
-    <!-- Underneath are a couple of entries to get you started. -->
+	<style name="MainTheme" parent="MainTheme.Base">
+		<!-- As of Xamarin.Forms 4.6 the theme has moved into the Forms binary -->
+		<!-- If you want to override anything you can do that here. -->
+		<!-- Underneath are a couple of entries to get you started. -->
 
-    <!-- Set theme colors from https://aka.ms/material-colors -->
-    <!-- colorPrimary is used for the default action bar background -->
-    <item name="colorPrimary">#ffffff</item>
-    <!-- colorPrimaryDark is used for the status bar -->
-    <item name="colorPrimaryDark">#374878</item>
-    <!-- colorAccent is used as the default value for colorControlActivated
+		<!-- Set theme colors from https://aka.ms/material-colors -->
+		<!-- colorPrimary is used for the default action bar background -->
+		<item name="colorPrimary">#ffffff</item>
+		<!-- colorPrimaryDark is used for the status bar -->
+		<item name="colorPrimaryDark">#374878</item>
+		<!-- colorAccent is used as the default value for colorControlActivated
          which is used to tint widgets -->
-    <item name="colorAccent">#374878</item>
-	  <item name="android:colorActivatedHighlight">#9ba4bc</item>
-
-  </style>
+		<item name="colorAccent">#374878</item>
+		<item name="android:colorActivatedHighlight">#9ba4bc</item>
+		<item name="android:datePickerDialogTheme">@style/AppCompatDialogStyle</item>
+	</style>
+	
+	<style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
+		<item name="colorAccent">#374878</item>
+	</style>
+	<style name="MyDatePickerStyle" parent="@android:style/Widget.Material.Light.DatePicker">
+		<item name="android:headerBackground">#374878</item>
+	</style>
+	<style name="MyDatePickerDialogTheme" parent="android:Theme.Material.Light.Dialog">
+		<item name="android:datePickerStyle">@style/MyDatePickerStyle</item>
+	</style>
 </resources>

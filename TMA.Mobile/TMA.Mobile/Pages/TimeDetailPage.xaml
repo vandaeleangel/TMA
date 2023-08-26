@@ -16,7 +16,8 @@
                 <Label Text="Start Datum:" Style="{StaticResource TitleLabel}" />
                 <DatePicker Date="{Binding StartDate}" 
                             VerticalOptions="CenterAndExpand"
-                            HorizontalOptions="CenterAndExpand"/>
+                            HorizontalOptions="CenterAndExpand"
+                            />
                 <Label Text="Start tijd:" Style="{StaticResource TitleLabel}"/>
                 <TimePicker Time="{Binding StartTime}"
                             VerticalOptions="CenterAndExpand"
