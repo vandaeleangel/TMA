@@ -20,7 +20,7 @@
             <StackLayout>
             <ScrollView>
                     <ListView ItemsSource="{Binding TimeBlocks}" SelectedItem="{Binding SelectedTimeBlock}" >
-                        <ListView.Header>
+                        <ListView.Header >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition />
@@ -33,9 +33,11 @@
                                 </StackLayout>
                                 <StackLayout VerticalOptions="End" Padding="5" Grid.Column="1">
                                     <Label Text="Start Tijd" FontSize="17"/>
+                                    <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand"/>
                                 </StackLayout>
                                 <StackLayout VerticalOptions="End" Padding="5" Grid.Column="2">
                                     <Label Text="Eind Tijd" FontSize="17"/>
+                                    <BoxView HeightRequest="1" BackgroundColor="Black" HorizontalOptions="FillAndExpand"/>
                                 </StackLayout>
                             </Grid>
                         </ListView.Header>
@@ -68,9 +70,9 @@
                 </ListView>
             </ScrollView>
             </StackLayout>
-            <StackLayout>
+            <!--<StackLayout>
                 <Button Text="Voeg taak toe" Style="{StaticResource MainButtonStyle}" />
-            </StackLayout>
+            </StackLayout>-->
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
