@@ -21,7 +21,7 @@ namespace TMA.Core.Entities
         public TimeSpan Duration { get; set; }
         public ICollection<TimeBlock>? TimeBlocks { get; set; }
         public User User { get; set; }
-        public bool IsCurrentChore { get; set; } = false;
+        public bool IsCurrentChore { get; set; } 
         public Guid CurrentTimeBlockId { get; set; } = Guid.Empty;
     }
 }

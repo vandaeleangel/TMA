@@ -8,6 +8,7 @@ namespace TMA.Mobile
     {
         public const string BaseUrl = "http://192.168.0.101:5000/api";
         public const string GlobalCurrentTask = "GlobalCurrentTask";
+        public const string CurrentChoreKey = "CurrentChore";
     }
     
 }
