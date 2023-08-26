@@ -23,8 +23,11 @@ namespace TMA.Mobile
 
             var mainPage = FreshPageModelResolver.ResolvePageModel<LoginPageModel>();
             var navigationContainer = new FreshNavigationContainer(mainPage);
-            navigationContainer.BarBackgroundColor = Color.FromHex("#5f6d93");
-          
+
+            //navigationContainer.BarBackgroundColor = Color.FromHex("#5f6d93");
+            navigationContainer.BarBackgroundColor = Color.White;
+            navigationContainer.BarTextColor = Color.FromHex("#5f6d93");
+
             MainPage = navigationContainer;
          
         }

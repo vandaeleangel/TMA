@@ -29,7 +29,6 @@ namespace TMA.Mobile.Droid
             {
                 Window.SetStatusBarColor(statusBarColor);
                 Window.SetNavigationBarColor(navBarColor);
-               
             }
 
         }

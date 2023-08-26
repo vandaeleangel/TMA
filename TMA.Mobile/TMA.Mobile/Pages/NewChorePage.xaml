@@ -25,6 +25,7 @@
                 <Button Text="Opslaan"  Command="{Binding SaveCommand}" Style="{StaticResource SaveButtonStyle}" />
                 <Button Text="Annuleren" Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}" />
             </StackLayout>
+            <Label Text="{Binding Error}" IsVisible="{Binding IsErrorVisible}" Style="{StaticResource ErrorLabel}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

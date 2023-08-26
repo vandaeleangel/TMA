@@ -25,6 +25,27 @@ namespace TMA.Mobile.PageModels
             }
         }
 
+        private string _error;
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                RaisePropertyChanged();
+            }
+        }
+
+        private bool _isErrorVisible;
+        public bool IsErrorVisible
+        {
+            get { return _isErrorVisible; }
+            set
+            {
+                _isErrorVisible = value;
+                RaisePropertyChanged();
+            }
+        }
         private double _sliderValue;
         public double SliderValue
         {
@@ -54,13 +75,23 @@ namespace TMA.Mobile.PageModels
 
         private async void Save()
         {
-            AddChoreDto addChore = new AddChoreDto
+            if(string.IsNullOrEmpty(Name)) 
             {
-                Name = _name
-            };
+                IsErrorVisible = true;
+                Error = "De naam kan niet leeg zijn.";
+            }
+            else
+            {
+                AddChoreDto addChore = new AddChoreDto
+                {
+                    Name = _name
+                };
 
-            var chore = await _choreService.AddNewChore(addChore);
-            await CoreMethods.PopPageModel(addChore, modal: true);
+                var chore = await _choreService.AddNewChore(addChore);               
+                await CoreMethods.PopPageModel(addChore, modal: true);
+            }
+
+            
         }
 
         private async void Speak(object obj)
