@@ -145,6 +145,7 @@ namespace TMA.Core.Services
 
             var dbChore = await _context.Chores
                 .Include(c => c.TimeBlocks)
+                .Include(c => c.CurrentTimeBlockId)
                 .FirstOrDefaultAsync(c => c.User.Id == GetUserId() && c.IsCurrentChore ==true);
 
             if (dbChore != null)

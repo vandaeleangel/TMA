@@ -33,7 +33,7 @@ namespace TMA.Core.Services
 
             if (timeBlock.ChoreId != Guid.Empty)
             {
-                Chore chore = await _context.Chores.FirstOrDefaultAsync(c => c.Id == timeBlock.ChoreId);
+                Chore chore = await _context.Chores.FirstOrDefaultAsync(c => c.Id == timeBlock.ChoreId); 
                 chore.IsCurrentChore = true;
 
 
@@ -137,7 +137,9 @@ namespace TMA.Core.Services
             var dbTimeBlock = await _context.TimeBlocks.FirstOrDefaultAsync(t => t.Id == timeBlock.TimeBlockId);
             if (dbTimeBlock != null)
             {
-                
+                Chore chore = await _context.Chores.FirstOrDefaultAsync(c => c.Id == dbTimeBlock.ChoreId);
+                chore.IsCurrentChore = false;
+
                 dbTimeBlock.StartTime = dbTimeBlock.StartTime;
                 dbTimeBlock.EndTime = DateTime.Now;
                 dbTimeBlock.Chore = dbTimeBlock.Chore;
@@ -146,8 +148,7 @@ namespace TMA.Core.Services
 
                 _context.TimeBlocks.Update(dbTimeBlock);
              
-                Chore chore = await _context.Chores.FirstOrDefaultAsync(c => c.Id == dbTimeBlock.ChoreId);
-                chore.IsCurrentChore = false;
+               
                 chore.CurrentTimeBlockId = Guid.Empty;
                 chore.Duration += dbTimeBlock.Duration;
 

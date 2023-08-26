@@ -1,4 +1,5 @@
 ﻿using FreshMvvm;
+using Newtonsoft.Json;
 using Plugin.LocalNotification;
 using System;
 using System.Collections.Generic;
@@ -110,11 +111,11 @@ namespace TMA.Mobile.PageModels
 
       
 
-        public override  void Init(object initData)
+        public override void Init(object initData)
         {
             base.Init(initData);
             FetchChores();
-            FetchCurrentChore();
+            CheckCurrentChore();
             FetchTotalDurationAsync();
 
         }
@@ -122,6 +123,30 @@ namespace TMA.Mobile.PageModels
         {
             FetchChores();
         }
+
+        protected override void ViewIsAppearing(object sender, EventArgs e)
+        {
+            base.ViewIsAppearing(sender, e);
+
+            if (Application.Current.Properties.ContainsKey(Constants.CurrentChoreKey))
+            {
+                string choreJson = Application.Current.Properties[Constants.CurrentChoreKey].ToString();
+                CurrentChore = JsonConvert.DeserializeObject<Chore>(choreJson);
+                EnableStopBtn();
+            }
+
+        }   
+
+        protected override void ViewIsDisappearing(object sender, EventArgs e)
+        {
+            base.ViewIsDisappearing(sender, e);
+            if (CurrentChore != null)
+            {
+                string choreJson = JsonConvert.SerializeObject(CurrentChore);
+                Application.Current.Properties[Constants.CurrentChoreKey] = choreJson;
+            }
+        }
+
         private async void FetchChores()
         {
             Chores.Clear();
@@ -141,21 +166,19 @@ namespace TMA.Mobile.PageModels
                 CurrentTotal = total;
             }
         }
-
-        private async void FetchCurrentChore()
+        private async void CheckCurrentChore()
         {
-            var chore = await _choreService.GetCurrentChore();
-
-            if (chore != null)
+            if(CurrentChore != null)
             {
-                CurrentChore = chore;
                 IsStopVisible = true;
             }
             else
             {
                 IsStopVisible = false;
             }
+         
         }
+   
         private async void StartTimeBlock()
         {
 
@@ -175,12 +198,11 @@ namespace TMA.Mobile.PageModels
                 IsStopVisible = true;
                 IsListViewEnabled = false;
                 ListViewOpacity = 0.3;
-                
 
-                
+
+
                 Application.Current.Properties[Constants.GlobalCurrentTask] = CurrentChore.Name;
-
-               
+                           
             }
 
             else if (CurrentChore != null && CurrentChore != SelectedChore)
@@ -189,16 +211,18 @@ namespace TMA.Mobile.PageModels
                 await CoreMethods.DisplayAlert("Opgepast", message, "Ok");
             }
 
-
         }
 
         private async Task StopTimeBlockAsync()
         {
+
+            
             UpdateEndTimeDto updateEndTimeDto = new UpdateEndTimeDto
             {
                 TimeBlockId = CurrentChore.CurrentTimeBlockId
             };
 
+            
             await _appService.StopTimeBlock(updateEndTimeDto);
             CurrentTotal = await _appService.GetTotalDurationForADay(DateTime.Today);
             CurrentChore = null;
@@ -218,6 +242,9 @@ namespace TMA.Mobile.PageModels
             await CoreMethods.PushPageModel<NewChorePageModel>(null,true);
 
         }
-      
+        private void EnableStopBtn()
+        {
+            IsStopVisible = true;
+        }
     }
 }
