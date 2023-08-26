@@ -58,7 +58,7 @@ namespace TMA.Mobile.PageModels
                 _isListViewEnabled = value;
                 RaisePropertyChanged();
             }
-        }      
+        }
         #endregion
 
         private Chore _currentChore;
@@ -109,7 +109,7 @@ namespace TMA.Mobile.PageModels
             NewChoreCommand = new Command(async () => await GoToNewChorePageAsync());
         }
 
-      
+
 
         public override void Init(object initData)
         {
@@ -135,7 +135,7 @@ namespace TMA.Mobile.PageModels
                 EnableStopBtn();
             }
 
-        }   
+        }
 
         protected override void ViewIsDisappearing(object sender, EventArgs e)
         {
@@ -168,7 +168,7 @@ namespace TMA.Mobile.PageModels
         }
         private async void CheckCurrentChore()
         {
-            if(CurrentChore != null)
+            if (CurrentChore != null)
             {
                 IsStopVisible = true;
             }
@@ -176,9 +176,9 @@ namespace TMA.Mobile.PageModels
             {
                 IsStopVisible = false;
             }
-         
+
         }
-   
+
         private async void StartTimeBlock()
         {
 
@@ -202,7 +202,7 @@ namespace TMA.Mobile.PageModels
 
 
                 Application.Current.Properties[Constants.GlobalCurrentTask] = CurrentChore.Name;
-                           
+
             }
 
             else if (CurrentChore != null && CurrentChore != SelectedChore)
@@ -216,13 +216,13 @@ namespace TMA.Mobile.PageModels
         private async Task StopTimeBlockAsync()
         {
 
-            
+
             UpdateEndTimeDto updateEndTimeDto = new UpdateEndTimeDto
             {
                 TimeBlockId = CurrentChore.CurrentTimeBlockId
             };
 
-            
+
             await _appService.StopTimeBlock(updateEndTimeDto);
             CurrentTotal = await _appService.GetTotalDurationForADay(DateTime.Today);
             CurrentChore = null;
@@ -235,11 +235,15 @@ namespace TMA.Mobile.PageModels
             {
                 Application.Current.Properties.Remove(Constants.GlobalCurrentTask);
             }
+            if (Application.Current.Properties.ContainsKey(Constants.CurrentChoreKey))
+            {
+                Application.Current.Properties.Remove(Constants.CurrentChoreKey);
+            }
         }
 
         private async Task GoToNewChorePageAsync()
         {
-            await CoreMethods.PushPageModel<NewChorePageModel>(null,true);
+            await CoreMethods.PushPageModel<NewChorePageModel>(null, true);
 
         }
         private void EnableStopBtn()
