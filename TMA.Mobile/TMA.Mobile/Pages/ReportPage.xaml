@@ -7,16 +7,18 @@
         <StackLayout>
             <StackLayout>
                 <StackLayout>
-                    <Label Text="Datum" />
-                    <DatePicker Date="{Binding SelectedDate}"  />
+                    <Label Text="Datum:" Style="{StaticResource TitleLabel}"/>
+                    <DatePicker Date="{Binding SelectedDate}" />
+                                
                 </StackLayout>
                 <StackLayout>
                     <microcharts:ChartView HeightRequest="300" Chart="{Binding PieChartSingle}" />
                 </StackLayout>
             </StackLayout>
+            <BoxView Style="{StaticResource BasicLine}" />
             <StackLayout>
-                <StackLayout>
-                    <Label Text="Alles :" />
+                <StackLayout BackgroundColor="{StaticResource LightBlueBackGroundColor}">
+                    <Label Text="Alles :" Style="{StaticResource TitleLabel}" />
                 </StackLayout>
                 <StackLayout>
                     <microcharts:ChartView HeightRequest="300" Chart="{Binding PieChartAll}" />

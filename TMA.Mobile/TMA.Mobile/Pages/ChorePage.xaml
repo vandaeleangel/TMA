@@ -5,13 +5,15 @@
     <ContentPage.Content>
         
         <ScrollView>
-            <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}">
+            <ListView ItemsSource="{Binding Chores}" 
+                      SelectedItem="{Binding SelectedChore}"
+                      BackgroundColor="{StaticResource LightBlueBackGroundColor}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
                             <ViewCell.View>
-                                <StackLayout Orientation="Horizontal">
-                                    <Label Text="{Binding Name}" />
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" Style="{StaticResource ListLabel}" />
                                 </StackLayout>
                             </ViewCell.View>
                         </ViewCell>
