@@ -19,12 +19,11 @@ namespace TMA.Mobile.PageModels
     public class HomePageModel : FreshBasePageModel
     {
         private IAppService _appService;
+
         private IChoreService _choreService;
         public ObservableCollection<Chore> Chores { get; set; }
         public Command StopCommand { get; set; }
         public Command NewChoreCommand { get; set; }
-
-
 
         #region UI
         private double _listViewOpacity = 1;
@@ -49,7 +48,16 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
-
+        private bool _isListViewEnabled = true;
+        public bool IsListViewEnabled
+        {
+            get { return _isListViewEnabled; }
+            set
+            {
+                _isListViewEnabled = value;
+                RaisePropertyChanged();
+            }
+        }      
         #endregion
 
         private Chore _currentChore;
@@ -162,10 +170,14 @@ namespace TMA.Mobile.PageModels
 
                 CurrentChore = SelectedChore;
                 CurrentChore.CurrentTimeBlockId = result.Id;
-                IsStopVisible = true;
-                ListViewOpacity = 0.3;
                 SelectedChore = null;
 
+                IsStopVisible = true;
+                IsListViewEnabled = false;
+                ListViewOpacity = 0.3;
+                
+
+                
                 Application.Current.Properties[Constants.GlobalCurrentTask] = CurrentChore.Name;
 
                
@@ -193,6 +205,7 @@ namespace TMA.Mobile.PageModels
             SelectedChore = null;
             IsStopVisible = false;
             ListViewOpacity = 1;
+            IsListViewEnabled = true;
 
             if (Application.Current.Properties.ContainsKey(Constants.GlobalCurrentTask))
             {

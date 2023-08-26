@@ -22,14 +22,14 @@ namespace TMA.Mobile.Droid
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
             LoadApplication(new App());
 
-            var statusBarColor = Android.Graphics.Color.Rgb(55, 72, 120);
-            var navBarColor = Android.Graphics.Color.Rgb(95, 109, 147);
+            //var statusBarColor = Android.Graphics.Color.Rgb(55, 72, 120);
+            //var navBarColor = Android.Graphics.Color.Rgb(95, 109, 147);
 
-            if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
-            {
-                Window.SetStatusBarColor(statusBarColor);
-                Window.SetNavigationBarColor(navBarColor);
-            }
+            //if (Build.VERSION.SdkInt >= BuildVersionCodes.Lollipop)
+            //{
+            //    Window.SetStatusBarColor(statusBarColor);
+            //    Window.SetNavigationBarColor(navBarColor);
+            //}
 
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)

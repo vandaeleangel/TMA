@@ -15,10 +15,21 @@
             <!--BackgroundColors-->
             <Color x:Key="LightBlueBackGroundColor">#ebedf2</Color>
             <Color x:Key="MediumBlue">#5f6d93</Color>
+          
+            
             
 
             <!--Label & Entry Colors:-->
             <Color x:Key="ErrorRed">#bd1724</Color>
+            <Color x:Key="TitleLabelBlue">#9ba4bc</Color>
+
+
+            <!--BoxViews-->
+            <Style x:Key="BasicLine" TargetType="BoxView">
+                <Setter Property="HeightRequest" Value="2" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="Color" Value="{StaticResource MediumBlue}" />
+            </Style>
             
             <!--Images-->
             <Style x:Key="LoginImage" TargetType="Image">
@@ -49,7 +60,7 @@
                 </Setter>
             </Style>
             
-            <!--Styles:-->
+            <!--Buttons:-->
             <Style x:Key="MainButtonStyle" TargetType="Button">
                 <Setter Property="BackgroundColor" Value="{StaticResource MainButtonColor}" />
                 <Setter Property="TextColor" Value="White" />
@@ -108,6 +119,7 @@
                 </Setter>
             </Style>
 
+            <!--StackLayout-->
             <Style x:Key="BasicStackLayout" TargetType="StackLayout">
                 <Setter Property="StackLayout.Padding">
                     <Setter.Value>
@@ -143,10 +155,10 @@
                     </Setter.Value>
                 </Setter>
                 <Setter Property="BackgroundColor" Value="white" />
-           
             </Style>
 
-
+        
+            <!--Labels-->
             <Style x:Key="ErrorLabel" TargetType="Label">
                 <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
                 <Setter Property="TextColor" Value="{StaticResource ErrorRed}"/>
@@ -154,7 +166,21 @@
                 <Setter Property="Padding" Value="5" />
                 <Setter Property="FontSize" Value="Medium" />
             </Style>
-            
+
+            <Style x:Key="TitleLabel" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="TextColor" Value="{StaticResource TitleLabelBlue}"/>
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+
+            <Style x:Key="ListLabel" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="VerticalTextAlignment" Value="Center" />
+                <Setter Property="HorizontalTextAlignment" Value="Center" />
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
         </ResourceDictionary>
     </Application.Resources>
 </Application>
