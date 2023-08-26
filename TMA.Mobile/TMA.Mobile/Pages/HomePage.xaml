@@ -27,8 +27,11 @@
             <BoxView Style="{StaticResource BasicLine}"></BoxView>
             
             <ScrollView>
-                <ListView ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
-                      Opacity="{Binding ListViewOpacity}" BackgroundColor="{StaticResource LightBlueBackGroundColor}">
+                <ListView ItemsSource="{Binding Chores}" 
+                          SelectedItem="{Binding SelectedChore}"
+                          Opacity="{Binding ListViewOpacity}" 
+                          IsEnabled="{Binding IsListViewEnabled}"
+                          BackgroundColor="{StaticResource LightBlueBackGroundColor}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <ViewCell>
@@ -43,7 +46,8 @@
                     </ListView>
             </ScrollView>
 
-            <Button Text="Voeg nieuwe taak toe" Command="{Binding NewChoreCommand}"/>
+            <Button Text="Voeg nieuwe taak toe" Command="{Binding NewChoreCommand}"
+                    Style="{StaticResource MainButtonStyle}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>
