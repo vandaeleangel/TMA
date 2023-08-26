@@ -13,30 +13,46 @@
     <ContentPage.Content>
         <StackLayout>
             <StackLayout>
-                <Label Text="Start Datum:" />
-                <DatePicker Date="{Binding StartDate}" />
-                <Label Text="Start tijd:"/>
-                <TimePicker Time="{Binding StartTime}" />
+                <Label Text="Start Datum:" Style="{StaticResource TitleLabel}" />
+                <DatePicker Date="{Binding StartDate}" 
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+                <Label Text="Start tijd:" Style="{StaticResource TitleLabel}"/>
+                <TimePicker Time="{Binding StartTime}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <BoxView Style="{StaticResource BasicLine}" />
+            <StackLayout>
+                <Label Text="Eind Datum:" Style="{StaticResource TitleLabel}" />
+                <DatePicker Date="{Binding EndDate}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+                <Label Text="Eind tijd" Style="{StaticResource TitleLabel}"/>
+                <TimePicker Time="{Binding EndTime}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            
+            <BoxView Style="{StaticResource BasicLine}" />
+            <StackLayout>
+                <Label Text="Duur:" Style="{StaticResource TitleLabel}"/>
+                <Label Text="{Binding Duration}"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
             </StackLayout>
             <StackLayout>
-                <Label Text="Eind Datum:" />
-                <DatePicker Date="{Binding EndDate}" />
-                <Label Text="Eind tijd"/>
-                <TimePicker Time="{Binding EndTime}" />
+                <Label Text="Taak:" Style="{StaticResource TitleLabel}" />
+                <Picker ItemsSource="{Binding Chores}" 
+                        SelectedItem="{Binding SelectedChore}"
+                        ItemDisplayBinding="{Binding Name}"
+                        HorizontalOptions="FillAndExpand"/>
             </StackLayout>
-            <StackLayout>
-                <Label Text="Duur:" />
-                <Label Text="{Binding Duration}" />
-            </StackLayout>
-            <StackLayout>
-                <Label Text="Taak:" />
-                <Picker ItemsSource="{Binding Chores}" SelectedItem="{Binding SelectedChore}"
-                        ItemDisplayBinding="{Binding Name}"  />
-            </StackLayout>
-            <StackLayout  HorizontalOptions="CenterAndExpand" >
-                <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />
-                <Button Text="Verwijderen" HorizontalOptions="CenterAndExpand" Command="{Binding DeleteCommand}" />
-                <Button Text="Annuleren" HorizontalOptions="CenterAndExpand" Command="{Binding CancelCommand}" />
+            
+            <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal" >
+                <Button Text="Opslaan"  Command="{Binding SaveCommand}" Style="{StaticResource SaveButtonStyle}"/>
+                <Button Text="Verwijderen" Command="{Binding DeleteCommand}" Style="{StaticResource DeleteButtonStyle}" />
+                <Button Text="Annuleren"  Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}"/>
             </StackLayout>
         </StackLayout>
     </ContentPage.Content>
