@@ -56,23 +56,12 @@ namespace TMA.Mobile.PageModels
             get { return _startDate; }
             set
             {
-                if (value != _startDate)
-                {
-                    if (!_isInitialSet && value > _endDate)
-                    {
-                        ShowWarning("Start datum kan niet na de eind datum liggen");
-
-                    }
-                    else
-                    {
-                        _startDate = value;
-                        RaisePropertyChanged();
-                        CalculateDuration();
-                    }
-
-                }
+                _startDate = value;
+                RaisePropertyChanged();
+                CalculateDuration();
             }
         }
+
 
         private DateTime _endDate;
         public DateTime EndDate
@@ -80,23 +69,14 @@ namespace TMA.Mobile.PageModels
             get { return _endDate; }
             set
             {
-                if (value != _endDate)
-                {
-                    if (!_isInitialSet && value < _startDate)
-                    {
-                        ShowWarning("Eind datum kan niet voor de start datum liggen");
-
-                    }
-                    else
-                    {
-                        _endDate = value;
-                        RaisePropertyChanged();
-                        CalculateDuration();
-                    }
-
-                }
+                _endDate = value;
+                RaisePropertyChanged();
+                CalculateDuration();
             }
+
         }
+
+
 
         private TimeSpan _startTime;
         public TimeSpan StartTime
@@ -104,21 +84,13 @@ namespace TMA.Mobile.PageModels
             get { return _startTime; }
             set
             {
-                if (value != _startTime)
-                {
-                    if (!_isInitialSet && value > _endTime)
-                    {
-                        ShowWarning("Start tijd kan niet na eind tijd liggen");
-                    }
-                    else
-                    {
-                        _startTime = value;
-                        RaisePropertyChanged();
-                        CalculateDuration();
-                    }
-                }
+               _startTime = value;
+                RaisePropertyChanged();
+                CalculateDuration();
             }
         }
+
+
 
         private TimeSpan _endTime;
         public TimeSpan EndTime
@@ -126,22 +98,13 @@ namespace TMA.Mobile.PageModels
             get { return _endTime; }
             set
             {
-                if (value != _endTime)
-                {
-                    if (!_isInitialSet && value < _startTime)
-                    {
-                        ShowWarning("Eind tijd kan niet voor de start tijd liggen");
-                    }
-                    else
-                    {
-                        _endTime = value;
-                        RaisePropertyChanged();
-                        CalculateDuration();
-                    }
-                }
-
+                _endTime = value;
+                RaisePropertyChanged();
+                CalculateDuration();
             }
         }
+
+
 
         private string _duration;
 
@@ -225,25 +188,37 @@ namespace TMA.Mobile.PageModels
 
         private async void Save(object obj)
         {
-            UpdatedTimeBlockDto updatedTimeBlockDto = new UpdatedTimeBlockDto
-            {
-                Id = TimeBlock.Id,
-                Duration = EndTime - StartTime,
-                StartTime = StartDate + StartTime,
-                EndTime = EndDate + EndTime,
-                ChoreId = SelectedChore.Id
-            };
+            var starDate = StartDate + StartTime;
+            var endDate = EndDate + EndTime;
 
-            var result = await _timeBlockService.UpdateTimeBlock(updatedTimeBlockDto);
-
-            if (result == null)
+            if (starDate < endDate)
             {
-                await CoreMethods.DisplayAlert("Waarschuwing", "Aanpassen niet gelukt", "Ok");
+                UpdatedTimeBlockDto updatedTimeBlockDto = new UpdatedTimeBlockDto
+                {
+                    Id = TimeBlock.Id,
+                    Duration = EndTime - StartTime,
+                    StartTime = StartDate + StartTime,
+                    EndTime = EndDate + EndTime,
+                    ChoreId = SelectedChore.Id
+                };
+
+                var result = await _timeBlockService.UpdateTimeBlock(updatedTimeBlockDto);
+
+                if (result == null)
+                {
+                    await CoreMethods.DisplayAlert("Waarschuwing", "Aanpassen niet gelukt", "Ok");
+                }
+                else
+                {
+                    await CoreMethods.PopPageModel(result, modal: true);
+                }
             }
             else
             {
-                await CoreMethods.PopPageModel(result, modal: true);
+                await CoreMethods.DisplayAlert("Waarschuwing", "Je kan dit niet opslaan omdat je startpunt na je eindpunt ligt.", "Ok");
             }
+
+
         }
         private async void ShowWarning(string warning)
         {
