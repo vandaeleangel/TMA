@@ -1,20 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:icons="clr-namespace:TMA.Mobile.Images"
              x:Class="TMA.Mobile.Pages.NewChorePage">
     <ContentPage.Content>
-        <StackLayout VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+        <StackLayout Style="{StaticResource BasicStackLayout}">
             <Label Text="Naam" FontSize="Title" HorizontalOptions="CenterAndExpand"/>
 
-            <Entry Placeholder="Naam voor de taak" HorizontalOptions="CenterAndExpand"
+            <Entry Placeholder="Naam voor de taak" HorizontalOptions="FillAndExpand" 
                    Text="{Binding Name}"/>
-            <Button Text="Luister" Command="{Binding SpeakCommand}"/>
+            
+            <Button Command="{Binding SpeakCommand}" BackgroundColor="White" HorizontalOptions="Center">
+                <Button.ImageSource>
+                    <FontImageSource FontFamily="MaterialIcons"
+                                     Glyph="{x:Static icons:MaterialIconFont.Hearing}"
+                                     Color="{StaticResource MainIconColor}" />
+                </Button.ImageSource>
+            </Button>
+            
             <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="1" 
                     MinimumTrackColor="Black" MaximumTrackColor="DarkSlateGray" ThumbColor="DarkSlateGray"/>
+                
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
-                <Button Text="Opslaan" HorizontalOptions="CenterAndExpand" Command="{Binding SaveCommand}" />
-                <Button Text="Annuleren" HorizontalOptions="CenterAndExpand" Command="{Binding CancelCommand}" />
+                <Button Text="Opslaan"  Command="{Binding SaveCommand}" Style="{StaticResource SaveButtonStyle}" />
+                <Button Text="Annuleren" Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}" />
             </StackLayout>
+            <Label Text="{Binding Error}" IsVisible="{Binding IsErrorVisible}" Style="{StaticResource ErrorLabel}" />
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

@@ -23,7 +23,27 @@ namespace TMA.Mobile.PageModels
                 RaisePropertyChanged();
             }
         }
+        private string _error;
+        public string Error
+        {
+            get { return _error; }
+            set
+            {
+                _error = value;
+                RaisePropertyChanged();
+            }
+        }
 
+        private bool _isErrorVisible;
+        public bool IsErrorVisible
+        {
+            get { return _isErrorVisible; }
+            set
+            {
+                _isErrorVisible = value;
+                RaisePropertyChanged();
+            }
+        }
 
         public Command SaveCommand { get; set; }
         public Command CancelCommand { get; set; }
@@ -64,22 +84,30 @@ namespace TMA.Mobile.PageModels
 
         private async void Save()
         {
-            
-            UpdatedChoreDto updateChore = new UpdatedChoreDto
+            if (string.IsNullOrEmpty(Chore.Name))
             {
-                Id = Chore.Id,
-                Name = Chore.Name,
-            };
-
-            var result = await _choreService.UpdateChoreName(updateChore);
-            if(result == string.Empty)
-            {
-                await CoreMethods.DisplayAlert("Waarschuwig", "Taaknaam kan niet leeg zijn", "Ok");             
+                IsErrorVisible = true;
+                Error = "De naam kan niet leeg zijn.";
             }
             else
             {
-                await CoreMethods.PopPageModel(Chore, modal: true);
+                UpdatedChoreDto updateChore = new UpdatedChoreDto
+                {
+                    Id = Chore.Id,
+                    Name = Chore.Name,
+                };
+
+                var result = await _choreService.UpdateChoreName(updateChore);
+                if (result == string.Empty)
+                {
+                    await CoreMethods.DisplayAlert("Waarschuwig", "Taaknaam kan niet leeg zijn", "Ok");
+                }
+                else
+                {
+                    await CoreMethods.PopPageModel(Chore, modal: true);
+                }
             }
+            
             
         }
     }

@@ -3,6 +3,158 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TMA.Mobile.App">
     <Application.Resources>
+        <ResourceDictionary>
+            <!--Icon Colors:-->
+            <Color x:Key="MainIconColor">#d5d7db</Color>
 
+            <!--Button Colors:-->
+            <Color x:Key="MainButtonColor">#374878</Color>
+            <Color x:Key="CancelButtonColor">#d7dae4</Color>
+            <Color x:Key="DeleteButtonColor">#de9195</Color>
+
+            <!--BackgroundColors-->
+            <Color x:Key="LightBlueBackGroundColor">#ebedf2</Color>
+            <Color x:Key="MediumBlue">#5f6d93</Color>
+            
+
+            <!--Label & Entry Colors:-->
+            <Color x:Key="ErrorRed">#bd1724</Color>
+            
+            <!--Images-->
+            <Style x:Key="LoginImage" TargetType="Image">
+                <Setter Property="Aspect">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Aspect">
+                            <On Platform="Android" Value="AspectFill"></On>
+                            <On Platform="UWP" Value="AspectFill"/>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="HorizontalOptions">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="LayoutOptions">
+                            <On Platform="Android" Value="FillAndExpand"></On>
+                            <On Platform="UWP" Value="Center"/>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="VerticalOptions" Value="Center"></Setter>
+                <Setter Property="HeightRequest">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="x:Double">
+                            <On Platform="Android" Value="250"></On>
+                            <On Platform="UWP" Value="500"/>
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <!--Styles:-->
+            <Style x:Key="MainButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource MainButtonColor}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,35,5,35" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="SaveButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource MediumBlue}" />
+                <Setter Property="TextColor" Value="White" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,15,5,15" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="CancelButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource CancelButtonColor}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,15,5,15" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="DeleteButtonStyle" TargetType="Button">
+                <Setter Property="BackgroundColor" Value="{StaticResource DeleteButtonColor}" />
+                <Setter Property="TextColor" Value="Black" />
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand"></Setter>
+                <Setter Property="Margin" Value="5" />
+                <Setter Property="Button.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="5,15,5,15" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
+            <Style x:Key="BasicStackLayout" TargetType="StackLayout">
+                <Setter Property="StackLayout.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="10,25,10,25" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="StackLayout.BackgroundColor">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Color">
+                            <On Platform="Android"  Value="White" />
+                            <On Platform="UWP" Value="{StaticResource LightBlueBackGroundColor}" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+            
+            <Style x:Key="LoginStackLayout" TargetType="StackLayout" BasedOn="{StaticResource BasicStackLayout}">
+                <Setter Property="VerticalOptions" Value="CenterAndExpand" />
+                <Setter Property="HorizontalOptions" Value="FillAndExpand" />
+            </Style>
+
+
+            <Style x:Key="InnerStackLayout" TargetType="StackLayout">
+                <Setter Property="StackLayout.Padding">
+                    <Setter.Value>
+                        <OnPlatform x:TypeArguments="Thickness">
+                            <On Platform="Android" Value="10,100,10,100" />
+                            <On Platform="UWP" Value="50,50,50,50" />
+                        </OnPlatform>
+                    </Setter.Value>
+                </Setter>
+                <Setter Property="BackgroundColor" Value="white" />
+           
+            </Style>
+
+
+            <Style x:Key="ErrorLabel" TargetType="Label">
+                <Setter Property="HorizontalOptions" Value="CenterAndExpand" />
+                <Setter Property="TextColor" Value="{StaticResource ErrorRed}"/>
+                <Setter Property="FontAttributes" Value="Bold" />
+                <Setter Property="Padding" Value="5" />
+                <Setter Property="FontSize" Value="Medium" />
+            </Style>
+            
+        </ResourceDictionary>
     </Application.Resources>
 </Application>
