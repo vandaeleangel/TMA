@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -9,5 +10,6 @@ namespace TMA.Mobile.Domain.Services.Interfaces
     public interface IColorService
     {
         Task<List<CustomColor>> GetColors();
+        Task<SKColor> ConvertStringValue(string colorValue);
     }
 }

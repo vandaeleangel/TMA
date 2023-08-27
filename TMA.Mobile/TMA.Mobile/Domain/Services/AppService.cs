@@ -11,6 +11,7 @@ using TMA.Mobile.Domain.Dtos.TimeBlock;
 using TMA.Mobile.Domain.Models;
 using TMA.Mobile.Domain.Services.Interfaces;
 using Xamarin.Essentials;
+using Xamarin.Forms.PlatformConfiguration.iOSSpecific;
 
 namespace TMA.Mobile.Domain.Services
 {
@@ -18,33 +19,40 @@ namespace TMA.Mobile.Domain.Services
     {
         protected ApiClient _httpClient;
         private IChoreService _choreService;
+        private IColorService _colorService;
 
-        public AppService(IChoreService choreService)
+        public AppService(IChoreService choreService, IColorService colorService)
         {
             _httpClient = new ApiClient();
             _choreService = choreService;
+            _colorService = colorService;
         }
 
         public async Task<IEnumerable<ChartEntry>> GetChartData(TimeBlockQueryParametersDto param)
         {
             var filteredChores = await GetFilteredChoreByDate(param);
-            var rnd = new Random();
-
-            
 
             var chartEnryList = filteredChores
-                .Select(chore => new ChartEntry((float)chore.Duration.TotalHours)
-                {
-                    Label = chore.Name,
-                    ValueLabel = chore.Duration.ToString("h\\:mm"),
-                    Color = SKColor.FromHsv(rnd.Next(0, 360), 100, 100)    
+              .Select(async chore =>
+              {
+                  var color = await _colorService.ConvertStringValue(chore.Color);
 
-                });
-
-            Console.WriteLine(chartEnryList);
+                  return new ChartEntry((float)chore.Duration.TotalHours)
+                  {
+                      Label = chore.Name,
+                      ValueLabel = chore.Duration.ToString("h\\:mm"),
+                      Color = color,
+                      TextColor = color,
+                      ValueLabelColor = color
+                  };
+              });
+                
+         
+            
             if (chartEnryList != null)
             {
-                return chartEnryList;
+                var chartEntries = await Task.WhenAll(chartEnryList);
+                return chartEntries;
             }
             else return null;
         }
@@ -66,7 +74,8 @@ namespace TMA.Mobile.Domain.Services
                     .Select(group => new Chore
                     {
                         Name = chores.FirstOrDefault(c => c.Id == group.Key)?.Name,
-                        Duration = TimeSpan.FromTicks(group.Sum(tb => tb.Duration.Ticks))
+                        Duration = TimeSpan.FromTicks(group.Sum(tb => tb.Duration.Ticks)),
+                        Color = chores.FirstOrDefault(c => c.Id == group.Key)?.Color
                     });
   
                 return filteredTimeBlocksChore;
