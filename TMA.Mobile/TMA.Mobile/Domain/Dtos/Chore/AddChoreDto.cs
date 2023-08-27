@@ -7,7 +7,7 @@ namespace TMA.Mobile.Domain.Dtos.Chore
 {
     public class AddChoreDto
     {
-        [Required]
         public string Name { get; set; } = string.Empty;
+        public string Color { get; set; } = string.Empty;
     }
 }
