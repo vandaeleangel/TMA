@@ -113,7 +113,9 @@ namespace TMA.Mobile.PageModels
             {
                 AddChoreDto addChore = new AddChoreDto
                 {
-                    Name = _name
+                    Name = _name,
+                    Color = SelectedColor.Name
+                    
                 };
 
                 var chore = await _choreService.AddNewChore(addChore);               
