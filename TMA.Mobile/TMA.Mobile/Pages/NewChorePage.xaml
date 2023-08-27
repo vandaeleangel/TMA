@@ -9,7 +9,7 @@
 
             <Entry Placeholder="Naam voor de taak" HorizontalOptions="FillAndExpand" 
                    Text="{Binding Name}"/>
-            
+
             <Button Command="{Binding SpeakCommand}" BackgroundColor="White" HorizontalOptions="Center">
                 <Button.ImageSource>
                     <FontImageSource FontFamily="MaterialIcons"
@@ -20,7 +20,15 @@
             
             <Slider Value="{Binding SliderValue}" Minimum="0" Maximum="1" 
                     MinimumTrackColor="Black" MaximumTrackColor="DarkSlateGray" ThumbColor="DarkSlateGray"/>
-                
+
+            <StackLayout>
+                <Label Text="Kleur:" Style="{StaticResource TitleLabel}" />
+                <Picker ItemsSource="{Binding Colors}" 
+                        SelectedItem="{Binding SelectedColor}"
+                        ItemDisplayBinding="{Binding Name}"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+
             <StackLayout Orientation="Horizontal" HorizontalOptions="CenterAndExpand" >
                 <Button Text="Opslaan"  Command="{Binding SaveCommand}" Style="{StaticResource SaveButtonStyle}" />
                 <Button Text="Annuleren" Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}" />

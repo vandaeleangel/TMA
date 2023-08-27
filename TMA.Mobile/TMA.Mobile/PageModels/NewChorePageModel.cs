@@ -1,6 +1,7 @@
 ﻿using FreshMvvm;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
 using System.Threading.Tasks;
 using TMA.Mobile.Domain.Dtos.Chore;
@@ -14,6 +15,7 @@ namespace TMA.Mobile.PageModels
     public class NewChorePageModel : FreshBasePageModel
     {
         private IChoreService _choreService;
+        private IColorService _colorService;
         public string _name;
         public string Name
         {
@@ -57,15 +59,42 @@ namespace TMA.Mobile.PageModels
             }
         }
 
+        private ObservableCollection<CustomColor> _colors;
+        public ObservableCollection<CustomColor> Colors
+        {
+            get { return _colors; }
+            set { _colors = value; }
+        }
+
+        private CustomColor _selectedColor;
+
+        public CustomColor SelectedColor
+        {
+            get { return _selectedColor; }
+            set
+            {
+                _selectedColor = value;
+                RaisePropertyChanged();
+            }
+        }
+    
         public Command SaveCommand { get; set; }
         public Command CancelCommand { get; set; }
         public Command SpeakCommand { get; set; }
-        public NewChorePageModel(IChoreService choreService)
+        public NewChorePageModel(IChoreService choreService, IColorService colorService)
         {
             _choreService = choreService;
+            _colorService = colorService;
+            Colors = new ObservableCollection<CustomColor>();
             SaveCommand = new Command(Save);
             CancelCommand = new Command(Cancel);
             SpeakCommand = new Command(Speak);
+        }
+
+        public override void Init(object initData)
+        {
+            base.Init(initData);
+            FetchColors();
         }
         private async void Cancel(object obj)
         {
@@ -90,8 +119,17 @@ namespace TMA.Mobile.PageModels
                 var chore = await _choreService.AddNewChore(addChore);               
                 await CoreMethods.PopPageModel(addChore, modal: true);
             }
+        }
 
-            
+        private async void FetchColors()
+        {
+            Colors.Clear();
+
+            var colors = await _colorService.GetColors();
+            foreach (var color in colors)
+            {
+                Colors.Add(color);
+            }
         }
 
         private async void Speak(object obj)

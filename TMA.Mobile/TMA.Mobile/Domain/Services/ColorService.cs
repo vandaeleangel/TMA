@@ -53,6 +53,15 @@ namespace TMA.Mobile.Domain.Services
                 Name = "Purple"
             };
 
+            colors.Add(blue);
+            colors.Add(red);
+            colors.Add(green);
+            colors.Add(yellow);
+            colors.Add(purple);
+            colors.Add(black);
+            colors.Add(orange);
+            colors.Add(pink);
+           
             return Task
                 .FromResult(colors);
         }
