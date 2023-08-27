@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SkiaSharp;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,5 +15,6 @@ namespace TMA.Mobile.Domain.Services.Interfaces
         Task<string> DeleteChore(Guid choreId);
         Task<string> UpdateChoreName(UpdatedChoreDto updatedChore);
         Task<Chore> GetCurrentChore();
+     
     }
 }

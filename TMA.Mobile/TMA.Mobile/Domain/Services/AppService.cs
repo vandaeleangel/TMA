@@ -29,7 +29,8 @@ namespace TMA.Mobile.Domain.Services
         {
             var filteredChores = await GetFilteredChoreByDate(param);
             var rnd = new Random();
-          
+
+            
 
             var chartEnryList = filteredChores
                 .Select(chore => new ChartEntry((float)chore.Duration.TotalHours)
@@ -37,6 +38,7 @@ namespace TMA.Mobile.Domain.Services
                     Label = chore.Name,
                     ValueLabel = chore.Duration.ToString("h\\:mm"),
                     Color = SKColor.FromHsv(rnd.Next(0, 360), 100, 100)    
+
                 });
 
             Console.WriteLine(chartEnryList);

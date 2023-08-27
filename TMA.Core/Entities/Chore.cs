@@ -23,5 +23,8 @@ namespace TMA.Core.Entities
         public User User { get; set; }
         public bool IsCurrentChore { get; set; } 
         public Guid CurrentTimeBlockId { get; set; } = Guid.Empty;
+
+        [Required]
+        public string Color { get; set; } = string.Empty;
     }
 }
