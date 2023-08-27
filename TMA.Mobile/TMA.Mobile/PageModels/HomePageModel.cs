@@ -132,6 +132,7 @@ namespace TMA.Mobile.PageModels
             {
                 string choreJson = Application.Current.Properties[Constants.CurrentChoreKey].ToString();
                 CurrentChore = JsonConvert.DeserializeObject<Chore>(choreJson);
+                Application.Current.Properties.Remove(Constants.CurrentChoreKey);
                 EnableStopBtn();
             }
 
