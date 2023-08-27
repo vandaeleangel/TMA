@@ -38,6 +38,7 @@ namespace TMA.Core.Services
                 Chore newChore = new Chore
                 {
                     Name = chore.Name,
+                    Color = chore.Color,
                     TimeBlocks = new List<TimeBlock>(),
                     Duration = TimeSpan.Zero,
                     User = await _context.Users.FirstOrDefaultAsync(u => u.Id == GetUserId())
