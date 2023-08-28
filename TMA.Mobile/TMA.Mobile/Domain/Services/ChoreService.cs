@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using SkiaSharp;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,7 +36,8 @@ namespace TMA.Mobile.Domain.Services
                     Id = x.Id,
                     Name = x.Name,
                     Duration = x.Duration,
-                    TimeBlocks = x.TimeBlocks
+                    TimeBlocks = x.TimeBlocks,
+                    Color = x.Color,
                 }).ToList();
             }
 
@@ -120,5 +122,7 @@ namespace TMA.Mobile.Domain.Services
 
             return null;
         }
+
+        
     }
 }

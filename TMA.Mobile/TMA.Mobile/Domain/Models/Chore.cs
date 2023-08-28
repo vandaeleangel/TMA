@@ -18,6 +18,7 @@ namespace TMA.Mobile.Domain.Models
         public User User { get; set; }
         public Guid CurrentTimeBlockId { get; set; }
         public bool IsCurrentChore { get; set; }
-        
+        public string Color { get; set; }
+
     }
 }
