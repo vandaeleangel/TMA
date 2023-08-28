@@ -86,6 +86,7 @@ namespace TMA.Mobile.PageModels
             _choreService = choreService;
             _colorService = colorService;
             Colors = new ObservableCollection<CustomColor>();
+            SelectedColor = new CustomColor();
             SaveCommand = new Command(Save);
             CancelCommand = new Command(Cancel);
             SpeakCommand = new Command(Speak);
@@ -108,6 +109,11 @@ namespace TMA.Mobile.PageModels
             {
                 IsErrorVisible = true;
                 Error = "De naam kan niet leeg zijn.";
+            }
+            else if (string.IsNullOrEmpty(SelectedColor.Name))
+            {
+                IsErrorVisible = true;
+                Error = "Je moet een kleur kiezen.";
             }
             else
             {
