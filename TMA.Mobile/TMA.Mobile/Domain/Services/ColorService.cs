@@ -23,10 +23,10 @@ namespace TMA.Mobile.Domain.Services
                     color = new SKColor(255, 0, 0);
                     break;
                 case "groen":
-                    color = new SKColor(0, 255, 0);
+                    color = new SKColor(0, 150, 0);
                     break;
                 case "geel":
-                    color = new SKColor(255, 255, 0);
+                    color = new SKColor(200, 200, 0);
                     break;
                 case "roze":
                     color = new SKColor(255, 192, 203);
