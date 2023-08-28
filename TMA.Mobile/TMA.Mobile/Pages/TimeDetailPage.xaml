@@ -1,0 +1,60 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:local ="clr-namespace:TMA.Mobile.Converters"
+             x:Class="TMA.Mobile.Pages.TimeDetailPage">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local:TimeSpanToStringConverter x:Key="DurationConverter" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Label Text="Start Datum:" Style="{StaticResource TitleLabel}" />
+                <DatePicker Date="{Binding StartDate}" 
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"
+                            />
+                <Label Text="Start tijd:" Style="{StaticResource TitleLabel}"/>
+                <TimePicker Time="{Binding StartTime}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <BoxView Style="{StaticResource BasicLine}" />
+            <StackLayout>
+                <Label Text="Eind Datum:" Style="{StaticResource TitleLabel}" />
+                <DatePicker Date="{Binding EndDate}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+                <Label Text="Eind tijd" Style="{StaticResource TitleLabel}"/>
+                <TimePicker Time="{Binding EndTime}"
+                            VerticalOptions="CenterAndExpand"
+                            HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            
+            <BoxView Style="{StaticResource BasicLine}" />
+            <StackLayout>
+                <Label Text="Duur:" Style="{StaticResource TitleLabel}"/>
+                <Label Text="{Binding Duration}"
+                       VerticalOptions="CenterAndExpand"
+                       HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+            <StackLayout>
+                <Label Text="Taak:" Style="{StaticResource TitleLabel}" />
+                <Picker ItemsSource="{Binding Chores}" 
+                        SelectedItem="{Binding SelectedChore}"
+                        ItemDisplayBinding="{Binding Name}"
+                        HorizontalOptions="FillAndExpand"/>
+            </StackLayout>
+            
+            <StackLayout  HorizontalOptions="CenterAndExpand" Orientation="Horizontal" >
+                <Button Text="Opslaan"  Command="{Binding SaveCommand}" Style="{StaticResource SaveButtonStyle}"/>
+                <Button Text="Verwijderen" Command="{Binding DeleteCommand}" Style="{StaticResource DeleteButtonStyle}" />
+                <Button Text="Annuleren"  Command="{Binding CancelCommand}" Style="{StaticResource CancelButtonStyle}"/>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

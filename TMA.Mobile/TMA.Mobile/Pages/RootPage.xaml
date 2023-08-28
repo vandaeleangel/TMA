@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:icons="clr-namespace:TMA.Mobile.Images"
+             x:Class="TMA.Mobile.Pages.RootPage">
+    <ContentPage.Content>
+        
+        <StackLayout Style="{StaticResource BasicStackLayout}">
+            <StackLayout Style="{StaticResource InnerStackLayout}">
+                <Button Text="Vandaag" Command="{Binding ToHomePageCommand}" 
+                    Style="{StaticResource MainButtonStyle}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons"
+                                     Glyph="{x:Static icons:MaterialIconFont.Av_timer}" 
+                                     Color="{StaticResource MainIconColor}"/>
+                    </Button.ImageSource>
+                </Button>
+                <Button Text="Geschiedenis" Command="{Binding ToDetailPageCommand}"
+                    Style="{StaticResource MainButtonStyle}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons"
+                                     Glyph="{x:Static icons:MaterialIconFont.Format_list_bulleted}" 
+                                     Color="{StaticResource MainIconColor}"/>
+                    </Button.ImageSource>
+                </Button>
+                <Button Text="Beheer Taken" Command="{Binding ToChorePageCommand}"
+                    Style="{StaticResource MainButtonStyle}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons"
+                                     Glyph="{x:Static icons:MaterialIconFont.Mode_edit}" 
+                                     Color="{StaticResource MainIconColor}"/>
+                    </Button.ImageSource>
+                </Button>
+                <Button Text="Rapport" Command="{Binding ToReportPageCommand}"
+                    Style="{StaticResource MainButtonStyle}">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons"
+                                     Glyph="{x:Static icons:MaterialIconFont.Bar_chart}" 
+                                     Color="{StaticResource MainIconColor}"/>
+                    </Button.ImageSource>
+                </Button>
+            </StackLayout>
+            <Image></Image>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

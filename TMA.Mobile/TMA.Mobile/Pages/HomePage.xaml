@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TMA.Mobile.Pages.HomePage">
+
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <Label Text="Totaal vandaag:"
+                Style="{StaticResource TitleLabel}" />
+                <Label Text="{Binding CurrentTotal}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+            </StackLayout>
+            
+            <BoxView Style="{StaticResource BasicLine}"></BoxView>
+            
+            <StackLayout>
+                <Label Text="Huidige Taak"
+                Style="{StaticResource TitleLabel}"/>
+                <Label Text="{Binding CurrentChore.Name}"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+                <Button Text="Stop" Command="{Binding StopCommand}" IsVisible="{Binding IsStopVisible}" />
+            </StackLayout>
+            
+            <BoxView Style="{StaticResource BasicLine}"></BoxView>
+            
+            <ScrollView>
+                <ListView ItemsSource="{Binding Chores}" 
+                          SelectedItem="{Binding SelectedChore}"
+                          Opacity="{Binding ListViewOpacity}" 
+                          IsEnabled="{Binding IsListViewEnabled}"
+                          BackgroundColor="{StaticResource LightBlueBackGroundColor}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                <ViewCell.View>
+                                    <StackLayout>
+                                        <Label Text="{Binding Name}" Style="{StaticResource ListLabel}"/>
+                                    </StackLayout>
+                                </ViewCell.View>
+                            </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+            </ScrollView>
+
+            <Button Text="Voeg nieuwe taak toe" Command="{Binding NewChoreCommand}"
+                    Style="{StaticResource MainButtonStyle}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

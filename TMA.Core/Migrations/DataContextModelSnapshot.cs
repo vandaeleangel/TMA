@@ -28,8 +28,18 @@ namespace TMA.Core.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<string>("Color")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("CurrentTimeBlockId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<TimeSpan>("Duration")
                         .HasColumnType("time");
+
+                    b.Property<bool>("IsCurrentChore")
+                        .HasColumnType("bit");
 
                     b.Property<string>("Name")
                         .IsRequired()

@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+              xmlns:microcharts="clr-namespace:Microcharts.Forms;assembly=Microcharts.Forms" 
+             x:Class="TMA.Mobile.Pages.ReportPage">
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout>
+                <StackLayout>
+                    <Label Text="Datum:" Style="{StaticResource TitleLabel}"/>
+                    <DatePicker Date="{Binding SelectedDate}" />
+                                
+                </StackLayout>
+                <StackLayout>
+                    <microcharts:ChartView HeightRequest="300" Chart="{Binding PieChartSingle}" />
+                </StackLayout>
+            </StackLayout>
+            <BoxView Style="{StaticResource BasicLine}" />
+            <StackLayout>
+                <StackLayout BackgroundColor="{StaticResource LightBlueBackGroundColor}">
+                    <Label Text="Alles :" Style="{StaticResource TitleLabel}" />
+                </StackLayout>
+                <StackLayout>
+                    <microcharts:ChartView HeightRequest="300" Chart="{Binding PieChartAll}" />
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

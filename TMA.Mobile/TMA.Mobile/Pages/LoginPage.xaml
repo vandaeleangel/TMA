@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:icons="clr-namespace:TMA.Mobile.Images"
+             xmlns:helper="clr-namespace:TMA.Mobile.Converters;assembly=TMA.Mobile"
+             x:Class="TMA.Mobile.Pages.LoginPage">
+    <ContentPage.Resources>
+        <helper:ImageResourceConverter x:Key="imageResourceCvt" />
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <StackLayout Style="{StaticResource LoginStackLayout}" >
+                <Entry Placeholder="Email" Keyboard="Email" Text="{Binding Email}" HorizontalOptions="FillAndExpand"/>
+                <Entry Placeholder="Passwoord" IsPassword="True" Text="{Binding Password}" HorizontalOptions="FillAndExpand"  />
+                <Button Style="{StaticResource MainButtonStyle}" Text="Login" Command="{Binding LoginCommand}" HorizontalOptions="FillAndExpand">
+                    <Button.ImageSource>
+                        <FontImageSource FontFamily="MaterialIcons"
+                                     Glyph="{x:Static icons:MaterialIconFont.Login}" 
+                                     Color="{StaticResource MainIconColor}"/>
+                    </Button.ImageSource>
+                </Button>
+                <Label Text="{Binding Error}" IsVisible="{Binding IsErrorVisible}" Style="{StaticResource ErrorLabel}" />
+            </StackLayout>
+            <Image Source="{helper:ImageResource TMA.Mobile.Images.Hourglass.jpeg}"
+                       Style="{StaticResource LoginImage}"/>
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

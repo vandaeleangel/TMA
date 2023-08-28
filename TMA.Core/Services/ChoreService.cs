@@ -38,6 +38,7 @@ namespace TMA.Core.Services
                 Chore newChore = new Chore
                 {
                     Name = chore.Name,
+                    Color = chore.Color,
                     TimeBlocks = new List<TimeBlock>(),
                     Duration = TimeSpan.Zero,
                     User = await _context.Users.FirstOrDefaultAsync(u => u.Id == GetUserId())
@@ -138,6 +139,23 @@ namespace TMA.Core.Services
 
         private Guid GetUserId() => Guid.Parse(
     _httpContextAccessor.HttpContext!.User.FindFirst(ClaimTypes.NameIdentifier)!.Value);
+
+        public async Task<GetChoreDto> GetCurrentChore()
+        {
+            var response = new GetChoreDto();
+
+            var dbChore = await _context.Chores
+                .Include(c => c.TimeBlocks)
+                .Include(c => c.CurrentTimeBlockId)
+                .FirstOrDefaultAsync(c => c.User.Id == GetUserId() && c.IsCurrentChore ==true);
+
+            if (dbChore != null)
+            {
+                response = _mapper.Map<GetChoreDto>(dbChore);
+                return response;
+            }
+            else return null;
+        }
 
     }
 }
