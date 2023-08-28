@@ -10,7 +10,7 @@ namespace TMA.Mobile.Domain.Services
 {
     public class ColorService : IColorService
     {
-        public Task<SKColor> ConvertStringValue(string colorValue)
+        public Task<SKColor> ConvertColorStringValue(string colorValue)
         {
             SKColor color;
 
@@ -40,10 +40,8 @@ namespace TMA.Mobile.Domain.Services
                 case "paars":
                     color = new SKColor(128, 0, 128);
                     break;
-                default:
-                    // Handle the case when colorValue doesn't match any of the cases
-                    // You might want to set a default color or handle it in some way
-                    color = new SKColor(0, 0, 0); // Default to black
+                default:                   
+                    color = new SKColor(0, 0, 0); 
                     break;
             }
 

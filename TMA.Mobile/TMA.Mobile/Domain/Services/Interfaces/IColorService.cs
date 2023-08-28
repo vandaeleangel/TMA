@@ -10,6 +10,6 @@ namespace TMA.Mobile.Domain.Services.Interfaces
     public interface IColorService
     {
         Task<List<CustomColor>> GetColors();
-        Task<SKColor> ConvertStringValue(string colorValue);
+        Task<SKColor> ConvertColorStringValue(string colorValue);
     }
 }

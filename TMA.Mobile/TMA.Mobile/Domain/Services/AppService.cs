@@ -35,7 +35,7 @@ namespace TMA.Mobile.Domain.Services
             var chartEnryList = filteredChores
               .Select(async chore =>
               {
-                  var color = await _colorService.ConvertStringValue(chore.Color);
+                  var color = await _colorService.ConvertColorStringValue(chore.Color);
 
                   return new ChartEntry((float)chore.Duration.TotalHours)
                   {
